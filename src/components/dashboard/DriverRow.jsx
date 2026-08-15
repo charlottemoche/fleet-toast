@@ -4,7 +4,7 @@ import { formatEta, formatMinutesRemainingLong } from '../../utils/format.js'
 import { StatusBadge } from '../status/StatusBadge.jsx'
 import { Timer } from '../shared/Timer.jsx'
 
-export function DriverRow({ driver, now, onSelectDriver }) {
+export function DriverRow({ driver, now, onSelectDriver, isAcknowledged }) {
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
   const tier = getTierById(tierId)
 
@@ -58,6 +58,17 @@ export function DriverRow({ driver, now, onSelectDriver }) {
         className="truncate overflow-hidden p-3"
       >
         {driver.location.label}
+      </td>
+      <td className="overflow-hidden p-3 text-center">
+        {isAcknowledged && (
+          <span
+            title="Acknowledged"
+            aria-label="Acknowledged"
+            className="text-lg text-emerald-600 dark:text-emerald-400"
+          >
+            ✓
+          </span>
+        )}
       </td>
     </tr>
   )

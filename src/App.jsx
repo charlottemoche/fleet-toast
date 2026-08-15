@@ -36,7 +36,7 @@ export default function App() {
           </ul>
         </div>
       </nav>
-      <div className="mx-auto min-h-0 w-full max-w-6xl flex-1">
+      <div className="mx-auto min-h-0 w-full flex-1">
         <Dashboard now={now} driversBySection={driversBySection} />
       </div>
       <AlertToastStack toasts={toasts} now={now} onDismiss={dismissToast} />

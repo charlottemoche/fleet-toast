@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { DriverRow } from './DriverRow.jsx'
 
-const COLUMN_COUNT = 5 // driver, status, time remaining, delivery, location — matches DriverRow
+const COLUMN_COUNT = 6 // driver, status, time remaining, delivery, location, acknowledged — matches DriverRow
 
 export function DriverSection({
   label,
@@ -9,6 +9,7 @@ export function DriverSection({
   drivers,
   now,
   onSelectDriver,
+  acknowledgedIds,
 }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const showRows = alwaysExpanded || isExpanded
@@ -32,7 +33,7 @@ export function DriverSection({
               <span>{isExpanded ? 'Hide' : 'Show'}</span>
             </button>
           ) : (
-            <div className="flex items-center justify-between p-3">
+            <div className="flex items-center justify-between border-b border-gray-100 p-3 dark:border-gray-800">
               <span className="text-sm font-semibold">
                 {label}{' '}
                 <span className="text-gray-500">({drivers.length})</span>
@@ -48,6 +49,7 @@ export function DriverSection({
             driver={driver}
             now={now}
             onSelectDriver={onSelectDriver}
+            isAcknowledged={acknowledgedIds.has(driver.id)}
           />
         ))}
     </tbody>

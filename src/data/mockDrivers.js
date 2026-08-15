@@ -16,6 +16,7 @@ export const mockDrivers = [
   // Critical — under 20 min remaining
   {
     id: 'd1',
+    phone: '555-0101',
     name: 'Marcus Reyes',
     truckId: 'TX-114',
     shiftStart: shiftStartForRemaining(12),
@@ -25,6 +26,7 @@ export const mockDrivers = [
   },
   {
     id: 'd2',
+    phone: '555-0102',
     name: 'Priya Natarajan',
     truckId: 'GA-062',
     shiftStart: shiftStartForRemaining(5),
@@ -34,6 +36,7 @@ export const mockDrivers = [
   },
   {
     id: 'd3',
+    phone: '555-0103',
     name: 'Devon Whitfield',
     truckId: 'OH-233',
     shiftStart: shiftStartForRemaining(18),
@@ -45,6 +48,7 @@ export const mockDrivers = [
   // Approaching — under 2hr remaining
   {
     id: 'd4',
+    phone: '555-0104',
     name: 'Sofia Alvarez',
     truckId: 'AZ-091',
     shiftStart: shiftStartForRemaining(90),
@@ -54,6 +58,7 @@ export const mockDrivers = [
   },
   {
     id: 'd5',
+    phone: '555-0105',
     name: 'Jamal Carter',
     truckId: 'IL-177',
     shiftStart: shiftStartForRemaining(110),
@@ -65,6 +70,7 @@ export const mockDrivers = [
     // Set to cross the 20 min critical threshold about a minute after load —
     // demonstrates the status is genuinely live, not a static label.
     id: 'd6',
+    phone: '555-0106',
     name: 'Renata Silva',
     truckId: 'NC-045',
     shiftStart: shiftStartForRemaining(20.5),
@@ -80,6 +86,7 @@ export const mockDrivers = [
   // On track
   {
     id: 'd7',
+    phone: '555-0107',
     name: 'Owen Fitzgerald',
     truckId: 'CO-128',
     shiftStart: shiftStartForRemaining(600),
@@ -89,6 +96,7 @@ export const mockDrivers = [
   },
   {
     id: 'd8',
+    phone: '555-0108',
     name: 'Bianca Odom',
     truckId: 'WA-019',
     shiftStart: shiftStartForRemaining(540),
@@ -98,6 +106,7 @@ export const mockDrivers = [
   },
   {
     id: 'd9',
+    phone: '555-0109',
     name: 'Hector Delgado',
     truckId: 'NV-073',
     shiftStart: shiftStartForRemaining(630),
@@ -112,6 +121,7 @@ export const mockDrivers = [
   },
   {
     id: 'd10',
+    phone: '555-0110',
     name: 'Grace Lindqvist',
     truckId: 'MN-056',
     shiftStart: shiftStartForRemaining(480),
@@ -125,6 +135,7 @@ export const mockDrivers = [
   },
   {
     id: 'd11',
+    phone: '555-0111',
     name: 'Tobias Okafor',
     truckId: 'TN-140',
     shiftStart: shiftStartForRemaining(615),
@@ -137,6 +148,7 @@ export const mockDrivers = [
   // even when the underlying timer would otherwise read critical or on track.
   {
     id: 'd12',
+    phone: '555-0112',
     name: 'Wendell Marsh',
     truckId: 'PA-088',
     shiftStart: shiftStartForRemaining(420),
@@ -150,6 +162,7 @@ export const mockDrivers = [
   },
   {
     id: 'd13',
+    phone: '555-0113',
     name: 'Yuki Tanaka',
     truckId: 'OR-102',
     shiftStart: shiftStartForRemaining(15),
@@ -163,6 +176,7 @@ export const mockDrivers = [
   },
   {
     id: 'd14',
+    phone: '555-0114',
     name: 'Camille Fontaine',
     truckId: 'MO-064',
     shiftStart: shiftStartForRemaining(300),

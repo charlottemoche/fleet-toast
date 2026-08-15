@@ -10,7 +10,12 @@ import { Timer } from '../shared/Timer.jsx'
 // watched here — the countdown should visibly move while this is open.
 const DRILL_IN_TICK_INTERVAL_MS = 1_000
 
-export function DriverDrillIn({ driver, onClose }) {
+export function DriverDrillIn({
+  driver,
+  onClose,
+  isAcknowledged,
+  onToggleAcknowledged,
+}) {
   const dialogRef = useRef(null)
   const now = useClockTick(DRILL_IN_TICK_INTERVAL_MS)
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
@@ -84,6 +89,25 @@ export function DriverDrillIn({ driver, onClose }) {
               : 'No active delivery'}
           </dd>
         </dl>
+        <div className="mt-4 flex gap-2 lg:mt-6">
+          <a
+            href={`tel:${driver.phone}`}
+            className="flex-1 rounded bg-gray-800 p-2 text-center text-sm font-medium text-white hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white"
+          >
+            Call driver ({driver.phone})
+          </a>
+          <button
+            type="button"
+            onClick={onToggleAcknowledged}
+            className={
+              isAcknowledged
+                ? 'rounded border border-emerald-600 px-3 text-sm font-medium text-emerald-700 dark:text-emerald-400'
+                : 'rounded border border-gray-300 px-3 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800'
+            }
+          >
+            {isAcknowledged ? '✓ Acknowledged' : 'Acknowledge'}
+          </button>
+        </div>
       </div>
     </dialog>
   )
