@@ -34,13 +34,23 @@ export function getDriverStatus(driver, now, config) {
 
 // Runs getDriverStatus directly (not the useDriverStatus hook) since this
 // groups the whole driver list in one pass — hooks can't be called in a loop.
+// Within each section, drivers are sorted by ascending time remaining so the
+// most urgent driver — the one closest to their HOS limit — always leads.
 export function groupDriversBySection(drivers, now, config, sectionOrder) {
   const driversBySection = new Map(sectionOrder.map((section) => [section, []]))
+  const remainingMinutesById = new Map()
 
   for (const driver of drivers) {
-    const { tierId } = getDriverStatus(driver, now, config)
+    const { tierId, remainingMinutes } = getDriverStatus(driver, now, config)
     const section = getTierById(tierId).section
     driversBySection.get(section).push(driver)
+    remainingMinutesById.set(driver.id, remainingMinutes)
+  }
+
+  for (const sectionDrivers of driversBySection.values()) {
+    sectionDrivers.sort(
+      (a, b) => remainingMinutesById.get(a.id) - remainingMinutesById.get(b.id),
+    )
   }
 
   return driversBySection

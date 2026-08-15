@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   HOS_LIMIT_MINUTES,
   getDriverStatus,
+  groupDriversBySection,
   isStale,
   minutesRemaining,
   minutesSincePing,
@@ -63,6 +64,41 @@ describe('resolveStatusTier', () => {
     expect(resolveStatusTier(12, testTiers).id).toBe('critical')
     expect(resolveStatusTier(90, testTiers).id).toBe('approaching')
     expect(resolveStatusTier(400, testTiers).id).toBe('on-track')
+  })
+})
+
+describe('groupDriversBySection', () => {
+  it('sorts drivers within a section by ascending time remaining, most urgent first', () => {
+    const drivers = [
+      {
+        id: 'a',
+        shiftStart: minutesBeforeNow(HOS_LIMIT_MINUTES - 17),
+        lastPing: minutesBeforeNow(1),
+      },
+      {
+        id: 'b',
+        shiftStart: minutesBeforeNow(HOS_LIMIT_MINUTES - 4),
+        lastPing: minutesBeforeNow(1),
+      },
+      {
+        id: 'c',
+        shiftStart: minutesBeforeNow(HOS_LIMIT_MINUTES - 11),
+        lastPing: minutesBeforeNow(1),
+      },
+    ]
+
+    const bySection = groupDriversBySection(drivers, NOW, testConfig, [
+      'critical',
+      'approaching',
+      'on-track',
+      'offline',
+    ])
+
+    expect(bySection.get('critical').map((driver) => driver.id)).toEqual([
+      'b',
+      'c',
+      'a',
+    ])
   })
 })
 
