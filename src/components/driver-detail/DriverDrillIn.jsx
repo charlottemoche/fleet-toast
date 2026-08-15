@@ -17,8 +17,21 @@ export function DriverDrillIn({ driver, onClose }) {
 
   // Mount-only: this component only exists while a driver is selected, so
   // mounting is opening. Runs once — never re-fires when onClose changes.
+  // Backdrop-click-to-close is wired here too (imperatively, not as a JSX
+  // onClick) since <dialog> has the ARIA "window" role, not a widget role —
+  // it isn't an interactive element, so this shouldn't be a JSX click prop.
   useEffect(() => {
-    dialogRef.current.showModal()
+    const dialog = dialogRef.current
+
+    function closeIfBackdropClicked(event) {
+      if (event.target === dialog) {
+        dialog.close()
+      }
+    }
+
+    dialog.showModal()
+    dialog.addEventListener('click', closeIfBackdropClicked)
+    return () => dialog.removeEventListener('click', closeIfBackdropClicked)
   }, [])
 
   useEffect(() => {
@@ -27,17 +40,9 @@ export function DriverDrillIn({ driver, onClose }) {
     return () => dialog.removeEventListener('close', onClose)
   }, [onClose])
 
-  function handleBackdropClick(event) {
-    if (event.target === dialogRef.current) {
-      dialogRef.current.close()
-    }
-  }
-
   return (
-    // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- backdrop-click-to-close only; the keyboard equivalent (Escape) is already native to <dialog>, not missing.
     <dialog
       ref={dialogRef}
-      onClick={handleBackdropClick}
       aria-labelledby="driver-drill-in-heading"
       className="fixed inset-0 m-auto rounded-lg p-0 backdrop:bg-black/50"
     >
