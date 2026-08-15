@@ -1,7 +1,7 @@
 import { getTierById } from '../../data/alertConfig.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
 import { formatEta } from '../../utils/format.js'
-import { StatusDot } from '../shared/StatusDot.jsx'
+import { AlertBadge } from '../alerts/AlertBadge.jsx'
 import { Timer } from '../shared/Timer.jsx'
 
 export function DriverRow({ driver, now, onSelectDriver }) {
@@ -9,7 +9,9 @@ export function DriverRow({ driver, now, onSelectDriver }) {
   const tier = getTierById(tierId)
 
   return (
-    <tr className={tier.rowClassName}>
+    <tr
+      className={`${tier.rowClassName} hover:bg-gray-100 dark:hover:bg-gray-800/60`}
+    >
       <td className="p-3">
         <button
           type="button"
@@ -21,10 +23,7 @@ export function DriverRow({ driver, now, onSelectDriver }) {
         <div className="text-sm text-gray-500">{driver.truckId}</div>
       </td>
       <td className="p-3">
-        <span className="inline-flex items-center gap-2">
-          <StatusDot colorClassName={tier.badgeClassName} />
-          {tier.label}
-        </span>
+        <AlertBadge tier={tier} />
       </td>
       <td className="p-3">
         <Timer remainingMinutes={remainingMinutes} />

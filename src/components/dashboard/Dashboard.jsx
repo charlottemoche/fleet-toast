@@ -32,6 +32,7 @@ function groupDriversBySection(drivers, now) {
 export function Dashboard() {
   const now = useClockTick(TICK_INTERVAL_MS)
   const [selectedDriverId, setSelectedDriverId] = useState(null)
+  const [activeFilter, setActiveFilter] = useState(null)
 
   const driversBySection = useMemo(
     () => groupDriversBySection(mockDrivers, now),
@@ -42,10 +43,18 @@ export function Dashboard() {
     (driver) => driver.id === selectedDriverId,
   )
 
+  const visibleSections = activeFilter
+    ? sectionOrder.filter((section) => section === activeFilter)
+    : sectionOrder
+
   return (
     <div className="mx-auto max-w-6xl p-4">
       <h1 className="mb-4 text-xl font-semibold">Active Shift</h1>
-      <AlertSummary driversBySection={driversBySection} />
+      <AlertSummary
+        driversBySection={driversBySection}
+        activeFilter={activeFilter}
+        onFilterChange={setActiveFilter}
+      />
       <div className="mt-4 overflow-x-auto rounded border border-gray-200 dark:border-gray-800">
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead>
@@ -67,11 +76,13 @@ export function Dashboard() {
               </th>
             </tr>
           </thead>
-          {sectionOrder.map((section) => (
+          {visibleSections.map((section) => (
             <DriverSection
               key={section}
               label={getSectionLabel(section)}
-              alwaysExpanded={isSectionAlwaysExpanded(section)}
+              alwaysExpanded={
+                isSectionAlwaysExpanded(section) || section === activeFilter
+              }
               drivers={driversBySection.get(section)}
               now={now}
               onSelectDriver={setSelectedDriverId}

@@ -3,6 +3,7 @@ import { getTierById } from '../../data/alertConfig.js'
 import { useClockTick } from '../../hooks/useClockTick.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
 import { formatEta } from '../../utils/format.js'
+import { AlertBadge } from '../alerts/AlertBadge.jsx'
 import { Timer } from '../shared/Timer.jsx'
 
 // Faster than the dashboard's own tick, since only one driver is being
@@ -64,7 +65,9 @@ export function DriverDrillIn({ driver, onClose }) {
           <dd>{driver.truckId}</dd>
 
           <dt className="text-gray-500">Status</dt>
-          <dd>{tier.label}</dd>
+          <dd>
+            <AlertBadge tier={tier} />
+          </dd>
 
           <dt className="text-gray-500">HOS remaining</dt>
           <dd>

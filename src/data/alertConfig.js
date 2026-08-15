@@ -8,7 +8,9 @@ export const alertTiers = [
     maxMinutesRemaining: 20,
     section: 'critical',
     alwaysExpanded: true,
-    badgeClassName: 'bg-red-600 text-white',
+    badgeClassName:
+      'bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300',
+    activeBadgeClassName: 'bg-red-600 text-white',
     rowClassName: 'bg-red-50 dark:bg-red-950/40',
   },
   {
@@ -17,7 +19,9 @@ export const alertTiers = [
     maxMinutesRemaining: 120,
     section: 'approaching',
     alwaysExpanded: true,
-    badgeClassName: 'bg-amber-500 text-white',
+    badgeClassName:
+      'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300',
+    activeBadgeClassName: 'bg-amber-700 text-white',
     rowClassName: 'bg-amber-50 dark:bg-amber-950/30',
   },
   {
@@ -26,7 +30,9 @@ export const alertTiers = [
     maxMinutesRemaining: Infinity,
     section: 'on-track',
     alwaysExpanded: false,
-    badgeClassName: 'bg-emerald-600 text-white',
+    badgeClassName:
+      'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300',
+    activeBadgeClassName: 'bg-emerald-700 text-white',
     rowClassName: '',
   },
 ]
@@ -36,7 +42,9 @@ export const offlineTier = {
   label: 'Offline',
   section: 'offline',
   alwaysExpanded: false,
-  badgeClassName: 'bg-gray-400 text-white',
+  badgeClassName:
+    'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
+  activeBadgeClassName: 'bg-gray-700 text-white',
   rowClassName: 'opacity-50',
 }
 
@@ -63,4 +71,13 @@ export function isSectionAlwaysExpanded(sectionId) {
   return allTiers.some(
     (tier) => tier.section === sectionId && tier.alwaysExpanded,
   )
+}
+
+export function getSectionBadgeClassName(sectionId) {
+  return allTiers.find((tier) => tier.section === sectionId)?.badgeClassName
+}
+
+export function getSectionActiveClassName(sectionId) {
+  return allTiers.find((tier) => tier.section === sectionId)
+    ?.activeBadgeClassName
 }
