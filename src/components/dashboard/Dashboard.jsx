@@ -79,8 +79,8 @@ export function Dashboard({
             </div>
           </div>
           <div className="relative mt-4 max-h-fit min-h-0 flex-1 overflow-auto rounded border border-gray-200 dark:border-gray-800">
-            <table className="w-full min-w-[760px] table-fixed bg-white text-left text-sm dark:bg-[#121212] dark:text-gray-100">
-              <thead className="sticky top-0 bg-gray-100 text-gray-900 dark:bg-[#121212] dark:text-gray-100">
+            <table className="w-full min-w-[760px] table-fixed bg-white text-left text-sm dark:bg-gray-950 dark:text-gray-100">
+              <thead className="sticky top-0 bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
                 <tr className="border-b border-gray-200 dark:border-gray-800">
                   <th scope="col" className="w-[16%] p-3">
                     Driver

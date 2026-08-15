@@ -1,6 +1,23 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-gray-50: #f8f8f5;
+  --color-gray-100: #efefec;
+  --color-gray-200: #e2e2de;
+  --color-gray-300: #c9c9c4;
+  --color-gray-400: #a8a8a3;
+  --color-gray-500: #8a8a85;
+  --color-gray-600: #6b6b67;
+  --color-gray-700: #4d4d4a;
+  --color-gray-800: #2e2e2c;
+  --color-gray-900: #1a1a1a;
+  --color-gray-950: #121212;
+}
+
 :root {
+  --gray: var(--color-gray-50);
+  --gray-darker: var(--color-gray-950);
+
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;

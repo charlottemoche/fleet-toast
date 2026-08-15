@@ -16,8 +16,8 @@ export function DriverSection({
   const isToggleable = !alwaysExpanded && drivers.length > 0
 
   return (
-    <tbody>
-      <tr className="bg-gray-50 dark:bg-[#1A1A1A]">
+    <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+      <tr className="bg-gray-100/60 dark:bg-gray-900">
         <th scope="rowgroup" colSpan={COLUMN_COUNT} className="p-0 text-left">
           {isToggleable ? (
             <button
@@ -33,7 +33,7 @@ export function DriverSection({
               <span>{isExpanded ? 'Hide' : 'Show'}</span>
             </button>
           ) : (
-            <div className="flex items-center justify-between border-b border-gray-100 p-3 dark:border-gray-800">
+            <div className="flex items-center justify-between p-3 dark:border-gray-800">
               <span className="text-sm font-semibold">
                 {label}{' '}
                 <span className="text-gray-500">({drivers.length})</span>

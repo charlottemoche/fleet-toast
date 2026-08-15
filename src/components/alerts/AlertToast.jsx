@@ -10,7 +10,7 @@ export function AlertToast({ driver, now, onDismiss, onSelectDriver }) {
   }
 
   return (
-    <div className="flex w-72 items-start gap-3 rounded-lg border-2 border-red-700 bg-white p-3 shadow-lg dark:bg-red-950 dark:text-white">
+    <div className="flex w-72 items-start gap-3 rounded-lg border-2 border-red-700 bg-white p-3 shadow-lg dark:bg-gray-800 dark:text-white">
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold">{driver.name}</p>
         <p className="text-xs">
@@ -20,7 +20,7 @@ export function AlertToast({ driver, now, onDismiss, onSelectDriver }) {
         <button
           type="button"
           onClick={handleOpen}
-          className="mt-1 text-xs font-semibold underline underline-offset-2"
+          className="mt-3 min-w-40 rounded border border-red-700 bg-red-200/20 px-2 py-1 text-sm transition-colors duration-500 hover:bg-red-200/70 dark:bg-red-900/20 dark:hover:bg-red-900/30"
         >
           View driver →
         </button>

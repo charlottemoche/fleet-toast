@@ -92,7 +92,7 @@ export function DriverDrillIn({
         <div className="mt-4 flex gap-2 lg:mt-6">
           <a
             href={`tel:${driver.phone}`}
-            className="flex-1 rounded bg-gray-800 p-2 text-center text-sm font-medium text-white hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white"
+            className="flex-1 rounded bg-gray-800 p-2 text-center text-sm font-medium text-white transition-colors duration-500 hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white"
           >
             Call driver ({driver.phone})
           </a>
@@ -102,7 +102,7 @@ export function DriverDrillIn({
             className={
               isAcknowledged
                 ? 'rounded border border-emerald-600 px-3 text-sm font-medium text-emerald-700 dark:text-emerald-400'
-                : 'rounded border border-gray-300 px-3 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800'
+                : 'rounded border border-gray-300 px-3 text-sm font-medium text-gray-700 transition-colors duration-500 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800'
             }
           >
             {isAcknowledged ? '✓ Acknowledged' : 'Acknowledge'}

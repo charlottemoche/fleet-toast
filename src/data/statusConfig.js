@@ -9,10 +9,10 @@ export const statusTiers = [
     section: 'critical',
     alwaysExpanded: true,
     badgeClassName:
-      'bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-950 transition-colors duration-500',
+      'bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-950',
     activeBadgeClassName: 'bg-red-700 text-white',
     rowClassName:
-      'bg-red-50/50 hover:bg-red-50 transition-colors duration-300 dark:bg-red-950/40 dark:hover:bg-red-950',
+      'bg-gray-50/60 transition-colors duration-300 dark:bg-red-950/40',
   },
   {
     id: 'approaching',
@@ -21,10 +21,10 @@ export const statusTiers = [
     section: 'approaching',
     alwaysExpanded: true,
     badgeClassName:
-      'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 hover:bg-amber-200 dark:bg-amber-950 transition-colors duration-500',
+      'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 hover:bg-amber-200 dark:bg-amber-950',
     activeBadgeClassName: 'bg-amber-700 text-white',
     rowClassName:
-      'bg-amber-50/50 hover:bg-amber-50 transition-colors duration-300 dark:bg-amber-950/30 dark:hover:bg-amber-950',
+      'bg-gray-50/60 transition-colors duration-300 dark:bg-amber-950/30',
   },
   {
     id: 'on-track',
@@ -33,9 +33,9 @@ export const statusTiers = [
     section: 'on-track',
     alwaysExpanded: false,
     badgeClassName:
-      'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 hover:bg-emerald-200 dark:bg-emerald-950 transition-colors duration-500',
+      'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 dark:bg-emerald-950',
     activeBadgeClassName: 'bg-emerald-700 text-white',
-    rowClassName: 'transition-colors duration-300',
+    rowClassName: 'bg-gray-50/60 transition-colors duration-300',
   },
 ]
 
@@ -45,9 +45,9 @@ export const offlineTier = {
   section: 'offline',
   alwaysExpanded: false,
   badgeClassName:
-    'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-900 transition-colors duration-500',
+    'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
   activeBadgeClassName: 'bg-gray-700 text-white',
-  rowClassName: '',
+  rowClassName: 'bg-gray-50/60',
 }
 
 export const sectionOrder = ['critical', 'approaching', 'on-track', 'offline']

@@ -8,16 +8,10 @@ export function DriverRow({ driver, now, onSelectDriver, isAcknowledged }) {
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
   const tier = getTierById(tierId)
 
-  // Only fall back to the generic hover when the tier doesn't define its
-  // own — stacking both would put two equal-specificity hover:bg-* classes
-  // on the same element, and which one wins is decided by Tailwind's
-  // internal build order, not anything meaningful here.
-  const hasOwnHover = tier.rowClassName.includes('hover:bg')
-
   return (
     <tr
       onClick={() => onSelectDriver(driver.id)}
-      className={`${tier.rowClassName} cursor-pointer ${hasOwnHover ? '' : 'hover:bg-gray-100 dark:hover:bg-gray-800/60'}`}
+      className={`${tier.rowClassName} cursor-pointer transition-colors duration-300 hover:bg-gray-100 dark:hover:bg-gray-800/60`}
     >
       <td className="overflow-hidden p-3">
         <button
