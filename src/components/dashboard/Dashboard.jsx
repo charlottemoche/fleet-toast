@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import {
   alertConfig,
   getSectionLabel,
@@ -7,6 +7,7 @@ import {
   sectionOrder,
 } from '../../data/alertConfig.js'
 import { mockDrivers } from '../../data/mockDrivers.js'
+import { DriverDrillIn } from '../driver-detail/DriverDrillIn.jsx'
 import { useClockTick } from '../../hooks/useClockTick.js'
 import { getDriverStatus } from '../../utils/hos.js'
 import { AlertSummary } from './AlertSummary.jsx'
@@ -30,14 +31,19 @@ function groupDriversBySection(drivers, now) {
 
 export function Dashboard() {
   const now = useClockTick(TICK_INTERVAL_MS)
+  const [selectedDriverId, setSelectedDriverId] = useState(null)
 
   const driversBySection = useMemo(
     () => groupDriversBySection(mockDrivers, now),
     [now],
   )
 
+  const selectedDriver = mockDrivers.find(
+    (driver) => driver.id === selectedDriverId,
+  )
+
   return (
-    <main className="mx-auto max-w-6xl p-4">
+    <div className="mx-auto max-w-6xl p-4">
       <h1 className="mb-4 text-xl font-semibold">Active Shift</h1>
       <AlertSummary driversBySection={driversBySection} />
       <div className="mt-4 overflow-x-auto rounded border border-gray-200 dark:border-gray-800">
@@ -68,11 +74,17 @@ export function Dashboard() {
               alwaysExpanded={isSectionAlwaysExpanded(section)}
               drivers={driversBySection.get(section)}
               now={now}
-              onSelectDriver={() => {}} // wired to the drill-in next commit
+              onSelectDriver={setSelectedDriverId}
             />
           ))}
         </table>
       </div>
-    </main>
+      {selectedDriver && (
+        <DriverDrillIn
+          driver={selectedDriver}
+          onClose={() => setSelectedDriverId(null)}
+        />
+      )}
+    </div>
   )
 }

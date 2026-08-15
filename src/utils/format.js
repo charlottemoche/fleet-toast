@@ -18,3 +18,10 @@ export function formatMinutesRemainingLong(minutes) {
     remainderMinutes === 1 ? '1 minute' : `${remainderMinutes} minutes`
   return hours === 0 ? minutePart : `${hourPart} ${minutePart}`
 }
+
+export function formatEta(eta) {
+  return new Date(eta).toLocaleTimeString([], {
+    hour: 'numeric',
+    minute: '2-digit',
+  })
+}

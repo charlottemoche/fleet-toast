@@ -1,14 +1,8 @@
 import { getTierById } from '../../data/alertConfig.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
+import { formatEta } from '../../utils/format.js'
 import { StatusDot } from '../shared/StatusDot.jsx'
 import { Timer } from '../shared/Timer.jsx'
-
-function formatEta(eta) {
-  return new Date(eta).toLocaleTimeString([], {
-    hour: 'numeric',
-    minute: '2-digit',
-  })
-}
 
 export function DriverRow({ driver, now, onSelectDriver }) {
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
