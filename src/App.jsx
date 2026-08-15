@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 import { Dashboard } from './components/dashboard/Dashboard.jsx'
+import { AlertToastStack } from './components/alerts/AlertToastStack.jsx'
 import { mockDrivers } from './data/mockDrivers.js'
 import { sectionOrder, statusConfig } from './data/statusConfig.js'
 import { useClockTick } from './hooks/useClockTick.js'
+import { useCriticalAlerts } from './hooks/useCriticalAlerts.js'
 import { groupDriversBySection } from './utils/hos.js'
 
 const TICK_INTERVAL_MS = 30_000
@@ -13,12 +15,14 @@ export default function App() {
     () => groupDriversBySection(mockDrivers, now, statusConfig, sectionOrder),
     [now],
   )
-  const criticalCount = driversBySection.get('critical').length
+  const { toasts, dismissToast } = useCriticalAlerts(
+    driversBySection.get('critical'),
+  )
 
   return (
-    <main className="relative mx-auto min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-      <nav className="sticky top-0 z-10 flex items-center justify-between bg-gray-800 dark:bg-gray-950 p-4 shadow">
-        <div className="flex max-w-6xl items-center gap-3">
+    <main className="relative mx-auto flex h-screen flex-col bg-gray-100 text-gray-900 dark:bg-[#121212] dark:text-gray-100">
+      <nav className="sticky top-0 z-10 flex shrink-0 items-center bg-gray-800 dark:bg-[#000000] p-4 shadow">
+        <div className="max-w-6xl">
           <ul className="m-0 list-none p-0">
             <li>
               <a href="/">
@@ -30,16 +34,12 @@ export default function App() {
               </a>
             </li>
           </ul>
-          {criticalCount > 0 && (
-            <span className="inline-flex items-center rounded-full bg-red-700 px-2.5 py-0.5 text-xs font-medium text-white">
-              <span aria-live="assertive">{criticalCount}</span>&nbsp;critical
-            </span>
-          )}
         </div>
       </nav>
-      <div className="mx-auto max-w-6xl pb-10 lg:pb-20">
+      <div className="mx-auto min-h-0 w-full max-w-6xl flex-1">
         <Dashboard now={now} driversBySection={driversBySection} />
       </div>
+      <AlertToastStack toasts={toasts} now={now} onDismiss={dismissToast} />
     </main>
   )
 }

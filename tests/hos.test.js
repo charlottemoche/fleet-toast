@@ -5,7 +5,7 @@ import {
   isStale,
   minutesRemaining,
   minutesSincePing,
-  resolveAlertTier,
+  resolveStatusTier,
 } from '../src/utils/hos.js'
 
 const NOW = new Date('2026-08-15T12:00:00.000Z').getTime()
@@ -21,7 +21,7 @@ const testTiers = [
 ]
 const testOfflineTier = { id: 'offline' }
 const testConfig = {
-  alertTiers: testTiers,
+  statusTiers: testTiers,
   offlineTier: testOfflineTier,
   staleAfterMinutes: 10,
 }
@@ -58,11 +58,11 @@ describe('isStale', () => {
   })
 })
 
-describe('resolveAlertTier', () => {
+describe('resolveStatusTier', () => {
   it('picks the first tier whose ceiling covers the remaining minutes', () => {
-    expect(resolveAlertTier(12, testTiers).id).toBe('critical')
-    expect(resolveAlertTier(90, testTiers).id).toBe('approaching')
-    expect(resolveAlertTier(400, testTiers).id).toBe('on-track')
+    expect(resolveStatusTier(12, testTiers).id).toBe('critical')
+    expect(resolveStatusTier(90, testTiers).id).toBe('approaching')
+    expect(resolveStatusTier(400, testTiers).id).toBe('on-track')
   })
 })
 
