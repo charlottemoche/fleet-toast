@@ -51,3 +51,7 @@
 body {
   margin: 0;
 }
+
+button:not(:disabled) {
+  cursor: pointer;
+}
