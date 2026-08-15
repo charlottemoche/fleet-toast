@@ -1,16 +1,35 @@
-# React + Vite
+# fleet-toast
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Stack
 
-Currently, two official plugins are available:
+- [React](https://react.dev/) + [Vite](https://vite.dev/)
+- [Tailwind CSS](https://tailwindcss.com/) (v4, via `@tailwindcss/vite`)
+- [oxlint](https://oxc.rs/docs/guide/usage/linter.html) for linting
+- [Prettier](https://prettier.io/) for formatting (with `prettier-plugin-tailwindcss` for class sorting)
+- [commitlint](https://commitlint.js.org/) + [Husky](https://typicode.github.io/husky/) for commit message enforcement
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Getting started
 
-## React Compiler
+```sh
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Scripts
 
-## Expanding the Oxlint configuration
+| Script                 | Description                                        |
+| ---------------------- | -------------------------------------------------- |
+| `npm run dev`          | Start the dev server                               |
+| `npm run build`        | Build for production                               |
+| `npm run preview`      | Preview the production build                       |
+| `npm run lint`         | Lint with oxlint                                   |
+| `npm run format`       | Format the codebase with Prettier                  |
+| `npm run format:check` | Check formatting without writing                   |
+| `npm run commitlint`   | Check commit messages from `origin/main` to `HEAD` |
+| `npm run verify`       | Run `format:check`, `lint`, and `commitlint`       |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Commit messages
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `chore:`, etc.). Commit messages are linted automatically on commit via a Husky `commit-msg` hook, and again on push (along with lint/format) via a `pre-push` hook.
+
+If a commit or push is rejected, fix the message/formatting/lint errors and try again — don't bypass the hooks.
