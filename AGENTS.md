@@ -23,3 +23,4 @@ Rules for AI tools working in this repo.
 - If pushed back on, don't just concede — check first, and only correct if the pushback is actually right. Say so directly rather than folding immediately.
 - Let reasoning finish before jumping to code, when it's being talked through out loud first.
 - Before adding a new feature, check what's already there first. Don't just bolt on — old code tends to get left behind and pile up as dead/unnecessary cruft. Look at what the new feature touches, and clean up anything that's redundant or no longer necessary.
+- Never disable a lint rule, test, or other tool check to make something pass. Question why it's failing first — a warning is often pointing at a real fix (e.g. the wrong element/pattern for the job), not just a false positive to silence.
