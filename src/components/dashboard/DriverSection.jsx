@@ -26,14 +26,16 @@ export function DriverSection({
               className="flex w-full items-center justify-between p-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800/60"
             >
               <span className="text-sm font-semibold">
-                {label} <span className="text-gray-500">({drivers.length})</span>
+                {label}{' '}
+                <span className="text-gray-500">({drivers.length})</span>
               </span>
               <span>{isExpanded ? 'Hide' : 'Show'}</span>
             </button>
           ) : (
             <div className="flex items-center justify-between p-3">
               <span className="text-sm font-semibold">
-                {label} <span className="text-gray-500">({drivers.length})</span>
+                {label}{' '}
+                <span className="text-gray-500">({drivers.length})</span>
               </span>
             </div>
           )}

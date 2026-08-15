@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <main className="relative mx-auto flex h-screen flex-col bg-gray-100 text-gray-900 dark:bg-[#121212] dark:text-gray-100">
-      <nav className="sticky top-0 z-10 flex shrink-0 items-center bg-gray-800 dark:bg-[#000000] p-4 shadow">
+      <nav className="sticky top-0 z-10 flex shrink-0 items-center bg-gray-800 p-4 shadow dark:bg-[#000000]">
         <div className="max-w-6xl">
           <ul className="m-0 list-none p-0">
             <li>

@@ -22,7 +22,8 @@ export function AlertToast({ driver, now, onDismiss }) {
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold">{driver.name}</p>
         <p className="text-xs text-red-200">
-          {driver.truckId} is now critical — <Timer remainingMinutes={remainingMinutes} /> remaining
+          {driver.truckId} is now critical —{' '}
+          <Timer remainingMinutes={remainingMinutes} /> remaining
         </p>
       </div>
       <button

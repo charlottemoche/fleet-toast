@@ -38,10 +38,14 @@ export function Dashboard({ now, driversBySection }) {
               <th scope="col" className="w-[18%] p-3">
                 Driver
               </th>
-              <th scope="col" className="w-[18%] lg:w-[16%] p-3">
+              <th scope="col" className="w-[18%] p-3 lg:w-[16%]">
                 Status
               </th>
-              <th scope="col" className="w-[14%] truncate p-3" title="Time Remaining">
+              <th
+                scope="col"
+                className="w-[14%] truncate p-3"
+                title="Time Remaining"
+              >
                 Time Remaining
               </th>
               <th scope="col" className="w-[22%] p-3">
