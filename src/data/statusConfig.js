@@ -28,7 +28,7 @@ export const statusTiers = [
   },
   {
     id: 'on-track',
-    label: 'On Track',
+    label: 'On track',
     maxMinutesRemaining: Infinity,
     section: 'on-track',
     alwaysExpanded: false,
