@@ -1,7 +1,7 @@
-import { getTierById } from '../../data/alertConfig.js'
+import { getTierById } from '../../data/statusConfig.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
-import { formatEta } from '../../utils/format.js'
-import { AlertBadge } from '../alerts/AlertBadge.jsx'
+import { formatEta, formatMinutesRemainingLong } from '../../utils/format.js'
+import { StatusBadge } from '../status/StatusBadge.jsx'
 import { Timer } from '../shared/Timer.jsx'
 
 export function DriverRow({ driver, now, onSelectDriver }) {
@@ -24,9 +24,12 @@ export function DriverRow({ driver, now, onSelectDriver }) {
         <div className="truncate text-sm text-gray-500">{driver.truckId}</div>
       </td>
       <td className="overflow-hidden p-3">
-        <AlertBadge tier={tier} />
+        <StatusBadge tier={tier} />
       </td>
-      <td className="overflow-hidden p-3">
+      <td
+        title={formatMinutesRemainingLong(remainingMinutes)}
+        className="truncate overflow-hidden p-3"
+      >
         <Timer remainingMinutes={remainingMinutes} />
       </td>
       <td className="overflow-hidden p-3">

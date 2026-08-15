@@ -3,7 +3,7 @@ import {
   getSectionBadgeClassName,
   getSectionLabel,
   sectionOrder,
-} from '../../data/alertConfig.js'
+} from '../../data/statusConfig.js'
 
 const ALL_ACTIVE_CLASS =
   'bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900'
@@ -22,7 +22,7 @@ function countAllDrivers(driversBySection) {
   return total
 }
 
-export function AlertSummary({
+export function StatusFilters({
   driversBySection,
   activeFilter,
   onFilterChange,

@@ -1,3 +1,5 @@
+import { getTierById } from '../data/statusConfig.js'
+
 export const HOS_LIMIT_MINUTES = 11 * 60
 
 export function minutesRemaining(shiftStart, now) {
@@ -13,7 +15,7 @@ export function isStale(lastPing, now, staleAfterMinutes) {
   return minutesSincePing(lastPing, now) >= staleAfterMinutes
 }
 
-export function resolveAlertTier(remainingMinutes, tiers) {
+export function resolveStatusTier(remainingMinutes, tiers) {
   return tiers.find((tier) => remainingMinutes <= tier.maxMinutesRemaining)
 }
 
@@ -26,6 +28,20 @@ export function getDriverStatus(driver, now, config) {
     return { tierId: config.offlineTier.id, remainingMinutes }
   }
 
-  const tier = resolveAlertTier(remainingMinutes, config.alertTiers)
+  const tier = resolveStatusTier(remainingMinutes, config.statusTiers)
   return { tierId: tier.id, remainingMinutes }
+}
+
+// Runs getDriverStatus directly (not the useDriverStatus hook) since this
+// groups the whole driver list in one pass — hooks can't be called in a loop.
+export function groupDriversBySection(drivers, now, config, sectionOrder) {
+  const driversBySection = new Map(sectionOrder.map((section) => [section, []]))
+
+  for (const driver of drivers) {
+    const { tierId } = getDriverStatus(driver, now, config)
+    const section = getTierById(tierId).section
+    driversBySection.get(section).push(driver)
+  }
+
+  return driversBySection
 }

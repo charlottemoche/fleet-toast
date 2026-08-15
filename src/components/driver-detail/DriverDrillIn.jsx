@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
-import { getTierById } from '../../data/alertConfig.js'
+import { getTierById } from '../../data/statusConfig.js'
 import { useClockTick } from '../../hooks/useClockTick.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
 import { formatEta } from '../../utils/format.js'
-import { AlertBadge } from '../alerts/AlertBadge.jsx'
+import { StatusBadge } from '../status/StatusBadge.jsx'
 import { Timer } from '../shared/Timer.jsx'
 
 // Faster than the dashboard's own tick, since only one driver is being
@@ -66,7 +66,7 @@ export function DriverDrillIn({ driver, onClose }) {
 
           <dt className="text-gray-500">Status</dt>
           <dd>
-            <AlertBadge tier={tier} />
+            <StatusBadge tier={tier} />
           </dd>
 
           <dt className="text-gray-500">HOS remaining</dt>

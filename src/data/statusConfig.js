@@ -1,7 +1,7 @@
-// Sorted ascending by maxMinutesRemaining — resolveAlertTier's array-order
+// Sorted ascending by maxMinutesRemaining — resolveStatusTier's array-order
 // scan relies on this order to act as the severity logic. Add a new tier by
 // inserting one object here; nothing else needs to change.
-export const alertTiers = [
+export const statusTiers = [
   {
     id: 'critical',
     label: 'Critical',
@@ -9,8 +9,8 @@ export const alertTiers = [
     section: 'critical',
     alwaysExpanded: true,
     badgeClassName:
-      'bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300',
-    activeBadgeClassName: 'bg-red-600 text-white',
+      'bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-950 transition-colors duration-500',
+    activeBadgeClassName: 'bg-red-700 text-white',
     rowClassName: 'bg-red-50 dark:bg-red-950/40',
   },
   {
@@ -20,7 +20,7 @@ export const alertTiers = [
     section: 'approaching',
     alwaysExpanded: true,
     badgeClassName:
-      'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300',
+      'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 hover:bg-amber-200 dark:bg-amber-950 transition-colors duration-500',
     activeBadgeClassName: 'bg-amber-700 text-white',
     rowClassName: 'bg-amber-50 dark:bg-amber-950/30',
   },
@@ -31,7 +31,7 @@ export const alertTiers = [
     section: 'on-track',
     alwaysExpanded: false,
     badgeClassName:
-      'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300',
+      'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 hover:bg-emerald-200 dark:bg-emerald-950 transition-colors duration-500',
     activeBadgeClassName: 'bg-emerald-700 text-white',
     rowClassName: '',
   },
@@ -43,7 +43,7 @@ export const offlineTier = {
   section: 'offline',
   alwaysExpanded: false,
   badgeClassName:
-    'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
+    'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-900 transition-colors duration-500',
   activeBadgeClassName: 'bg-gray-700 text-white',
   rowClassName: 'opacity-50',
 }
@@ -52,9 +52,9 @@ export const sectionOrder = ['critical', 'approaching', 'on-track', 'offline']
 
 export const staleAfterMinutes = 10
 
-export const alertConfig = { alertTiers, offlineTier, staleAfterMinutes }
+export const statusConfig = { statusTiers, offlineTier, staleAfterMinutes }
 
-const allTiers = [...alertTiers, offlineTier]
+const allTiers = [...statusTiers, offlineTier]
 
 export function getTierById(tierId) {
   return allTiers.find((tier) => tier.id === tierId)
