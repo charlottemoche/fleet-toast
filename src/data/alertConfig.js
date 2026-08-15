@@ -45,3 +45,9 @@ export const sectionOrder = ['critical', 'approaching', 'on-track', 'offline']
 export const staleAfterMinutes = 10
 
 export const alertConfig = { alertTiers, offlineTier, staleAfterMinutes }
+
+const allTiers = [...alertTiers, offlineTier]
+
+export function getTierById(tierId) {
+  return allTiers.find((tier) => tier.id === tierId)
+}
