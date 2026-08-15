@@ -12,26 +12,29 @@ export function DriverRow({ driver, now, onSelectDriver }) {
     <tr
       className={`${tier.rowClassName} hover:bg-gray-100 dark:hover:bg-gray-800/60`}
     >
-      <td className="p-3">
+      <td className="overflow-hidden p-3">
         <button
           type="button"
           onClick={() => onSelectDriver(driver.id)}
-          className="font-medium underline-offset-2 hover:underline"
+          title={driver.name}
+          className="block w-full truncate text-left font-medium underline-offset-2 hover:underline"
         >
           {driver.name}
         </button>
-        <div className="text-sm text-gray-500">{driver.truckId}</div>
+        <div className="truncate text-sm text-gray-500">{driver.truckId}</div>
       </td>
-      <td className="p-3">
+      <td className="overflow-hidden p-3">
         <AlertBadge tier={tier} />
       </td>
-      <td className="p-3">
+      <td className="overflow-hidden p-3">
         <Timer remainingMinutes={remainingMinutes} />
       </td>
-      <td className="p-3">
+      <td className="overflow-hidden p-3">
         {driver.currentDelivery ? (
           <>
-            <div>{driver.currentDelivery.id}</div>
+            <div title={driver.currentDelivery.id} className="truncate">
+              {driver.currentDelivery.id}
+            </div>
             <div className="text-sm text-gray-500">
               ETA {formatEta(driver.currentDelivery.eta)}
             </div>
@@ -40,7 +43,12 @@ export function DriverRow({ driver, now, onSelectDriver }) {
           <span className="text-gray-500">No active delivery</span>
         )}
       </td>
-      <td className="p-3">{driver.location.label}</td>
+      <td
+        title={driver.location.label}
+        className="truncate overflow-hidden p-3"
+      >
+        {driver.location.label}
+      </td>
     </tr>
   )
 }

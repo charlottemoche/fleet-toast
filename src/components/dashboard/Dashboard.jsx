@@ -56,22 +56,22 @@ export function Dashboard() {
         onFilterChange={setActiveFilter}
       />
       <div className="mt-4 overflow-x-auto rounded border border-gray-200 dark:border-gray-800">
-        <table className="w-full min-w-[720px] text-left text-sm">
+        <table className="w-full min-w-[720px] table-fixed text-left text-sm">
           <thead>
             <tr className="border-b border-gray-200 dark:border-gray-800">
-              <th scope="col" className="p-3">
+              <th scope="col" className="w-[22%] p-3">
                 Driver
               </th>
-              <th scope="col" className="p-3">
+              <th scope="col" className="w-[14%] p-3">
                 Status
               </th>
-              <th scope="col" className="p-3">
+              <th scope="col" className="w-[12%] p-3">
                 Time Remaining
               </th>
-              <th scope="col" className="p-3">
+              <th scope="col" className="w-[24%] p-3">
                 Delivery
               </th>
-              <th scope="col" className="p-3">
+              <th scope="col" className="w-[28%] p-3">
                 Location
               </th>
             </tr>
