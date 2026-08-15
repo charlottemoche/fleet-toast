@@ -59,13 +59,13 @@ export function Dashboard() {
         <table className="w-full min-w-[720px] table-fixed text-left text-sm">
           <thead>
             <tr className="border-b border-gray-200 dark:border-gray-800">
-              <th scope="col" className="w-[22%] p-3">
+              <th scope="col" className="w-[20%] p-3">
                 Driver
               </th>
-              <th scope="col" className="w-[14%] p-3">
+              <th scope="col" className="w-[12%] p-3">
                 Status
               </th>
-              <th scope="col" className="w-[12%] p-3">
+              <th scope="col" className="w-[16%] p-3 whitespace-nowrap">
                 Time Remaining
               </th>
               <th scope="col" className="w-[24%] p-3">
