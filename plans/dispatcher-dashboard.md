@@ -37,17 +37,18 @@ Flat array of driver objects (not a tree — no real nesting in this domain).
 
 ## Architecture decisions log
 
-| Decision                                                                    | Why                                                                                                                                      |
-| --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| Pure functions in `utils/hos.js`, `now` always passed in as a param         | Deterministic, unit-testable without mocking time                                                                                        |
-| Staleness check short-circuits to `offline` before tier resolution          | An unreachable driver's HOS reading can't be trusted — offline has to win                                                                |
-| Single `useClockTick` at Dashboard level, not one timer per row             | 50 independent intervals would drift and thrash; one shared `now` is cheap                                                               |
-| Two-speed ticking: Dashboard ~30s, DriverDrillIn its own 1s tick            | Coarse is plenty for section bucketing; the open drill-in is the one place a visibly live countdown matters                              |
-| Dropped the originally-planned `useStaleness` hook                          | `isStale` already lives in `hos.js` and is folded into `getDriverStatus` — a wrapper hook with no added logic is unnecessary abstraction |
-| No Context                                                                  | Tree is 2-3 levels, `now` as a prop is fine                                                                                              |
-| `alertConfig.js` is data-driven (array of tiers, not a switch statement)    | New tier = one object added, nothing else touched — this is the file most likely to get a live "add an alert type" ask                   |
-| Native `<dialog>` for the drill-in, no `@radix-ui`/`@headlessui` dependency | `.showModal()` gives real focus trap + ESC-close + `aria-modal` natively, zero deps, strong a11y story                                   |
-| Alert-treatment toggle is plain `useState` in Dashboard, no localStorage    | It's a live-demo control, not a saved preference — simplest thing that works                                                             |
+| Decision                                                                         | Why                                                                                                                                                                                 |
+| -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pure functions in `utils/hos.js`, `now` always passed in as a param              | Deterministic, unit-testable without mocking time                                                                                                                                   |
+| Staleness check short-circuits to `offline` before tier resolution               | An unreachable driver's HOS reading can't be trusted — offline has to win                                                                                                           |
+| Single `useClockTick` at Dashboard level, not one timer per row                  | 50 independent intervals would drift and thrash; one shared `now` is cheap                                                                                                          |
+| Two-speed ticking: Dashboard ~30s, DriverDrillIn its own 1s tick                 | Coarse is plenty for section bucketing; the open drill-in is the one place a visibly live countdown matters                                                                         |
+| Dropped the originally-planned `useStaleness` hook                               | `isStale` already lives in `hos.js` and is folded into `getDriverStatus` — a wrapper hook with no added logic is unnecessary abstraction                                            |
+| No Context                                                                       | Tree is 2-3 levels, `now` as a prop is fine                                                                                                                                         |
+| `alertConfig.js` is data-driven (array of tiers, not a switch statement)         | New tier = one object added, nothing else touched — this is the file most likely to get a live "add an alert type" ask                                                              |
+| Native `<dialog>` for the drill-in, no `@radix-ui`/`@headlessui` dependency      | `.showModal()` gives real focus trap + ESC-close + `aria-modal` natively, zero deps, strong a11y story                                                                              |
+| Alert-treatment toggle is plain `useState` in Dashboard, no localStorage         | It's a live-demo control, not a saved preference — simplest thing that works                                                                                                        |
+| Drill-in dialog centered via explicit `fixed inset-0 m-auto`, not the UA default | Tailwind's preflight resets `margin: 0` globally, which silently kills the browser's native `dialog { margin: auto }` centering — caught via a real backdrop-click test, not by eye |
 
 ## Alert tiers
 
@@ -86,18 +87,18 @@ One driver with `currentDelivery: null` to exercise a real empty-state guard. La
 
 ## Build checklist
 
-- [ ] 0. `docs: add dispatcher dashboard plan` (this file)
-- [ ] 1. `chore: add test runner` — vitest + testing-library + jsdom, fold `test` into `verify`
-- [ ] 2. `feat: add driver data model and mock data`
-- [ ] 3. `feat: add HOS derivation utils` + tests
-- [ ] 4. `feat: add alert tier config`
-- [ ] 5. `feat: add clock tick hook`
-- [ ] 6. `feat: add driver status hook`
-- [ ] 7. `feat: add shared status components` (StatusDot, Timer)
-- [ ] 8. `feat: add driver row component`
-- [ ] 9. `feat: add driver section component`
-- [ ] 10. `feat: render active shift dashboard` — first visually working commit
-- [ ] 11. `feat: add HOS alert drill-in view` — both hard brief requirements done after this
+- [x] 0. `docs: add dispatcher dashboard plan` (this file)
+- [x] 1. `chore: add test runner` — vitest + testing-library + jsdom, fold `test` into `verify`
+- [x] 2. `feat: add driver data model and mock data`
+- [x] 3. `feat: add HOS derivation utils` + tests
+- [x] 4. `feat: add alert tier config`
+- [x] 5. `feat: add clock tick hook`
+- [x] 6. `feat: add driver status hook`
+- [x] 7. `feat: add shared status components` (StatusDot, Timer)
+- [x] 8. `feat: add driver row component`
+- [x] 9. `feat: add driver section component`
+- [x] 10. `feat: render active shift dashboard` — first visually working commit
+- [x] 11. `feat: add HOS alert drill-in view` — both hard brief requirements done after this
 - [ ] 12. `feat: add alert badge treatment`
 - [ ] 13. `feat: add alert banner treatment`
 - [ ] 14. `feat: add dual alert treatment toggle`
