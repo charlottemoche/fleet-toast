@@ -37,18 +37,20 @@ Flat array of driver objects (not a tree — no real nesting in this domain).
 
 ## Architecture decisions log
 
-| Decision                                                                         | Why                                                                                                                                                                                 |
-| -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Pure functions in `utils/hos.js`, `now` always passed in as a param              | Deterministic, unit-testable without mocking time                                                                                                                                   |
-| Staleness check short-circuits to `offline` before tier resolution               | An unreachable driver's HOS reading can't be trusted — offline has to win                                                                                                           |
-| Single `useClockTick` at Dashboard level, not one timer per row                  | 50 independent intervals would drift and thrash; one shared `now` is cheap                                                                                                          |
-| Two-speed ticking: Dashboard ~30s, DriverDrillIn its own 1s tick                 | Coarse is plenty for section bucketing; the open drill-in is the one place a visibly live countdown matters                                                                         |
-| Dropped the originally-planned `useStaleness` hook                               | `isStale` already lives in `hos.js` and is folded into `getDriverStatus` — a wrapper hook with no added logic is unnecessary abstraction                                            |
-| No Context                                                                       | Tree is 2-3 levels, `now` as a prop is fine                                                                                                                                         |
-| `alertConfig.js` is data-driven (array of tiers, not a switch statement)         | New tier = one object added, nothing else touched — this is the file most likely to get a live "add an alert type" ask                                                              |
-| Native `<dialog>` for the drill-in, no `@radix-ui`/`@headlessui` dependency      | `.showModal()` gives real focus trap + ESC-close + `aria-modal` natively, zero deps, strong a11y story                                                                              |
-| Alert-treatment toggle is plain `useState` in Dashboard, no localStorage         | It's a live-demo control, not a saved preference — simplest thing that works                                                                                                        |
-| Drill-in dialog centered via explicit `fixed inset-0 m-auto`, not the UA default | Tailwind's preflight resets `margin: 0` globally, which silently kills the browser's native `dialog { margin: auto }` centering — caught via a real backdrop-click test, not by eye |
+| Decision                                                                                                                            | Why                                                                                                                                                                                        |
+| ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Pure functions in `utils/hos.js`, `now` always passed in as a param                                                                 | Deterministic, unit-testable without mocking time                                                                                                                                          |
+| Staleness check short-circuits to `offline` before tier resolution                                                                  | An unreachable driver's HOS reading can't be trusted — offline has to win                                                                                                                  |
+| Single `useClockTick` at Dashboard level, not one timer per row                                                                     | 50 independent intervals would drift and thrash; one shared `now` is cheap                                                                                                                 |
+| Two-speed ticking: Dashboard ~30s, DriverDrillIn its own 1s tick                                                                    | Coarse is plenty for section bucketing; the open drill-in is the one place a visibly live countdown matters                                                                                |
+| Dropped the originally-planned `useStaleness` hook                                                                                  | `isStale` already lives in `hos.js` and is folded into `getDriverStatus` — a wrapper hook with no added logic is unnecessary abstraction                                                   |
+| No Context                                                                                                                          | Tree is 2-3 levels, `now` as a prop is fine                                                                                                                                                |
+| `alertConfig.js` is data-driven (array of tiers, not a switch statement)                                                            | New tier = one object added, nothing else touched — this is the file most likely to get a live "add an alert type" ask                                                                     |
+| Native `<dialog>` for the drill-in, no `@radix-ui`/`@headlessui` dependency                                                         | `.showModal()` gives real focus trap + ESC-close + `aria-modal` natively, zero deps, strong a11y story                                                                                     |
+| Alert-treatment toggle is plain `useState` in Dashboard, no localStorage                                                            | It's a live-demo control, not a saved preference — simplest thing that works                                                                                                               |
+| Drill-in dialog centered via explicit `fixed inset-0 m-auto`, not the UA default                                                    | Tailwind's preflight resets `margin: 0` globally, which silently kills the browser's native `dialog { margin: auto }` centering — caught via a real backdrop-click test, not by eye        |
+| Tier badge colors changed from solid-500/600 + white text to pastel-100 bg + dark-800 text                                          | The original solid colors (`bg-amber-500 text-white`, `bg-gray-400 text-white`) fail WCAG contrast (~2.2:1) — never caught because they'd only ever been used on a 10px dot, not real text |
+| Section filter pills reuse `alertConfig`'s per-tier classes (`badgeClassName`/new `activeBadgeClassName`), not a separate color map | One color source of truth for status everywhere it appears — row tint, badge, and filter pill all trace back to the same tier object                                                       |
 
 ## Alert tiers
 
@@ -99,7 +101,7 @@ One driver with `currentDelivery: null` to exercise a real empty-state guard. La
 - [x] 9. `feat: add driver section component`
 - [x] 10. `feat: render active shift dashboard` — first visually working commit
 - [x] 11. `feat: add HOS alert drill-in view` — both hard brief requirements done after this
-- [ ] 12. `feat: add alert badge treatment`
+- [x] 12. `feat: add alert badge treatment` — done as part of the filter/badge pass below, ahead of schedule
 - [ ] 13. `feat: add alert banner treatment`
 - [ ] 14. `feat: add dual alert treatment toggle`
 - [ ] 15. `test: add DriverRow component tests`
@@ -107,7 +109,9 @@ One driver with `currentDelivery: null` to exercise a real empty-state guard. La
 
 If time runs out, 0-11 are non-negotiable; everything from 12 on compresses first, in reverse order.
 
-Nice-to-haves if time remains (pick 2-3): live-ticking countdown in the drill-in, a minimal name/truck-id filter input (de-risks the "or a filter" live-demo ask), empty/loading states via simulated fetch, `prefers-reduced-motion`-respecting pulse on newly-critical rows.
+Status-tier filtering (click a count in the summary bar to narrow the table to just that section) is done — added after using the dashboard and finding no way to scale down to just what matters. De-risks the "or a filter" live-demo ask on its own.
+
+Nice-to-haves if time remains (pick 2-3): live-ticking countdown in the drill-in, a free-text name/truck-id filter input (a _second_, complementary filter axis — status tier is "which severity," this would be "which specific driver"), empty/loading states via simulated fetch, `prefers-reduced-motion`-respecting pulse on newly-critical rows.
 
 ## Deliberately-not-taken tradeoffs
 
