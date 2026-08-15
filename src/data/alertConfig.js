@@ -51,3 +51,16 @@ const allTiers = [...alertTiers, offlineTier]
 export function getTierById(tierId) {
   return allTiers.find((tier) => tier.id === tierId)
 }
+
+// A section's label/expanded behavior is derived from whichever tiers
+// belong to it, rather than assumed from the tier id, so a section stays
+// correct even if a future tier addition splits it into more than one tier.
+export function getSectionLabel(sectionId) {
+  return allTiers.find((tier) => tier.section === sectionId)?.label
+}
+
+export function isSectionAlwaysExpanded(sectionId) {
+  return allTiers.some(
+    (tier) => tier.section === sectionId && tier.alwaysExpanded,
+  )
+}

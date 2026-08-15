@@ -1,3 +1,5 @@
+import { Dashboard } from './components/dashboard/Dashboard.jsx'
+
 export default function App() {
   return (
     <>
@@ -14,6 +16,7 @@ export default function App() {
           </li>
         </ul>
       </nav>
+      <Dashboard />
     </>
   )
 }
