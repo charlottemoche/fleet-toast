@@ -18,7 +18,7 @@ export function AlertToast({ driver, now, onDismiss }) {
   }, [])
 
   return (
-    <div className="flex w-72 items-start gap-3 rounded-lg border border-red-800 bg-red-950 p-3 text-white shadow-lg">
+    <div className="flex w-72 items-start gap-3 rounded-lg border-2 border-red-700 p-3 shadow-lg dark:bg-red-950 dark:text-white">
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold">{driver.name}</p>
         <p className="text-xs text-red-200">
@@ -30,7 +30,7 @@ export function AlertToast({ driver, now, onDismiss }) {
         type="button"
         onClick={onDismiss}
         aria-label="Dismiss"
-        className="shrink-0 text-red-300 hover:text-white"
+        className="shrink-0 text-red-700"
       >
         &times;
       </button>

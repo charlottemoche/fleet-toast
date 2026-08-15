@@ -16,7 +16,7 @@ export function DriverSection({
 
   return (
     <tbody>
-      <tr className="bg-gray-50 dark:bg-gray-900">
+      <tr className="bg-gray-50 dark:bg-[#1A1A1A]">
         <th scope="rowgroup" colSpan={COLUMN_COUNT} className="p-0 text-left">
           {isToggleable ? (
             <button

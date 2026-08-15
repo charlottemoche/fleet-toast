@@ -4,7 +4,7 @@ export function AlertToastStack({ toasts, now, onDismiss }) {
   if (toasts.length === 0) return null
 
   return (
-    <output className="fixed top-24 right-4 z-30 flex flex-col gap-2">
+    <output className="fixed top-20 right-4 z-30 flex flex-col gap-2">
       {toasts.map((toast) => (
         <AlertToast
           key={toast.id}

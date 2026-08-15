@@ -20,8 +20,8 @@ export default function App() {
   )
 
   return (
-    <main className="relative mx-auto flex h-screen flex-col bg-gray-100 text-gray-900 dark:bg-[#121212] dark:text-gray-100">
-      <nav className="sticky top-0 z-10 bg-gray-800 p-4 shadow dark:bg-[#000000]">
+    <main className="relative mx-auto flex h-screen flex-col bg-gray-100/20 text-gray-900 dark:bg-[#121212] dark:text-gray-100">
+      <nav className="sticky top-0 z-10 bg-gray-800 p-3 shadow dark:bg-[#000000]">
         <div>
           <ul className="m-0 flex w-full flex-1 list-none items-center justify-between gap-2 p-0">
             <li>
@@ -29,7 +29,7 @@ export default function App() {
                 <img
                   src="/charlotte-truck-white.png"
                   alt="Logo"
-                  className="h-10 w-10 lg:h-12 lg:w-12"
+                  className="h-10 w-10"
                 />
               </a>
             </li>
