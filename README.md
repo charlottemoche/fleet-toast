@@ -1,4 +1,16 @@
-# Take home specs
+# Fleet dispatch — Active Shift dashboard
+
+Take-home for the Design Engineer role. The dashboard a fleet dispatcher lives in, scoped to one variable: HOS (Hours of Service) — drivers have an 11-hour legal driving limit, and the system flags anyone nearing their mandatory reset.
+
+## What's here
+
+- Status table, sorted by urgency, grouped into Critical/Approaching/On track/Offline. Critical and Approaching stay expanded; the other two collapse.
+- A real alert: a toast fires when a driver crosses into critical (not on page load, not on every tick), and opens the same drill-in a row click does.
+- Drill-in dialog with driver details, a working `tel:` call action, and an acknowledge toggle.
+- Offline detection: a stale ping overrides the HOS math, independent of however much drive time the math would otherwise show.
+- Time-until-reset is computed live from `shiftStart`, not hardcoded.
+
+Mock data only — 14 drivers, no backend. See `plans/dispatcher-dashboard.md` for the full decision log and what's deliberately out of scope.
 
 ## Stack
 
