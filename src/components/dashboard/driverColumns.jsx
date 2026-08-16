@@ -68,7 +68,7 @@ export const driverColumns = [
   },
   {
     key: 'perishable',
-    label: 'Perishable',
+    label: 'Perishables',
     headerClassName: 'w-[8%]',
     cellClassName: 'border-l border-gray-100/80 dark:border-gray-800',
     render: ({ driver }) =>
