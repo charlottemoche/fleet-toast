@@ -60,9 +60,9 @@ export function Dashboard({
                     'w-full p-4 text-left transition-colors duration-300',
                     item === SELECTED_NAV_ITEM
                       ? 'bg-gray-200 font-semibold dark:bg-gray-900'
-                      : 'text-gray-700/90 hover:bg-gray-300 dark:text-gray-400 dark:hover:bg-gray-800',
+                      : 'text-gray-700/90 hover:bg-gray-300 dark:text-gray-400 dark:hover:bg-gray-800 disabled:hover:bg-transparent',
                   ].join(' ')}
-                  disabled={item === SELECTED_NAV_ITEM}
+                  disabled={true}
                 >
                   {item}
                 </button>
