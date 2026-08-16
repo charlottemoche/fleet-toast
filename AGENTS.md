@@ -8,6 +8,7 @@ Rules for AI tools working in this repo.
 - Prefer flat, named functions over nested function definitions. If a function needs a helper, pull the helper out as its own named function (or a sibling function in the same scope) rather than defining it inline inside another function — easier to read and reason about independently.
 - Use descriptive names. No shorthand — name things for what they actually do.
 - No unnecessary comments. Only comment non-obvious logic — don't restate what the code already says.
+- Comments must make sense to someone who never saw the old version of the code. Don't write comments directed at the change itself ("now generalized", "previously X, this replaces it", notes to the assistant about what was refactored) — explain what the current code does and why, not its history.
 - Use semantic HTML and make elements accessible wherever possible.
 
 ## Architecture
