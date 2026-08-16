@@ -34,7 +34,7 @@ export const mockDrivers = [
     phone: '555-0102',
     name: 'Priya Natarajan',
     truckId: 'GA-062',
-    shiftStart: shiftStartForRemaining(5),
+    shiftStart: shiftStartForRemaining(0.5),
     lastPing: minutesAgo(2),
     location: { lat: 33.749, lng: -84.388, label: 'I-75 near Atlanta, GA' },
     currentDelivery: {
@@ -92,7 +92,7 @@ export const mockDrivers = [
     },
   },
   {
-    // Set to cross the 20 min critical threshold about a minute after load —
+    // Set to cross the 20 min critical threshold ~30s after load —
     // demonstrates the status is genuinely live, not a static label.
     id: 'd6',
     phone: '555-0106',

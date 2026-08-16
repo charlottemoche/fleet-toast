@@ -2,6 +2,9 @@ import { getTierById } from '../data/statusConfig.js'
 
 export const HOS_LIMIT_MINUTES = 11 * 60
 
+// Floored at zero — a driver can't have negative legal drive time left.
+// format.js has a matching (0, 1) display guard so "0m" isn't shown a
+// full minute before this floor is actually reached.
 export function minutesRemaining(shiftStart, now) {
   const elapsedMinutes = (now - new Date(shiftStart).getTime()) / 60_000
   return Math.max(HOS_LIMIT_MINUTES - elapsedMinutes, 0)
@@ -15,8 +18,15 @@ export function isStale(lastPing, now, staleAfterMinutes) {
   return minutesSincePing(lastPing, now) >= staleAfterMinutes
 }
 
+// Sorts defensively so tier classification doesn't depend on the caller
+// having listed tiers in ascending threshold order — getting that silently
+// wrong (e.g. a tighter tier placed after a looser one) would misclassify
+// drivers with no error.
 export function resolveStatusTier(remainingMinutes, tiers) {
-  return tiers.find((tier) => remainingMinutes <= tier.maxMinutesRemaining)
+  const ascending = [...tiers].sort(
+    (a, b) => a.maxMinutesRemaining - b.maxMinutesRemaining,
+  )
+  return ascending.find((tier) => remainingMinutes <= tier.maxMinutesRemaining)
 }
 
 // Staleness is checked first: an unreachable driver's HOS reading can't be

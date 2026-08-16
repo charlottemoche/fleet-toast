@@ -29,19 +29,24 @@ npm run dev
 
 ## Scripts
 
-| Script                 | Description                                        |
-| ---------------------- | -------------------------------------------------- |
-| `npm run dev`          | Start the dev server                               |
-| `npm run build`        | Build for production                               |
-| `npm run preview`      | Preview the production build                       |
-| `npm run lint`         | Lint with oxlint                                   |
-| `npm run format`       | Format the codebase with Prettier                  |
-| `npm run format:check` | Check formatting without writing                   |
-| `npm run commitlint`   | Check commit messages from `origin/main` to `HEAD` |
-| `npm run verify`       | Run `format:check`, `lint`, and `commitlint`       |
+| Script                 | Description                                          |
+| ---------------------- | ---------------------------------------------------- |
+| `npm run dev`          | Start the dev server                                 |
+| `npm run build`        | Build for production                                 |
+| `npm run preview`      | Preview the production build                         |
+| `npm run lint`         | Lint with oxlint                                     |
+| `npm run format`       | Format the codebase with Prettier                    |
+| `npm run format:check` | Check formatting without writing                     |
+| `npm run test`         | Run the test suite once with Vitest                  |
+| `npm run test:watch`   | Run the test suite in watch mode                     |
+| `npm run commitlint`   | Check commit messages from `origin/main` to `HEAD`   |
+| `npm run verify`       | Run `format:check`, `lint`, `test`, and `commitlint` |
 
-## Commit messages
+## Hooks
 
-This project uses [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `chore:`, etc.). Commit messages are linted automatically on commit via a Husky `commit-msg` hook, and again on push (along with lint/format) via a `pre-push` hook.
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `chore:`, etc.), enforced via [commitlint](https://commitlint.js.org/) + [Husky](https://typicode.github.io/husky/):
 
-If a commit or push is rejected, fix the message/formatting/lint errors and try again — don't bypass the hooks.
+- **`commit-msg`** — lints the commit message on every commit.
+- **`pre-push`** — runs `npm run verify` (format check, lint, the full test suite, and commitlint) before anything is pushed.
+
+If a commit or push is rejected, fix the message/formatting/lint/test failure and try again — don't bypass the hooks.

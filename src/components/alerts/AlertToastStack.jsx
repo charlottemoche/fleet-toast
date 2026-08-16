@@ -9,6 +9,7 @@ export function AlertToastStack({ toasts, now, onDismiss, onSelectDriver }) {
         <AlertToast
           key={toast.id}
           driver={toast.driver}
+          tier={toast.tier}
           now={now}
           onDismiss={() => onDismiss(toast.id)}
           onSelectDriver={onSelectDriver}

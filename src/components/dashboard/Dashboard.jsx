@@ -108,7 +108,7 @@ export function Dashboard({
                   key={section}
                   label={getSectionLabel(section)}
                   collapsible={
-                    isSectionCollapsible(section) || section === activeFilter
+                    isSectionCollapsible(section) && section !== activeFilter
                   }
                   drivers={searchedDriversBySection.get(section)}
                   now={now}

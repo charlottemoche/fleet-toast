@@ -11,8 +11,8 @@ export function DriverSection({
   acknowledgedIds,
 }) {
   const [isExpanded, setIsExpanded] = useState(false)
-  const showRows = collapsible || isExpanded
-  const isToggleable = !collapsible && drivers.length > 0
+  const showRows = !collapsible || isExpanded
+  const isToggleable = collapsible && drivers.length > 0
 
   return (
     <tbody className="divide-y divide-gray-100 dark:divide-gray-800">

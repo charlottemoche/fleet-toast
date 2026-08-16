@@ -58,7 +58,7 @@ export function StatusFilters({
             className={
               isActive
                 ? 'rounded-lg bg-[var(--tier)] px-4 py-2 text-sm font-medium text-white transition-colors'
-                : 'rounded-lg bg-[var(--tier)]/20 px-4 py-2 text-sm font-medium text-gray-900 transition-colors duration-500 hover:bg-[var(--tier)]/40 dark:bg-[var(--tier)]/60 dark:text-gray-300'
+                : 'rounded-lg bg-[var(--tier)]/30 px-4 py-2 text-sm font-medium text-gray-900 transition-colors duration-500 hover:bg-[var(--tier)]/40 dark:bg-[var(--tier)]/60 dark:text-gray-300'
             }
           >
             <span

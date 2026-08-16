@@ -16,6 +16,7 @@ function minutesBeforeNow(minutes) {
 }
 
 const testTiers = [
+  { id: 'violation', maxMinutesRemaining: 0 },
   { id: 'critical', maxMinutesRemaining: 20 },
   { id: 'approaching', maxMinutesRemaining: 120 },
   { id: 'on-track', maxMinutesRemaining: Infinity },
@@ -65,6 +66,17 @@ describe('resolveStatusTier', () => {
     expect(resolveStatusTier(90, testTiers).id).toBe('approaching')
     expect(resolveStatusTier(400, testTiers).id).toBe('on-track')
   })
+
+  it('picks violation over critical once remaining minutes hit zero, even though both thresholds match', () => {
+    expect(resolveStatusTier(0, testTiers).id).toBe('violation')
+  })
+
+  it('resolves correctly regardless of the order tiers are passed in', () => {
+    const shuffled = [...testTiers].reverse()
+    expect(resolveStatusTier(0, shuffled).id).toBe('violation')
+    expect(resolveStatusTier(12, shuffled).id).toBe('critical')
+    expect(resolveStatusTier(400, shuffled).id).toBe('on-track')
+  })
 })
 
 describe('groupDriversBySection', () => {
@@ -103,6 +115,14 @@ describe('groupDriversBySection', () => {
 })
 
 describe('getDriverStatus', () => {
+  it('resolves a driver at exactly zero remaining minutes to violation', () => {
+    const driver = {
+      shiftStart: minutesBeforeNow(HOS_LIMIT_MINUTES + 30),
+      lastPing: minutesBeforeNow(1),
+    }
+    expect(getDriverStatus(driver, NOW, testConfig).tierId).toBe('violation')
+  })
+
   it('resolves a driver with plenty of time left to on-track', () => {
     const driver = {
       shiftStart: minutesBeforeNow(30),
