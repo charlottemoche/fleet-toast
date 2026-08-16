@@ -95,6 +95,7 @@ One urgency-sorted table, broken into labeled sections with live counts. Chosen 
 ## Walkthrough prep
 
 - HOS calc should move server-side in production — client clock isn't trustworthy for a legally safety-critical number.
+- Acknowledge is local component state — two dispatchers viewing the same board wouldn't see each other's acknowledgments. Production needs it persisted server-side and pushed live (WebSocket), same reasoning as HOS.
 - Derive-don't-store, end to end.
 - Live-change surface: new status tier → one object in `statusConfig.js`; new filter → one predicate over the flat driver array.
 - Fleet dispatch ↔ restaurant procurement: both have a hard external deadline (HOS limit ≈ order cutoff), many things where only a few need attention now, and offline/stale data as a real failure mode.
