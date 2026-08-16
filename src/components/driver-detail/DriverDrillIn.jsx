@@ -121,20 +121,19 @@ export function DriverDrillIn({
           >
             Call driver ({driver.phone})
           </a>
-          {driver.status === 'critical' ||
-            (driver.status === 'violation' && (
-              <button
-                type="button"
-                onClick={onToggleAcknowledged}
-                className={
-                  isAcknowledged
-                    ? 'rounded px-3 text-sm font-medium text-emerald-700 dark:text-emerald-400'
-                    : 'rounded bg-[var(--color-action)]/80 px-3 text-sm font-medium text-white transition-colors duration-500 hover:bg-[var(--color-action)]'
-                }
-              >
-                {isAcknowledged ? '✓ Acknowledged' : 'Acknowledge'}
-              </button>
-            ))}
+          {(tierId === 'critical' || tierId === 'violation') && (
+            <button
+              type="button"
+              onClick={onToggleAcknowledged}
+              className={
+                isAcknowledged
+                  ? 'rounded px-3 text-sm font-medium text-emerald-700 dark:text-emerald-400'
+                  : 'rounded bg-[var(--color-action)]/80 px-3 text-sm font-medium text-white transition-colors duration-500 hover:bg-[var(--color-action)]'
+              }
+            >
+              {isAcknowledged ? '✓ Acknowledged' : 'Acknowledge'}
+            </button>
+          )}
         </div>
       </div>
     </dialog>
