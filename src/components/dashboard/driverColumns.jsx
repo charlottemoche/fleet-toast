@@ -89,7 +89,8 @@ export const driverColumns = [
     key: 'acknowledged',
     label: 'Acknowledged',
     headerClassName: 'w-[12%]',
-    cellClassName: 'text-center border-l border-gray-100/80 dark:border-gray-800',
+    cellClassName:
+      'text-center border-l border-gray-100/80 dark:border-gray-800',
     render: ({ isAcknowledged }) =>
       isAcknowledged && (
         <span
