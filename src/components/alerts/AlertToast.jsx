@@ -1,17 +1,26 @@
+import { useState } from 'react'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
 import { Timer } from '../shared/Timer.jsx'
 
+const TOAST_OUT_DURATION_MS = 200
+
 export function AlertToast({ driver, tier, now, onDismiss, onSelectDriver }) {
   const { remainingMinutes } = useDriverStatus(driver, now)
+  const [isExiting, setIsExiting] = useState(false)
+
+  function dismiss() {
+    setIsExiting(true)
+    setTimeout(onDismiss, TOAST_OUT_DURATION_MS)
+  }
 
   function handleOpen() {
     onSelectDriver(driver.id)
-    onDismiss()
+    dismiss()
   }
 
   return (
     <div
-      className="flex w-72 items-start gap-3 rounded-lg border-2 border-[var(--tier)] bg-white p-3 shadow-lg dark:bg-gray-800 dark:text-white"
+      className={`flex w-72 items-start gap-3 rounded-lg border-2 border-[var(--tier)] bg-white p-3 shadow-lg dark:bg-gray-800 dark:text-white ${isExiting ? 'animate-toast-out' : 'animate-toast-in'}`}
       style={{ '--tier': `var(--color-${tier.color})` }}
     >
       <div className="min-w-0 flex-1">
@@ -30,7 +39,7 @@ export function AlertToast({ driver, tier, now, onDismiss, onSelectDriver }) {
       </div>
       <button
         type="button"
-        onClick={onDismiss}
+        onClick={dismiss}
         aria-label="Dismiss"
         className="shrink-0 text-[var(--tier)]"
       >

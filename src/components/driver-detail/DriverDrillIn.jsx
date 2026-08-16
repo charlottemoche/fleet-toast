@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getTierById } from '../../data/statusConfig.js'
 import { useClockTick } from '../../hooks/useClockTick.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
@@ -18,6 +18,7 @@ export function DriverDrillIn({
   onToggleAcknowledged,
 }) {
   const dialogRef = useRef(null)
+  const [isMapLoaded, setIsMapLoaded] = useState(false)
   const now = useClockTick(DRILL_IN_TICK_INTERVAL_MS)
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
   const tier = getTierById(tierId)
@@ -62,11 +63,12 @@ export function DriverDrillIn({
           </button>
         </div>
         {driver.location && (
-          <div className="mt-4 h-60 w-full rounded border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
+          <div className="mt-4 h-60 w-full overflow-hidden rounded border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
             <iframe
               title="Driver location map"
               src={`https://www.google.com/maps?q=${driver.location.lat},${driver.location.lng}&z=15&output=embed`}
-              className="h-full w-full rounded"
+              onLoad={() => setIsMapLoaded(true)}
+              className={`h-full w-full rounded transition-opacity duration-500 ${isMapLoaded ? 'opacity-100' : 'opacity-0'}`}
             />
           </div>
         )}
