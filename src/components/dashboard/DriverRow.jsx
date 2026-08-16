@@ -11,7 +11,7 @@ export function DriverRow({ driver, now, onSelectDriver, isAcknowledged }) {
   return (
     <tr
       onClick={() => onSelectDriver(driver.id)}
-      className={`${tier.rowClassName} cursor-pointer transition-colors duration-300 hover:bg-gray-100 dark:hover:bg-gray-800/60`}
+      className={`cursor-pointer bg-gray-50/60 transition-colors duration-300 hover:bg-gray-100 dark:bg-gray-800/50 dark:hover:bg-gray-800/60 ${tierId === 'offline' ? 'text-gray-400' : ''}`}
     >
       <td className="overflow-hidden p-3">
         <button

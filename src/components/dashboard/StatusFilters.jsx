@@ -1,6 +1,5 @@
 import {
-  getSectionActiveClassName,
-  getSectionBadgeClassName,
+  getSectionColor,
   getSectionLabel,
   sectionOrder,
 } from '../../data/statusConfig.js'
@@ -10,8 +9,6 @@ const ALL_ACTIVE_CLASS =
 const ALL_INACTIVE_CLASS =
   'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
 
-// sectionOrder is urgency-sorted, so the first section is the one that
-// deserves an assertive screen-reader announcement when its count changes.
 const mostUrgentSection = sectionOrder[0]
 
 function countAllDrivers(driversBySection) {
@@ -49,9 +46,7 @@ export function StatusFilters({
       </button>
       {sectionOrder.map((section) => {
         const isActive = activeFilter === section
-        const className = isActive
-          ? getSectionActiveClassName(section)
-          : getSectionBadgeClassName(section)
+        const color = getSectionColor(section)
 
         return (
           <button
@@ -59,7 +54,12 @@ export function StatusFilters({
             type="button"
             onClick={() => toggleFilter(section)}
             aria-pressed={isActive}
-            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${className}`}
+            style={{ '--tier': `var(--color-${color})` }}
+            className={
+              isActive
+                ? 'rounded-lg bg-[var(--tier)] px-4 py-2 text-sm font-medium text-white transition-colors'
+                : 'rounded-lg bg-[var(--tier)]/20 px-4 py-2 text-sm font-medium text-gray-700 transition-colors duration-500 hover:bg-[var(--tier)]/40 dark:bg-[var(--tier)]/60 dark:text-gray-300'
+            }
           >
             <span
               className="text-base font-semibold"

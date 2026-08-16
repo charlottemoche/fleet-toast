@@ -41,8 +41,8 @@ export function Dashboard({
                   className={[
                     'w-full rounded p-4 text-left transition-colors duration-500 hover:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-800',
                     item === SELECTED_NAV_ITEM
-                      ? 'font-bold'
-                      : 'text-gray-500 dark:text-gray-400',
+                      ? 'font-semibold'
+                      : 'text-gray-600/90 dark:text-gray-400',
                   ].join(' ')}
                 >
                   {item}
@@ -64,13 +64,17 @@ export function Dashboard({
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex shrink-0 gap-4 text-sm">
                 <div className="rounded border border-gray-200 px-3 py-1 dark:border-gray-800">
-                  <div className="text-xs text-gray-500">Trucks available</div>
+                  <div className="text-xs text-gray-600/90">
+                    Trucks available
+                  </div>
                   <div className="text-lg font-semibold">
                     {TRUCKS_AVAILABLE}
                   </div>
                 </div>
                 <div className="rounded border border-gray-200 px-3 py-1 dark:border-gray-800">
-                  <div className="text-xs text-gray-500">Deliveries today</div>
+                  <div className="text-xs text-gray-600/90">
+                    Deliveries today
+                  </div>
                   <div className="text-lg font-semibold">
                     {DELIVERIES_TODAY}
                   </div>

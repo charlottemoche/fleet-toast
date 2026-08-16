@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-@theme {
+@theme static {
   --color-gray-50: #f8f8f5;
   --color-gray-100: #efefec;
   --color-gray-200: #e2e2de;
@@ -12,12 +12,14 @@
   --color-gray-800: #2e2e2c;
   --color-gray-900: #1a1a1a;
   --color-gray-950: #121212;
+
+  --color-success: #4f7942;
+  --color-error: #c62828;
+  --color-warning: #d99600;
+  --color-info: #4d4d4a;
 }
 
 :root {
-  --gray: var(--color-gray-50);
-  --gray-darker: var(--color-gray-950);
-
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
@@ -71,4 +73,8 @@ body {
 
 button:not(:disabled) {
   cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 2px solid grey;
 }
