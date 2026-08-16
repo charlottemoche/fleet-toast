@@ -35,7 +35,7 @@ export function StatusFilters({
         type="button"
         onClick={() => onFilterChange(null)}
         aria-pressed={activeFilter === null}
-        className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+        className={`h-9 rounded-lg px-4 text-sm font-medium transition-colors ${
           activeFilter === null ? ALL_ACTIVE_CLASS : ALL_INACTIVE_CLASS
         }`}
       >
@@ -57,8 +57,8 @@ export function StatusFilters({
             style={{ '--tier': `var(--color-${color})` }}
             className={
               isActive
-                ? 'rounded-lg bg-[var(--tier)] px-4 py-2 text-sm font-medium text-white transition-colors'
-                : 'rounded-lg bg-[var(--tier)]/30 px-4 py-2 text-sm font-medium text-gray-900 transition-colors duration-500 hover:bg-[var(--tier)]/40 dark:bg-[var(--tier)]/60 dark:text-gray-300'
+                ? 'h-9 rounded-lg bg-[var(--tier)] px-4 text-sm font-medium text-white transition-colors'
+                : 'h-9 rounded-lg bg-[var(--tier)]/30 px-4 text-sm font-medium text-gray-900 transition-colors duration-500 hover:bg-[var(--tier)]/50 dark:bg-[var(--tier)]/60 dark:text-gray-300'
             }
           >
             <span

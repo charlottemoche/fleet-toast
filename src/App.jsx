@@ -37,20 +37,18 @@ export default function App() {
 
   return (
     <main className="relative mx-auto flex h-screen flex-col bg-gray-100/20 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
-      <nav className="sticky top-0 z-10 bg-gray-100 p-3 shadow dark:bg-gray-950">
-        <div>
-          <ul className="m-0 flex w-full flex-1 list-none items-center justify-between gap-2 p-0">
-            <li>
-              <a href="/">
-                <img
-                  src="/charlotte-truck.png"
-                  alt="Logo"
-                  className="h-10 w-10 dark:invert"
-                />
-              </a>
-            </li>
-          </ul>
-        </div>
+      <nav className="sticky top-0 z-10 bg-gray-100 p-2 shadow dark:bg-gray-950">
+        <ul className="m-0 flex w-full flex-1 list-none items-center justify-between gap-2 p-0">
+          <li>
+            <a href="/">
+              <img
+                src="/charlotte-truck.png"
+                alt="Logo"
+                className="ml-1 h-9 w-9 dark:invert"
+              />
+            </a>
+          </li>
+        </ul>
       </nav>
       <div className="mx-auto min-h-0 w-full flex-1">
         <Dashboard
