@@ -54,11 +54,11 @@ Flat array of driver objects.
 
 ## Alert tiers
 
-- **Violation** — at the HOS limit (0 min). Always expanded.
-- **Critical** — <20 min. Always expanded.
-- **Approaching** — <2hr. Always expanded.
-- **On track** — collapsed to a count.
-- **Offline/stale** — no ping in N min, greyed out. Collapsed to a count.
+- **Violation** — at the HOS limit (0 min).
+- **Critical** — <20 min.
+- **Approaching** — <2hr.
+- **On track**
+- **Offline/stale** — no ping in N min, greyed out.
 
 No pagination. Virtualization not needed at demo scale.
 

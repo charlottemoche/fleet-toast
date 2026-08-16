@@ -4,7 +4,7 @@ Take-home for the Design Engineer role. The dashboard a fleet dispatcher lives i
 
 ## What's here
 
-- Status table, sorted by urgency, grouped into Critical/Approaching/On track/Offline. Critical and Approaching stay expanded; the other two collapse.
+- Status table, sorted by urgency, grouped into Violation/Critical/Approaching/On track/Offline.
 - A real alert: a toast fires when a driver crosses into critical (not on page load, not on every tick), and opens the same drill-in a row click does.
 - Drill-in dialog with driver details, a working `tel:` call action, and an acknowledge toggle.
 - Offline detection: a stale ping overrides the HOS math, independent of however much drive time the math would otherwise show.
