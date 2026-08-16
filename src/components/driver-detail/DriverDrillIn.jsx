@@ -72,28 +72,28 @@ export function DriverDrillIn({
             />
           </div>
         )}
-        <dl className="mt-4 grid grid-cols-2 gap-y-3 text-sm">
+        <dl className="mt-4 grid grid-cols-3 gap-y-3 text-sm">
           <dt className="text-gray-500">Truck</dt>
-          <dd>{driver.truckId}</dd>
+          <dd className="col-span-2">{driver.truckId}</dd>
 
           <dt className="text-gray-500">Status</dt>
-          <dd>
+          <dd className="col-span-2">
             <StatusBadge tier={tier} />
           </dd>
 
           <dt className="text-gray-500">Last ping</dt>
-          <dd>{formatMinutesAgo(minutesSincePing(driver.lastPing, now))}</dd>
+          <dd className="col-span-2">{formatMinutesAgo(minutesSincePing(driver.lastPing, now))}</dd>
 
           <dt className="text-gray-500">HOS remaining</dt>
-          <dd>
+          <dd className="col-span-2">
             <Timer remainingMinutes={remainingMinutes} />
           </dd>
 
           <dt className="text-gray-500">Location</dt>
-          <dd>{driver.location.label}</dd>
+          <dd className="col-span-2">{driver.location.label}</dd>
 
           <dt className="text-gray-500">Delivery</dt>
-          <dd>
+          <dd className="col-span-2">
             {driver.currentDelivery
               ? `${driver.currentDelivery.id} — ETA ${formatEta(driver.currentDelivery.eta)}`
               : 'No active delivery'}
@@ -102,7 +102,7 @@ export function DriverDrillIn({
           {driver.currentDelivery && (
             <>
               <dt className="text-gray-500">Cargo</dt>
-              <dd>
+              <dd className="col-span-2">
                 {driver.currentDelivery.loads}{' '}
                 {driver.currentDelivery.loads === 1 ? 'load' : 'loads'} ·{' '}
                 {driver.currentDelivery.isPerishable
