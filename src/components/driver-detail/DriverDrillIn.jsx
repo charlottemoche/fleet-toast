@@ -66,6 +66,15 @@ export function DriverDrillIn({
             &times;
           </button>
         </div>
+        {driver.location && (
+          <div className="mt-4 h-60 w-full rounded border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
+            <iframe
+              title="Driver location map"
+              src={`https://www.google.com/maps?q=${driver.location.lat},${driver.location.lng}&z=15&output=embed`}
+              className="h-full w-full rounded"
+            />
+          </div>
+        )}
         <dl className="mt-4 grid grid-cols-2 gap-y-3 text-sm">
           <dt className="text-gray-500">Truck</dt>
           <dd>{driver.truckId}</dd>
