@@ -3,14 +3,12 @@ import { Dashboard } from './components/dashboard/Dashboard.jsx'
 import { AlertToastStack } from './components/alerts/AlertToastStack.jsx'
 import { DriverDrillIn } from './components/driver-detail/DriverDrillIn.jsx'
 import { mockDrivers } from './data/mockDrivers.js'
-import { getTierById, sectionOrder, statusConfig } from './data/statusConfig.js'
+import { sectionOrder, statusConfig } from './data/statusConfig.js'
 import { useClockTick } from './hooks/useClockTick.js'
 import { useTierAlerts } from './hooks/useTierAlerts.js'
 import { groupDriversBySection } from './utils/hos.js'
 
 const TICK_INTERVAL_MS = 5_000
-const CRITICAL_TIER = getTierById('critical')
-const VIOLATION_TIER = getTierById('violation')
 
 export default function App() {
   const now = useClockTick(TICK_INTERVAL_MS)
@@ -20,20 +18,7 @@ export default function App() {
     () => groupDriversBySection(mockDrivers, now, statusConfig, sectionOrder),
     [now],
   )
-  const criticalAlerts = useTierAlerts(
-    driversBySection.get('critical'),
-    CRITICAL_TIER,
-  )
-  const violationAlerts = useTierAlerts(
-    driversBySection.get('violation'),
-    VIOLATION_TIER,
-  )
-  const toasts = [...violationAlerts.toasts, ...criticalAlerts.toasts]
-
-  function dismissToast(toastId) {
-    criticalAlerts.dismissToast(toastId)
-    violationAlerts.dismissToast(toastId)
-  }
+  const { toasts, dismissToast } = useTierAlerts(driversBySection)
   const selectedDriver = mockDrivers.find(
     (driver) => driver.id === selectedDriverId,
   )

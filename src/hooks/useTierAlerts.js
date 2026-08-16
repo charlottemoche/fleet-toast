@@ -1,35 +1,40 @@
 import { useEffect, useRef, useState } from 'react'
+import { getTierById } from '../data/statusConfig.js'
 
-// Fires a toast only on the transition into this tier, not for drivers who
-// are already in it when this first runs — that's existing state, not an
-// event. previousIdsRef stays null until the effect has run once, which is
-// what distinguishes "page just loaded" from a real transition.
-export function useTierAlerts(drivers, tier) {
-  const previousIdsRef = useRef(null)
+// A tier is "alertable" if it has an alertMessage (statusConfig.js).
+// previousTierByIdRef stays null until the effect first runs, which
+// distinguishes page load from a real transition.
+export function useTierAlerts(driversBySection) {
+  const previousTierByIdRef = useRef(null)
   const [toasts, setToasts] = useState([])
 
   useEffect(() => {
-    const currentIds = new Set(drivers.map((driver) => driver.id))
-
-    if (previousIdsRef.current !== null) {
-      const newlyEntered = drivers.filter(
-        (driver) => !previousIdsRef.current.has(driver.id),
-      )
-
-      if (newlyEntered.length > 0) {
-        setToasts((current) => [
-          ...current,
-          ...newlyEntered.map((driver) => ({
-            id: `${driver.id}-${Date.now()}`,
-            driver,
-            tier,
-          })),
-        ])
+    const currentTierById = new Map()
+    for (const [tierId, drivers] of driversBySection) {
+      for (const driver of drivers) {
+        currentTierById.set(driver.id, { driver, tierId })
       }
     }
 
-    previousIdsRef.current = currentIds
-  }, [drivers, tier])
+    if (previousTierByIdRef.current !== null) {
+      const newAlerts = []
+      for (const [driverId, { driver, tierId }] of currentTierById) {
+        const tier = getTierById(tierId)
+        if (!tier.alertMessage) continue
+
+        const previousTierId = previousTierByIdRef.current.get(driverId)?.tierId
+        if (previousTierId !== tierId) {
+          newAlerts.push({ id: `${driverId}-${Date.now()}`, driver, tier })
+        }
+      }
+
+      if (newAlerts.length > 0) {
+        setToasts((current) => [...current, ...newAlerts])
+      }
+    }
+
+    previousTierByIdRef.current = currentTierById
+  }, [driversBySection])
 
   function dismissToast(toastId) {
     setToasts((current) => current.filter((toast) => toast.id !== toastId))
