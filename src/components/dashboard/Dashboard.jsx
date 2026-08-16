@@ -1,22 +1,26 @@
 import { useState } from 'react'
 import {
   getSectionLabel,
-  isSectionAlwaysExpanded,
+  isSectionCollapsible,
   sectionOrder,
 } from '../../data/statusConfig.js'
+import { driverColumns } from './driverColumns.jsx'
 import { StatusFilters } from './StatusFilters.jsx'
 import { DriverSection } from './DriverSection.jsx'
-
-// Illustrative only — the exercise's fleet (50 trucks, 1,000+ deliveries/day)
-// is far larger than this app's 14-driver sample, so these aren't derived
-// from mockDrivers.js. They exist to show where fleet-wide throughput would
-// live in the UI, not to model it.
-const TRUCKS_AVAILABLE = '47 / 50'
-const DELIVERIES_TODAY = '812'
+import { Stats } from './Stats.jsx'
 
 // Illustrative only — side panel nav items
-const NAV_ITEMS = ['Dashboard', 'Traffic', 'Incidents', 'Map view']
+const NAV_ITEMS = ['Dashboard', 'Map view', 'Traffic', 'Incidents']
 const SELECTED_NAV_ITEM = NAV_ITEMS[0]
+
+function matchesSearch(driver, searchTerm) {
+  const term = searchTerm.trim().toLowerCase()
+  if (!term) return true
+  return (
+    driver.name.toLowerCase().includes(term) ||
+    driver.truckId.toLowerCase().includes(term)
+  )
+}
 
 export function Dashboard({
   now,
@@ -25,21 +29,34 @@ export function Dashboard({
   acknowledgedIds,
 }) {
   const [activeFilter, setActiveFilter] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('')
 
   const visibleSections = activeFilter
     ? sectionOrder.filter((section) => section === activeFilter)
     : sectionOrder
 
+  const searchedDriversBySection = new Map(
+    sectionOrder.map((section) => [
+      section,
+      driversBySection
+        .get(section)
+        .filter((driver) => matchesSearch(driver, searchTerm)),
+    ]),
+  )
+
   return (
     <div className="mx-auto flex h-full min-h-0 flex-col">
-      <div className="flex h-full min-h-0 flex-1 gap-4 overflow-hidden">
-        <aside className="sticky top-0 flex hidden w-1/6 flex-col gap-2 self-start pr-4 lg:block">
+      <div className="flex h-full min-h-0 flex-1 gap-4 overflow-hidden lg:gap-6">
+        <aside className="sticky top-0 flex hidden w-1/5 flex-col gap-2 self-start lg:block 2xl:w-1/6">
           <ul className="flex flex-col divide-y divide-gray-200 dark:divide-gray-800">
+            <li className="p-3">
+              <Stats />
+            </li>
             {NAV_ITEMS.map((item) => (
               <li key={item}>
                 <button
                   className={[
-                    'w-full rounded p-4 text-left transition-colors duration-500 hover:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-800',
+                    'w-full rounded p-4 text-left transition-colors duration-300 hover:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-800',
                     item === SELECTED_NAV_ITEM
                       ? 'font-semibold'
                       : 'text-gray-600/90 dark:text-gray-400',
@@ -55,69 +72,45 @@ export function Dashboard({
           <h1 className="mb-2 shrink-0 text-xl font-semibold">
             {SELECTED_NAV_ITEM}
           </h1>
-          <div className="flex shrink-0 flex-col-reverse gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex shrink-0 flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <StatusFilters
               driversBySection={driversBySection}
               activeFilter={activeFilter}
               onFilterChange={setActiveFilter}
             />
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex shrink-0 gap-4 text-sm">
-                <div className="rounded border border-gray-200 px-3 py-1 dark:border-gray-800">
-                  <div className="text-xs text-gray-600/90">
-                    Trucks available
-                  </div>
-                  <div className="text-lg font-semibold">
-                    {TRUCKS_AVAILABLE}
-                  </div>
-                </div>
-                <div className="rounded border border-gray-200 px-3 py-1 dark:border-gray-800">
-                  <div className="text-xs text-gray-600/90">
-                    Deliveries today
-                  </div>
-                  <div className="text-lg font-semibold">
-                    {DELIVERIES_TODAY}
-                  </div>
-                </div>
-              </div>
+            <div>
+              <input
+                className="min-w-60 rounded-md border border-gray-300 px-3 py-2 dark:border-gray-800"
+                placeholder="Search drivers..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
           </div>
           <div className="relative mt-4 max-h-fit min-h-0 flex-1 overflow-auto rounded border border-gray-200 dark:border-gray-800">
-            <table className="w-full min-w-[760px] table-fixed bg-white text-left text-sm dark:bg-gray-950 dark:text-gray-100">
+            <table className="w-full min-w-[880px] bg-white text-left text-sm dark:bg-gray-950 dark:text-gray-100">
               <thead className="sticky top-0 bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
                 <tr className="border-b border-gray-200 dark:border-gray-800">
-                  <th scope="col" className="w-[16%] p-3">
-                    Driver
-                  </th>
-                  <th scope="col" className="w-[18%] p-3 lg:w-[16%]">
-                    Status
-                  </th>
-                  <th
-                    scope="col"
-                    className="w-[14%] truncate p-3"
-                    title="Time remaining"
-                  >
-                    Time remaining
-                  </th>
-                  <th scope="col" className="w-[14%] p-3">
-                    Delivery
-                  </th>
-                  <th scope="col" className="w-[20%] p-3">
-                    Location
-                  </th>
-                  <th scope="col" className="w-[12%] p-3">
-                    Acknowledged
-                  </th>
+                  {driverColumns.map((column) => (
+                    <th
+                      key={column.key}
+                      scope="col"
+                      title={column.label}
+                      className={`p-3 ${column.headerClassName}`}
+                    >
+                      {column.label}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               {visibleSections.map((section) => (
                 <DriverSection
                   key={section}
                   label={getSectionLabel(section)}
-                  alwaysExpanded={
-                    isSectionAlwaysExpanded(section) || section === activeFilter
+                  collapsible={
+                    isSectionCollapsible(section) || section === activeFilter
                   }
-                  drivers={driversBySection.get(section)}
+                  drivers={searchedDriversBySection.get(section)}
                   now={now}
                   onSelectDriver={onSelectDriver}
                   acknowledgedIds={acknowledgedIds}

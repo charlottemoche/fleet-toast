@@ -1,24 +1,27 @@
 import { useState } from 'react'
+import { driverColumns } from './driverColumns.jsx'
 import { DriverRow } from './DriverRow.jsx'
-
-const COLUMN_COUNT = 6 // driver, status, time remaining, delivery, location, acknowledged — matches DriverRow
 
 export function DriverSection({
   label,
-  alwaysExpanded,
+  collapsible,
   drivers,
   now,
   onSelectDriver,
   acknowledgedIds,
 }) {
   const [isExpanded, setIsExpanded] = useState(false)
-  const showRows = alwaysExpanded || isExpanded
-  const isToggleable = !alwaysExpanded && drivers.length > 0
+  const showRows = collapsible || isExpanded
+  const isToggleable = !collapsible && drivers.length > 0
 
   return (
     <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
       <tr className="bg-gray-100/60 dark:bg-gray-900">
-        <th scope="rowgroup" colSpan={COLUMN_COUNT} className="p-0 text-left">
+        <th
+          scope="rowgroup"
+          colSpan={driverColumns.length}
+          className="p-0 text-left"
+        >
           {isToggleable ? (
             <button
               type="button"

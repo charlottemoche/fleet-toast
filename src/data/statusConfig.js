@@ -4,7 +4,7 @@ export const statusTiers = [
     label: 'Critical',
     maxMinutesRemaining: 20,
     section: 'critical',
-    alwaysExpanded: true,
+    collapsible: true,
     color: 'error',
   },
   {
@@ -12,7 +12,7 @@ export const statusTiers = [
     label: 'Approaching',
     maxMinutesRemaining: 120,
     section: 'approaching',
-    alwaysExpanded: true,
+    collapsible: true,
     color: 'warning',
   },
   {
@@ -20,7 +20,7 @@ export const statusTiers = [
     label: 'On track',
     maxMinutesRemaining: Infinity,
     section: 'on-track',
-    alwaysExpanded: false,
+    collapsible: false,
     color: 'success',
   },
 ]
@@ -29,7 +29,7 @@ export const offlineTier = {
   id: 'offline',
   label: 'Offline',
   section: 'offline',
-  alwaysExpanded: false,
+  collapsible: false,
   color: 'info',
 }
 
@@ -49,10 +49,8 @@ export function getSectionLabel(sectionId) {
   return allTiers.find((tier) => tier.section === sectionId)?.label
 }
 
-export function isSectionAlwaysExpanded(sectionId) {
-  return allTiers.some(
-    (tier) => tier.section === sectionId && tier.alwaysExpanded,
-  )
+export function isSectionCollapsible(sectionId) {
+  return allTiers.some((tier) => tier.section === sectionId && tier.collapsible)
 }
 
 export function getSectionColor(sectionId) {

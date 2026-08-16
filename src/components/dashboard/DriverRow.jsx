@@ -1,69 +1,33 @@
 import { getTierById } from '../../data/statusConfig.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
-import { formatEta, formatMinutesRemainingLong } from '../../utils/format.js'
-import { StatusBadge } from '../status/StatusBadge.jsx'
-import { Timer } from '../shared/Timer.jsx'
+import { driverColumns } from './driverColumns.jsx'
 
 export function DriverRow({ driver, now, onSelectDriver, isAcknowledged }) {
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
   const tier = getTierById(tierId)
+  const context = {
+    driver,
+    now,
+    onSelectDriver,
+    isAcknowledged,
+    tier,
+    remainingMinutes,
+  }
 
   return (
     <tr
       onClick={() => onSelectDriver(driver.id)}
-      className={`cursor-pointer bg-gray-50/60 transition-colors duration-300 hover:bg-gray-100 dark:bg-gray-800/50 dark:hover:bg-gray-800/60 ${tierId === 'offline' ? 'text-gray-400' : ''}`}
+      className={`cursor-pointer bg-gray-50/10 transition-colors duration-300 hover:bg-gray-100 dark:bg-gray-800/50 dark:hover:bg-gray-800/60 ${tierId === 'offline' ? 'text-gray-400' : ''}`}
     >
-      <td className="overflow-hidden p-3">
-        <button
-          type="button"
-          onClick={() => onSelectDriver(driver.id)}
-          title={driver.name}
-          className="block w-full truncate text-left font-medium underline-offset-2"
+      {driverColumns.map((column) => (
+        <td
+          key={column.key}
+          title={column.title?.(context)}
+          className={`overflow-hidden p-3 ${column.cellClassName ?? ''}`}
         >
-          {driver.name}
-        </button>
-        <div className="truncate text-sm text-gray-500">{driver.truckId}</div>
-      </td>
-      <td className="overflow-hidden p-3">
-        <StatusBadge tier={tier} />
-      </td>
-      <td
-        title={formatMinutesRemainingLong(remainingMinutes)}
-        className="truncate overflow-hidden p-3"
-      >
-        <Timer remainingMinutes={remainingMinutes} />
-      </td>
-      <td className="overflow-hidden p-3">
-        {driver.currentDelivery ? (
-          <>
-            <div title={driver.currentDelivery.id} className="truncate">
-              {driver.currentDelivery.id}
-            </div>
-            <div className="text-sm text-gray-500">
-              ETA {formatEta(driver.currentDelivery.eta)}
-            </div>
-          </>
-        ) : (
-          <span className="text-gray-500">No active delivery</span>
-        )}
-      </td>
-      <td
-        title={driver.location.label}
-        className="truncate overflow-hidden p-3"
-      >
-        {driver.location.label}
-      </td>
-      <td className="overflow-hidden p-3 text-center">
-        {isAcknowledged && (
-          <span
-            title="Acknowledged"
-            aria-label="Acknowledged"
-            className="text-lg text-emerald-600 dark:text-emerald-400"
-          >
-            ✓
-          </span>
-        )}
-      </td>
+          {column.render(context)}
+        </td>
+      ))}
     </tr>
   )
 }

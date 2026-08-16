@@ -22,7 +22,12 @@ export const mockDrivers = [
     shiftStart: shiftStartForRemaining(12),
     lastPing: minutesAgo(1),
     location: { lat: 32.7767, lng: -96.797, label: 'I-35 near Dallas, TX' },
-    currentDelivery: { id: 'ord-4821', eta: minutesFromNow(18) },
+    currentDelivery: {
+      id: 'ord-4821',
+      eta: minutesFromNow(18),
+      loads: 2,
+      isPerishable: false,
+    },
   },
   {
     id: 'd2',
@@ -32,7 +37,12 @@ export const mockDrivers = [
     shiftStart: shiftStartForRemaining(5),
     lastPing: minutesAgo(2),
     location: { lat: 33.749, lng: -84.388, label: 'I-75 near Atlanta, GA' },
-    currentDelivery: { id: 'ord-4830', eta: minutesFromNow(9) },
+    currentDelivery: {
+      id: 'ord-4830',
+      eta: minutesFromNow(9),
+      loads: 1,
+      isPerishable: true,
+    },
   },
   {
     id: 'd3',
@@ -42,7 +52,12 @@ export const mockDrivers = [
     shiftStart: shiftStartForRemaining(18),
     lastPing: minutesAgo(1),
     location: { lat: 39.9612, lng: -82.9988, label: 'I-70 near Columbus, OH' },
-    currentDelivery: { id: 'ord-4844', eta: minutesFromNow(30) },
+    currentDelivery: {
+      id: 'ord-4844',
+      eta: minutesFromNow(30),
+      loads: 1,
+      isPerishable: false,
+    },
   },
 
   // Approaching — under 2hr remaining
@@ -54,7 +69,12 @@ export const mockDrivers = [
     shiftStart: shiftStartForRemaining(90),
     lastPing: minutesAgo(1),
     location: { lat: 33.4484, lng: -112.074, label: 'I-10 near Phoenix, AZ' },
-    currentDelivery: { id: 'ord-4852', eta: minutesFromNow(40) },
+    currentDelivery: {
+      id: 'ord-4852',
+      eta: minutesFromNow(40),
+      loads: 3,
+      isPerishable: true,
+    },
   },
   {
     id: 'd5',
@@ -64,7 +84,12 @@ export const mockDrivers = [
     shiftStart: shiftStartForRemaining(110),
     lastPing: minutesAgo(3),
     location: { lat: 41.8781, lng: -87.6298, label: 'I-90 near Chicago, IL' },
-    currentDelivery: { id: 'ord-4860', eta: minutesFromNow(55) },
+    currentDelivery: {
+      id: 'ord-4860',
+      eta: minutesFromNow(55),
+      loads: 2,
+      isPerishable: false,
+    },
   },
   {
     // Set to cross the 20 min critical threshold about a minute after load —
@@ -80,7 +105,12 @@ export const mockDrivers = [
       lng: -80.8431,
       label: 'I-85 near Charlotte, NC',
     },
-    currentDelivery: { id: 'ord-4871', eta: minutesFromNow(15) },
+    currentDelivery: {
+      id: 'ord-4871',
+      eta: minutesFromNow(15),
+      loads: 1,
+      isPerishable: true,
+    },
   },
 
   // On track
@@ -92,7 +122,12 @@ export const mockDrivers = [
     shiftStart: shiftStartForRemaining(600),
     lastPing: minutesAgo(1),
     location: { lat: 39.7392, lng: -104.9903, label: 'I-25 near Denver, CO' },
-    currentDelivery: { id: 'ord-4880', eta: minutesFromNow(70) },
+    currentDelivery: {
+      id: 'ord-4880',
+      eta: minutesFromNow(70),
+      loads: 2,
+      isPerishable: false,
+    },
   },
   {
     id: 'd8',
@@ -102,7 +137,12 @@ export const mockDrivers = [
     shiftStart: shiftStartForRemaining(540),
     lastPing: minutesAgo(2),
     location: { lat: 47.6062, lng: -122.3321, label: 'I-5 near Seattle, WA' },
-    currentDelivery: { id: 'ord-4891', eta: minutesFromNow(95) },
+    currentDelivery: {
+      id: 'ord-4891',
+      eta: minutesFromNow(95),
+      loads: 1,
+      isPerishable: false,
+    },
   },
   {
     id: 'd9',
@@ -131,7 +171,12 @@ export const mockDrivers = [
       lng: -93.265,
       label: 'I-94 near Minneapolis, MN',
     },
-    currentDelivery: { id: 'ord-4902', eta: minutesFromNow(120) },
+    currentDelivery: {
+      id: 'ord-4902',
+      eta: minutesFromNow(120),
+      loads: 3,
+      isPerishable: true,
+    },
   },
   {
     id: 'd11',
@@ -141,7 +186,12 @@ export const mockDrivers = [
     shiftStart: shiftStartForRemaining(615),
     lastPing: minutesAgo(1),
     location: { lat: 36.1627, lng: -86.7816, label: 'I-40 near Nashville, TN' },
-    currentDelivery: { id: 'ord-4915', eta: minutesFromNow(50) },
+    currentDelivery: {
+      id: 'ord-4915',
+      eta: minutesFromNow(50),
+      loads: 2,
+      isPerishable: false,
+    },
   },
 
   // Offline / stale — no ping in over 10 min. Offline overrides HOS status
@@ -158,7 +208,12 @@ export const mockDrivers = [
       lng: -79.9959,
       label: 'I-76 near Pittsburgh, PA',
     },
-    currentDelivery: { id: 'ord-4923', eta: minutesFromNow(60) },
+    currentDelivery: {
+      id: 'ord-4923',
+      eta: minutesFromNow(60),
+      loads: 1,
+      isPerishable: true,
+    },
   },
   {
     id: 'd13',
@@ -172,7 +227,12 @@ export const mockDrivers = [
       lng: -122.6784,
       label: 'I-5 near Portland, OR',
     },
-    currentDelivery: { id: 'ord-4931', eta: minutesFromNow(20) },
+    currentDelivery: {
+      id: 'ord-4931',
+      eta: minutesFromNow(20),
+      loads: 2,
+      isPerishable: false,
+    },
   },
   {
     id: 'd14',
@@ -182,6 +242,11 @@ export const mockDrivers = [
     shiftStart: shiftStartForRemaining(300),
     lastPing: minutesAgo(15),
     location: { lat: 38.627, lng: -90.1994, label: 'I-70 near St. Louis, MO' },
-    currentDelivery: { id: 'ord-4948', eta: minutesFromNow(75) },
+    currentDelivery: {
+      id: 'ord-4948',
+      eta: minutesFromNow(75),
+      loads: 1,
+      isPerishable: false,
+    },
   },
 ]

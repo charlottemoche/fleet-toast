@@ -92,6 +92,19 @@ export function DriverDrillIn({
               ? `${driver.currentDelivery.id} — ETA ${formatEta(driver.currentDelivery.eta)}`
               : 'No active delivery'}
           </dd>
+
+          {driver.currentDelivery && (
+            <>
+              <dt className="text-gray-500">Cargo</dt>
+              <dd>
+                {driver.currentDelivery.loads}{' '}
+                {driver.currentDelivery.loads === 1 ? 'load' : 'loads'} ·{' '}
+                {driver.currentDelivery.isPerishable
+                  ? 'Perishable'
+                  : 'Non-perishable'}
+              </dd>
+            </>
+          )}
         </dl>
         <div className="mt-4 flex gap-2 lg:mt-6">
           <a
@@ -105,8 +118,8 @@ export function DriverDrillIn({
             onClick={onToggleAcknowledged}
             className={
               isAcknowledged
-                ? 'rounded border border-emerald-600 px-3 text-sm font-medium text-emerald-700 dark:text-emerald-400'
-                : 'rounded border border-gray-300 px-3 text-sm font-medium text-gray-700 transition-colors duration-500 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800'
+                ? 'rounded px-3 text-sm font-medium text-emerald-700 dark:text-emerald-400'
+                : 'rounded bg-[var(--color-action)]/80 px-3 text-sm font-medium text-white transition-colors duration-500 hover:bg-[var(--color-action)]'
             }
           >
             {isAcknowledged ? '✓ Acknowledged' : 'Acknowledge'}
