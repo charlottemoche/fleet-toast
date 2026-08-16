@@ -6,10 +6,8 @@ function splitHoursAndMinutes(minutes) {
   }
 }
 
-// Flooring `minutes` straight to whole minutes would make anything under a
-// minute but still (legally) above zero read identically to a driver who
-// has genuinely hit the limit — "0m" either way. Carving out the open
-// interval keeps "0m" meaning what it says: the driver is really at zero.
+// (0, 1) is carved out so "0m" always means the real HOS floor, not just
+// "under a minute, rounded down.
 export function formatMinutesRemaining(minutes) {
   if (minutes > 0 && minutes < 1) return 'Less than 1m'
   const { hours, remainderMinutes } = splitHoursAndMinutes(minutes)

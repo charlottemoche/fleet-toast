@@ -22,11 +22,6 @@ export function DriverDrillIn({
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
   const tier = getTierById(tierId)
 
-  // Mount-only: this component only exists while a driver is selected, so
-  // mounting is opening. Runs once — never re-fires when onClose changes.
-  // Backdrop-click-to-close is wired here too (imperatively, not as a JSX
-  // onClick) since <dialog> has the ARIA "window" role, not a widget role —
-  // it isn't an interactive element, so this shouldn't be a JSX click prop.
   useEffect(() => {
     const dialog = dialogRef.current
 

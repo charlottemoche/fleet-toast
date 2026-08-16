@@ -18,10 +18,8 @@ export function isStale(lastPing, now, staleAfterMinutes) {
   return minutesSincePing(lastPing, now) >= staleAfterMinutes
 }
 
-// Sorts defensively so tier classification doesn't depend on the caller
-// having listed tiers in ascending threshold order — getting that silently
-// wrong (e.g. a tighter tier placed after a looser one) would misclassify
-// drivers with no error.
+// Sorts defensively so classification doesn't depend on tiers being
+// listed in ascending threshold order.
 export function resolveStatusTier(remainingMinutes, tiers) {
   const ascending = [...tiers].sort(
     (a, b) => a.maxMinutesRemaining - b.maxMinutesRemaining,
@@ -42,10 +40,8 @@ export function getDriverStatus(driver, now, config) {
   return { tierId: tier.id, remainingMinutes }
 }
 
-// Runs getDriverStatus directly (not the useDriverStatus hook) since this
-// groups the whole driver list in one pass — hooks can't be called in a loop.
-// Within each section, drivers are sorted by ascending time remaining so the
-// most urgent driver — the one closest to their HOS limit — always leads.
+// Uses getDriverStatus directly, not the hook — hooks can't run in a loop.
+// Sorts each section ascending by time remaining, most urgent first.
 export function groupDriversBySection(drivers, now, config, sectionOrder) {
   const driversBySection = new Map(sectionOrder.map((section) => [section, []]))
   const remainingMinutesById = new Map()

@@ -1,8 +1,6 @@
 export function Stats() {
-  // Illustrative only — the exercise's fleet (50 trucks, 1,000+ deliveries/day)
-  // is far larger than this app's 14-driver sample, so these aren't derived
-  // from mockDrivers.js. They exist to show where fleet-wide throughput would
-  // live in the UI, not to model it.
+  // Illustrative only, not derived from mockDrivers.js — the real fleet
+  // (50 trucks, 1,000+ deliveries/day) is much larger than this sample.
   const TRUCKS_AVAILABLE = '47 / 50'
   const DELIVERIES_TODAY = '812'
 
