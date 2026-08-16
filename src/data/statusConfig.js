@@ -1,14 +1,5 @@
 export const statusTiers = [
   {
-    id: 'violation',
-    label: 'Violation',
-    maxMinutesRemaining: 0,
-    section: 'violation',
-    collapsible: false,
-    color: 'error',
-    alertMessage: 'is now over the HOS limit — must stop driving',
-  },
-  {
     id: 'critical',
     label: 'Critical',
     maxMinutesRemaining: 20,
@@ -16,6 +7,15 @@ export const statusTiers = [
     collapsible: false,
     color: 'critical',
     alertMessage: 'is now critical',
+  },
+  {
+    id: 'violation',
+    label: 'Violation',
+    maxMinutesRemaining: 0,
+    section: 'violation',
+    collapsible: false,
+    color: 'error',
+    alertMessage: 'is now over the HOS limit — must stop driving',
   },
   {
     id: 'approaching',
@@ -44,8 +44,8 @@ export const offlineTier = {
 }
 
 export const sectionOrder = [
-  'violation',
   'critical',
+  'violation',
   'approaching',
   'on-track',
   'offline',
