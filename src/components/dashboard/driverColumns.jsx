@@ -27,7 +27,7 @@ export const driverColumns = [
   {
     key: 'status',
     label: 'Status',
-    headerClassName: 'w-[18%] lg:w-[14%]',
+    headerClassName: 'w-[18%] lg:w-[12%]',
     cellClassName: 'truncate border-r border-gray-100/80 dark:border-gray-800',
     render: ({ tier }) => <StatusBadge tier={tier} />,
   },

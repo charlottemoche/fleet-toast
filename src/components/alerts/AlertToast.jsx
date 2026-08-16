@@ -20,7 +20,7 @@ export function AlertToast({ driver, tier, now, onDismiss, onSelectDriver }) {
 
   return (
     <div
-      className={`flex w-72 items-start gap-3 rounded-lg border-2 border-[var(--tier)] bg-white p-3 shadow-lg dark:bg-gray-800 dark:text-white ${isExiting ? 'animate-toast-out' : 'animate-toast-in'}`}
+      className={`flex w-72 items-start gap-3 rounded-lg border border-[var(--tier)] bg-white p-3 shadow-lg dark:bg-gray-800 dark:text-white ${isExiting ? 'animate-toast-out' : 'animate-toast-in'}`}
       style={{ '--tier': `var(--color-${tier.color})` }}
     >
       <div className="min-w-0 flex-1">
@@ -32,7 +32,7 @@ export function AlertToast({ driver, tier, now, onDismiss, onSelectDriver }) {
         <button
           type="button"
           onClick={handleOpen}
-          className="mt-3 min-w-full rounded border border-[var(--tier)] bg-[var(--tier)]/20 px-2 py-1 text-sm transition-colors duration-500 hover:bg-[var(--tier)]/50 dark:bg-[var(--tier)]/20 dark:hover:bg-[var(--tier)]/30"
+          className="mt-3 h-9 min-w-full rounded border border-[var(--tier)] bg-[var(--tier)]/20 px-2 py-1 text-sm font-medium transition-colors duration-500 hover:bg-[var(--tier)]/50 dark:bg-[var(--tier)]/20 dark:hover:bg-[var(--tier)]/30"
         >
           View driver →
         </button>
