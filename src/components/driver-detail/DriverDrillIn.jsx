@@ -82,7 +82,9 @@ export function DriverDrillIn({
           </dd>
 
           <dt className="text-gray-500">Last ping</dt>
-          <dd className="col-span-2">{formatMinutesAgo(minutesSincePing(driver.lastPing, now))}</dd>
+          <dd className="col-span-2">
+            {formatMinutesAgo(minutesSincePing(driver.lastPing, now))}
+          </dd>
 
           <dt className="text-gray-500">HOS remaining</dt>
           <dd className="col-span-2">
