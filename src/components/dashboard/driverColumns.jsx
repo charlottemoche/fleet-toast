@@ -6,7 +6,10 @@ export const driverColumns = [
   {
     key: 'driver',
     label: 'Driver',
-    headerClassName: 'w-[14%]',
+    headerClassName:
+      'sticky left-0 z-20 w-[14%] bg-gray-200 dark:border-gray-800 dark:bg-gray-950',
+    cellClassName:
+      'sticky left-0 z-10 shadow dark:border-gray-800 bg-white group-hover:bg-gray-100 dark:bg-gray-900 dark:group-hover:bg-gray-800 transition-colors duration-300',
     render: ({ driver, onSelectDriver }) => (
       <>
         <button
@@ -25,14 +28,14 @@ export const driverColumns = [
     key: 'status',
     label: 'Status',
     headerClassName: 'w-[18%] lg:w-[14%]',
-    cellClassName: 'truncate border-l border-gray-100/80 dark:border-gray-800',
+    cellClassName: 'truncate border-r border-gray-100/80 dark:border-gray-800',
     render: ({ tier }) => <StatusBadge tier={tier} />,
   },
   {
     key: 'timeRemaining',
     label: 'Time remaining',
     headerClassName: 'w-[12%] truncate',
-    cellClassName: 'truncate border-l border-gray-100/80 dark:border-gray-800',
+    cellClassName: 'truncate border-r border-gray-100/80 dark:border-gray-800',
     title: ({ remainingMinutes }) =>
       formatMinutesRemainingLong(remainingMinutes),
     render: ({ remainingMinutes }) => (
@@ -43,7 +46,7 @@ export const driverColumns = [
     key: 'delivery',
     label: 'Delivery',
     headerClassName: 'w-[12%]',
-    cellClassName: 'truncate border-l border-gray-100/80 dark:border-gray-800',
+    cellClassName: 'truncate border-r border-gray-100/80 dark:border-gray-800',
     render: ({ driver }) =>
       driver.currentDelivery ? (
         <>
@@ -62,7 +65,7 @@ export const driverColumns = [
     key: 'location',
     label: 'Location',
     headerClassName: 'w-[18%]',
-    cellClassName: 'truncate border-l border-gray-100/80 dark:border-gray-800',
+    cellClassName: 'truncate border-r border-gray-100/80 dark:border-gray-800',
     title: ({ driver }) => driver.location.label,
     render: ({ driver }) => driver.location.label,
   },
@@ -70,7 +73,7 @@ export const driverColumns = [
     key: 'perishable',
     label: 'Perishables',
     headerClassName: 'w-[8%]',
-    cellClassName: 'border-l border-gray-100/80 dark:border-gray-800',
+    cellClassName: 'border-r border-gray-100/80 dark:border-gray-800',
     render: ({ driver }) =>
       driver.currentDelivery
         ? driver.currentDelivery.isPerishable
@@ -82,15 +85,14 @@ export const driverColumns = [
     key: 'loads',
     label: 'Loads',
     headerClassName: 'w-[5%]',
-    cellClassName: 'border-l border-gray-100/80 dark:border-gray-800',
+    cellClassName: 'border-r border-gray-100/80 dark:border-gray-800',
     render: ({ driver }) => driver.currentDelivery?.loads ?? '—',
   },
   {
     key: 'acknowledged',
     label: 'Acknowledged',
     headerClassName: 'w-[12%]',
-    cellClassName:
-      'text-center border-l border-gray-100/80 dark:border-gray-800',
+    cellClassName: 'text-center dark:border-gray-800',
     render: ({ isAcknowledged }) =>
       isAcknowledged && (
         <span

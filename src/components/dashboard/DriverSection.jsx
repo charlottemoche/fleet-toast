@@ -16,7 +16,7 @@ export function DriverSection({
 
   return (
     <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-      <tr className="bg-gray-100/60 dark:bg-gray-900">
+      <tr className="relative z-30 bg-gray-100 dark:bg-gray-900">
         <th
           scope="rowgroup"
           colSpan={driverColumns.length}

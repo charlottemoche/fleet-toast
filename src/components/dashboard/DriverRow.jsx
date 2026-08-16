@@ -17,7 +17,7 @@ export function DriverRow({ driver, now, onSelectDriver, isAcknowledged }) {
   return (
     <tr
       onClick={() => onSelectDriver(driver.id)}
-      className={`cursor-pointer bg-gray-50/10 transition-colors duration-300 hover:bg-gray-100 dark:bg-gray-800/50 dark:hover:bg-gray-800/60 ${tierId === 'offline' ? 'text-gray-400' : ''}`}
+      className={`group cursor-pointer bg-gray-50/10 transition-colors duration-300 hover:bg-gray-100 dark:bg-gray-800/50 dark:hover:bg-gray-800/60 ${tierId === 'offline' ? 'text-gray-400' : ''}`}
     >
       {driverColumns.map((column) => (
         <td
