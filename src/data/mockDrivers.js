@@ -34,7 +34,7 @@ export const mockDrivers = [
     phone: '555-0102',
     name: 'Priya Natarajan',
     truckId: 'GA-062',
-    shiftStart: shiftStartForRemaining(0.5),
+    shiftStart: shiftStartForRemaining(0.01),
     lastPing: minutesAgo(2),
     location: { lat: 33.749, lng: -84.388, label: 'I-75 near Atlanta, GA' },
     currentDelivery: {
@@ -98,7 +98,7 @@ export const mockDrivers = [
     phone: '555-0106',
     name: 'Renata Silva',
     truckId: 'NC-045',
-    shiftStart: shiftStartForRemaining(20.5),
+    shiftStart: shiftStartForRemaining(20.2),
     lastPing: minutesAgo(1),
     location: {
       lat: 35.2271,
