@@ -6,7 +6,7 @@ export const driverColumns = [
   {
     key: 'driver',
     label: 'Driver',
-    headerClassName: 'w-[16%]',
+    headerClassName: 'w-[14%]',
     render: ({ driver, onSelectDriver }) => (
       <>
         <button
@@ -24,14 +24,15 @@ export const driverColumns = [
   {
     key: 'status',
     label: 'Status',
-    headerClassName: 'w-[18%] lg:w-[16%]',
+    headerClassName: 'w-[18%] lg:w-[14%]',
+    cellClassName: 'truncate border-l border-gray-100/80 dark:border-gray-800',
     render: ({ tier }) => <StatusBadge tier={tier} />,
   },
   {
     key: 'timeRemaining',
     label: 'Time remaining',
-    headerClassName: 'w-[14%] truncate',
-    cellClassName: 'truncate',
+    headerClassName: 'w-[12%] truncate',
+    cellClassName: 'truncate border-l border-gray-100/80 dark:border-gray-800',
     title: ({ remainingMinutes }) =>
       formatMinutesRemainingLong(remainingMinutes),
     render: ({ remainingMinutes }) => (
@@ -41,7 +42,8 @@ export const driverColumns = [
   {
     key: 'delivery',
     label: 'Delivery',
-    headerClassName: 'w-[14%]',
+    headerClassName: 'w-[12%]',
+    cellClassName: 'truncate border-l border-gray-100/80 dark:border-gray-800',
     render: ({ driver }) =>
       driver.currentDelivery ? (
         <>
@@ -59,8 +61,8 @@ export const driverColumns = [
   {
     key: 'location',
     label: 'Location',
-    headerClassName: 'w-[20%]',
-    cellClassName: 'truncate',
+    headerClassName: 'w-[18%]',
+    cellClassName: 'truncate border-l border-gray-100/80 dark:border-gray-800',
     title: ({ driver }) => driver.location.label,
     render: ({ driver }) => driver.location.label,
   },
@@ -68,7 +70,7 @@ export const driverColumns = [
     key: 'perishable',
     label: 'Perishable',
     headerClassName: 'w-[8%]',
-    cellClassName: 'text-center',
+    cellClassName: 'border-l border-gray-100/80 dark:border-gray-800',
     render: ({ driver }) =>
       driver.currentDelivery
         ? driver.currentDelivery.isPerishable
@@ -80,14 +82,14 @@ export const driverColumns = [
     key: 'loads',
     label: 'Loads',
     headerClassName: 'w-[5%]',
-    cellClassName: 'text-center',
+    cellClassName: 'border-l border-gray-100/80 dark:border-gray-800',
     render: ({ driver }) => driver.currentDelivery?.loads ?? '—',
   },
   {
     key: 'acknowledged',
     label: 'Acknowledged',
     headerClassName: 'w-[12%]',
-    cellClassName: 'text-center',
+    cellClassName: 'text-center border-l border-gray-100/80 dark:border-gray-800',
     render: ({ isAcknowledged }) =>
       isAcknowledged && (
         <span
