@@ -3,7 +3,6 @@ import {
   getSectionColor,
   getSectionLabel,
   getTierById,
-  isSectionCollapsible,
 } from '../src/data/statusConfig.js'
 
 describe('getTierById', () => {
@@ -40,18 +39,5 @@ describe('getSectionColor', () => {
     expect(getSectionColor('critical')).toBe('critical')
     expect(getSectionColor('on-track')).toBe('success')
     expect(getSectionColor('offline')).toBe('info')
-  })
-})
-
-describe('isSectionCollapsible', () => {
-  it('is false for sections that are always shown (no toggle)', () => {
-    expect(isSectionCollapsible('violation')).toBe(false)
-    expect(isSectionCollapsible('critical')).toBe(false)
-    expect(isSectionCollapsible('approaching')).toBe(false)
-  })
-
-  it('is true for sections that collapse behind a Show/Hide toggle', () => {
-    expect(isSectionCollapsible('on-track')).toBe(true)
-    expect(isSectionCollapsible('offline')).toBe(true)
   })
 })

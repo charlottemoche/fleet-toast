@@ -1,28 +1,25 @@
 export const statusTiers = [
   {
-    id: 'critical',
-    label: 'Critical',
-    maxMinutesRemaining: 20,
-    section: 'critical',
-    collapsible: false,
-    color: 'critical',
-    alertMessage: 'is now critical',
-  },
-  {
     id: 'violation',
     label: 'Violation',
     maxMinutesRemaining: 0,
     section: 'violation',
-    collapsible: false,
     color: 'error',
     alertMessage: 'is now over the HOS limit — must stop driving',
+  },
+  {
+    id: 'critical',
+    label: 'Critical',
+    maxMinutesRemaining: 20,
+    section: 'critical',
+    color: 'critical',
+    alertMessage: 'is now critical',
   },
   {
     id: 'approaching',
     label: 'Approaching',
     maxMinutesRemaining: 120,
     section: 'approaching',
-    collapsible: false,
     color: 'warning',
   },
   {
@@ -30,7 +27,6 @@ export const statusTiers = [
     label: 'On track',
     maxMinutesRemaining: Infinity,
     section: 'on-track',
-    collapsible: true,
     color: 'success',
   },
 ]
@@ -39,13 +35,12 @@ export const offlineTier = {
   id: 'offline',
   label: 'Offline',
   section: 'offline',
-  collapsible: true,
   color: 'info',
 }
 
 export const sectionOrder = [
-  'critical',
   'violation',
+  'critical',
   'approaching',
   'on-track',
   'offline',
@@ -63,10 +58,6 @@ export function getTierById(tierId) {
 
 export function getSectionLabel(sectionId) {
   return allTiers.find((tier) => tier.section === sectionId)?.label
-}
-
-export function isSectionCollapsible(sectionId) {
-  return allTiers.some((tier) => tier.section === sectionId && tier.collapsible)
 }
 
 export function getSectionColor(sectionId) {

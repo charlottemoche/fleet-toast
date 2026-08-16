@@ -23,7 +23,7 @@ export function DriverRow({ driver, now, onSelectDriver, isAcknowledged }) {
         <td
           key={column.key}
           title={column.title?.(context)}
-          className={`overflow-hidden p-3 ${column.cellClassName ?? ''}`}
+          className={`overflow-hidden border-b border-gray-100/70 px-3 py-1.5 dark:border-gray-700 ${column.cellClassName ?? ''}`}
         >
           {column.render(context)}
         </td>

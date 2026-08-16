@@ -1,4 +1,9 @@
-import { formatEta, formatMinutesRemainingLong } from '../../utils/format.js'
+import { minutesSincePing } from '../../utils/hos.js'
+import {
+  formatEta,
+  formatMinutesAgo,
+  formatMinutesRemainingLong,
+} from '../../utils/format.js'
 import { StatusBadge } from '../status/StatusBadge.jsx'
 import { Timer } from '../shared/Timer.jsx'
 
@@ -7,7 +12,7 @@ export const driverColumns = [
     key: 'driver',
     label: 'Driver',
     headerClassName:
-      'sticky left-0 z-20 w-[14%] bg-gray-200 dark:border-gray-800 dark:bg-gray-950',
+      'sticky left-0 z-20 w-[14%] bg-gray-100 dark:border-gray-800 dark:bg-gray-950',
     cellClassName:
       'sticky left-0 z-10 shadow dark:border-gray-800 bg-white group-hover:bg-gray-100 dark:bg-gray-900 dark:group-hover:bg-gray-800 transition-colors duration-300',
     render: ({ driver, onSelectDriver }) => (
@@ -43,9 +48,17 @@ export const driverColumns = [
     ),
   },
   {
+    key: 'lastPing',
+    label: 'Last ping',
+    headerClassName: 'w-[10%] truncate',
+    cellClassName: 'truncate border-r border-gray-100/80 dark:border-gray-800',
+    render: ({ driver, now }) =>
+      formatMinutesAgo(minutesSincePing(driver.lastPing, now)),
+  },
+  {
     key: 'delivery',
     label: 'Delivery',
-    headerClassName: 'w-[12%]',
+    headerClassName: 'w-[14%]',
     cellClassName: 'truncate border-r border-gray-100/80 dark:border-gray-800',
     render: ({ driver }) =>
       driver.currentDelivery ? (
@@ -64,29 +77,10 @@ export const driverColumns = [
   {
     key: 'location',
     label: 'Location',
-    headerClassName: 'w-[18%]',
+    headerClassName: 'w-[20%]',
     cellClassName: 'truncate border-r border-gray-100/80 dark:border-gray-800',
     title: ({ driver }) => driver.location.label,
     render: ({ driver }) => driver.location.label,
-  },
-  {
-    key: 'perishable',
-    label: 'Perishables',
-    headerClassName: 'w-[8%]',
-    cellClassName: 'border-r border-gray-100/80 dark:border-gray-800',
-    render: ({ driver }) =>
-      driver.currentDelivery
-        ? driver.currentDelivery.isPerishable
-          ? 'Yes'
-          : 'No'
-        : '—',
-  },
-  {
-    key: 'loads',
-    label: 'Loads',
-    headerClassName: 'w-[5%]',
-    cellClassName: 'border-r border-gray-100/80 dark:border-gray-800',
-    render: ({ driver }) => driver.currentDelivery?.loads ?? '—',
   },
   {
     key: 'acknowledged',
