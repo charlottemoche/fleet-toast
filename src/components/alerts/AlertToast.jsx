@@ -23,7 +23,7 @@ export function AlertToast({ driver, tier, now, onDismiss, onSelectDriver }) {
         <button
           type="button"
           onClick={handleOpen}
-          className="mt-3 min-w-40 rounded border border-[var(--tier)] bg-[var(--tier)]/20 px-2 py-1 text-sm transition-colors duration-500 hover:bg-[var(--tier)]/50 dark:bg-[var(--tier)]/20 dark:hover:bg-[var(--tier)]/30"
+          className="mt-3 min-w-full rounded border border-[var(--tier)] bg-[var(--tier)]/20 px-2 py-1 text-sm transition-colors duration-500 hover:bg-[var(--tier)]/50 dark:bg-[var(--tier)]/20 dark:hover:bg-[var(--tier)]/30"
         >
           View driver →
         </button>

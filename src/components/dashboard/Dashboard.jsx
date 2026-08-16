@@ -46,8 +46,8 @@ export function Dashboard({
 
   return (
     <div className="mx-auto flex h-full min-h-0 flex-col">
-      <div className="flex h-full min-h-0 flex-1 gap-4 overflow-hidden lg:gap-6">
-        <aside className="sticky top-0 flex hidden w-1/5 flex-col gap-2 self-start lg:block 2xl:w-1/6">
+      <div className="flex h-full min-h-0 flex-1 gap-4 overflow-hidden">
+        <aside className="sticky top-0 flex hidden h-full flex-col gap-2 self-start border-r border-gray-200 bg-gray-50 lg:block dark:border-gray-800 dark:bg-gray-950">
           <ul className="flex flex-col divide-y divide-gray-200 dark:divide-gray-800">
             <li className="p-3">
               <Stats />
@@ -55,12 +55,14 @@ export function Dashboard({
             {NAV_ITEMS.map((item) => (
               <li key={item}>
                 <button
+                  type="button"
                   className={[
-                    'w-full rounded p-4 text-left transition-colors duration-300 hover:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-800',
+                    'w-full p-4 text-left transition-colors duration-300',
                     item === SELECTED_NAV_ITEM
-                      ? 'font-semibold'
-                      : 'text-gray-600/90 dark:text-gray-400',
+                      ? 'bg-gray-200 font-semibold dark:bg-gray-900'
+                      : 'text-gray-700/90 hover:bg-gray-300 dark:text-gray-400 dark:hover:bg-gray-800',
                   ].join(' ')}
+                  disabled={item === SELECTED_NAV_ITEM}
                 >
                   {item}
                 </button>
@@ -80,7 +82,7 @@ export function Dashboard({
             />
             <div>
               <input
-                className="min-w-60 rounded-md border border-gray-300 px-3 py-2 dark:border-gray-800"
+                className="min-w-60 rounded-md border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-900"
                 placeholder="Search drivers..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}

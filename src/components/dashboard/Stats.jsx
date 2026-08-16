@@ -9,11 +9,11 @@ export function Stats() {
   return (
     <div className="flex flex-col gap-2 py-2 md:flex-row md:items-center md:justify-between">
       <div className="grid gap-4 text-sm md:shrink-0 xl:flex xl:flex-row">
-        <div className="rounded border border-gray-200 px-3 py-1 text-center dark:border-gray-800">
+        <div className="rounded border border-gray-200 bg-white/90 px-3 py-1 text-center dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100">
           <div className="text-xs text-gray-600/90">Trucks available</div>
           <div className="text-lg font-semibold">{TRUCKS_AVAILABLE}</div>
         </div>
-        <div className="rounded border border-gray-200 px-3 py-1 text-center dark:border-gray-800">
+        <div className="rounded border border-gray-200 bg-white/90 px-3 py-1 text-center dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100">
           <div className="text-xs text-gray-600/90">Deliveries today</div>
           <div className="text-lg font-semibold">{DELIVERIES_TODAY}</div>
         </div>
