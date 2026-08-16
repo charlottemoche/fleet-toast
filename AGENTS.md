@@ -15,6 +15,7 @@ Rules for AI tools working in this repo.
 
 - Derive values from existing state instead of storing duplicates. Before adding a new `useState`, ask: can this be computed from data that's already there? Most flags/toggles/counts should be derived, not stored.
 - Watch for state sprawl when adding new features — new functionality should rarely mean new state by default. If two pieces of state seem to track each other, that's a sign they should be merged or one should be derived from the other.
+- Do not make plans too verbose if it can be said with less verbiage and more clarity.
 
 ## General
 

@@ -40,24 +40,21 @@ Flat array of driver objects.
 - Pure functions in `hos.js`, `now` passed as a param — testable without mocking time.
 - Staleness check wins over tier resolution — an unreachable driver's reading can't be trusted.
 - One shared `useClockTick`, not a timer per row.
-- Dashboard ticks ~30s, drill-in ticks 1s — only the open drill-in needs a live countdown.
+- Dashboard ticks ~5s, drill-in ticks 1s — only the open drill-in needs a live countdown.
 - No Context; `statusConfig.js` is data-driven (array of tiers) — new tier = one object.
-- Drill-in centered via `fixed inset-0 m-auto` — Tailwind preflight kills the UA default `dialog` centering.
-- Badge colors are pastel bg + dark text, not solid + white — solid failed WCAG contrast.
-- Filter pills reuse the same per-tier classes as the badge — one color source of truth.
-- Renamed alert → status. Status = current state (pill). Alert = fires on an event (toast), not a duplicate concept.
-- Toast fires only on transition into critical, not on every render/poll.
+- Status = current state (pill). Alert = fires on an event (toast) — not the same concept.
+- Toast fires only on transition into an alertable tier (Critical or Violation), not on every render/poll.
 - Toast doesn't auto-dismiss — only × or "View driver" (which opens the drill-in) clears it.
 - Toast opens the drill-in — the brief requires that flow, not optional.
 - Rows sorted ascending by time remaining within each tier — most urgent leads.
-- Sticky header = a bounded, internally-scrolling table panel, not page-level sticky — `overflow-x-auto` (needed for mobile) breaks page-level `position: sticky`.
-- Overrode Tailwind's `gray` scale in `@theme` — default leans blue.
-- Custom theme colors need `@theme static` — otherwise Tailwind tree-shakes vars with no literal class usage.
-- Acknowledge lives in the drill-in, not inline in the row.
+- Sticky header lives inside a bounded, internally-scrolling table panel rather than page-level scroll — stays visible without breaking horizontal scroll on mobile.
+- Semantic color tokens (`success`/`warning`/`error`/`critical`/`info`/`action`) drive every status badge, filter pill, and toast — one token per meaning, no hardcoded colors per component.
+- Acknowledge toggle lives in the drill-in; the checkmark it sets shows inline in the table row. Purely visual — doesn't affect tier, sorting, or alerts, and resets on reload.
 - `driver.phone` + a real `tel:` link — an action that actually works, not a mockup of one we can't build (reassignment/dispatch).
 
 ## Alert tiers
 
+- **Violation** — at the HOS limit (0 min). Always expanded.
 - **Critical** — <20 min. Always expanded.
 - **Approaching** — <2hr. Always expanded.
 - **On track** — collapsed to a count.
@@ -69,30 +66,26 @@ No pagination. Virtualization not needed at demo scale.
 
 One urgency-sorted table, broken into labeled sections with live counts. Chosen over a plain sorted list (no glance) or status swimlanes (on-track drivers hidden behind a click).
 
-## Alert UI — superseded
-
-Original plan: toggle between a badge treatment and a banner treatment. Not what shipped — badge is the always-on status indicator, a toast (critical-transition only) is the alert. Not alternatives, no toggle.
-
 ## Mock data
 
-14 drivers: 3 critical, 3 approaching (one crosses into critical live during the demo), 5 on-track, 3 offline. One `currentDelivery: null` for the empty state.
+14 drivers: 3 critical (one crosses into violation live during the demo), 3 approaching (one crosses into critical live during the demo), 5 on-track, 3 offline. One `currentDelivery: null` for the empty state.
 
 ## Build checklist
 
-- [x] 0-12: data model, HOS utils + tests, tiers, hooks, row/section components, dashboard, drill-in, badge treatment
-- [x] 13: ~~banner treatment~~ → built as a toast instead
-- [ ] 14: ~~dual treatment toggle~~ → dropped, not applicable
-- [ ] 15: DriverRow component tests
-- [ ] 16: README (this pass)
-- [x] 17: renamed alert system → status
-- [x] 18: real critical-transition toast alert
-- [x] 19: sort each section by time remaining, + regression test
-- [x] 20: call-driver action
-- [x] 21: acknowledge toggle
-- [x] 22: mobile/responsive fixes (column widths, sticky header, hover collisions)
-- [x] 23: replaced Tailwind's gray scale
-
-Status-tier filtering (click a count to narrow the table) also done — covers the "or a filter" live-demo ask.
+- [x] Data model, HOS utils + tests, status tiers, hooks
+- [x] Row/section components, dashboard, drill-in, badge treatment
+- [x] Toast alert
+- [x] Sort each section by time remaining, + regression test
+- [x] Call-driver action
+- [x] Acknowledge toggle
+- [x] Mobile/responsive fixes (column widths, sticky header, hover collisions)
+- [x] Status-tier filtering (click a count to narrow the table)
+- [x] Violation tier (remaining at zero) — distinct from Critical, its own alert
+- [x] Alert hook derives which tiers to alert on from tier config (`alertMessage`), not a hardcoded tier list
+- [x] Time-remaining display fixed so "0m" only means the real HOS floor
+- [x] Faster dashboard tick for quicker status/alert updates
+- [x] Full test suite for format/status-config helpers, plus a demo failing test
+- [x] README rewritten to match current behavior (hooks, scripts, what's-here)
 
 ## Not taken
 
