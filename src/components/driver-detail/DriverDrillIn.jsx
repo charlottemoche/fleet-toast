@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react'
 import { getTierById } from '../../data/statusConfig.js'
 import { useClockTick } from '../../hooks/useClockTick.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
-import { formatEta } from '../../utils/format.js'
+import { minutesSincePing } from '../../utils/hos.js'
+import { formatEta, formatMinutesAgo } from '../../utils/format.js'
 import { StatusBadge } from '../status/StatusBadge.jsx'
 import { Timer } from '../shared/Timer.jsx'
 
@@ -73,6 +74,9 @@ export function DriverDrillIn({
           <dd>
             <StatusBadge tier={tier} />
           </dd>
+
+          <dt className="text-gray-500">Last ping</dt>
+          <dd>{formatMinutesAgo(minutesSincePing(driver.lastPing, now))}</dd>
 
           <dt className="text-gray-500">HOS remaining</dt>
           <dd>
