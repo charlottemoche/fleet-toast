@@ -12,7 +12,7 @@ export const statusTiers = [
       'bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-950',
     activeBadgeClassName: 'bg-red-700 text-white',
     rowClassName:
-      'bg-gray-50/60 transition-colors duration-300 dark:bg-red-950/40',
+      'bg-gray-50/60 dark:bg-gray-800/50 transition-colors duration-300',
   },
   {
     id: 'approaching',
@@ -24,7 +24,7 @@ export const statusTiers = [
       'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 hover:bg-amber-200 dark:bg-amber-950',
     activeBadgeClassName: 'bg-amber-700 text-white',
     rowClassName:
-      'bg-gray-50/60 transition-colors duration-300 dark:bg-amber-950/30',
+      'bg-gray-50/60 dark:bg-gray-800/50 transition-colors duration-300',
   },
   {
     id: 'on-track',
@@ -35,7 +35,8 @@ export const statusTiers = [
     badgeClassName:
       'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 dark:bg-emerald-950',
     activeBadgeClassName: 'bg-emerald-700 text-white',
-    rowClassName: 'bg-gray-50/60 transition-colors duration-300',
+    rowClassName:
+      'bg-gray-50/60 dark:bg-gray-800/50 transition-colors duration-300',
   },
 ]
 
@@ -47,7 +48,7 @@ export const offlineTier = {
   badgeClassName:
     'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
   activeBadgeClassName: 'bg-gray-700 text-white',
-  rowClassName: 'bg-gray-50/60',
+  rowClassName: 'text-gray-400 bg-gray-50/60 dark:bg-gray-900',
 }
 
 export const sectionOrder = ['critical', 'approaching', 'on-track', 'offline']
