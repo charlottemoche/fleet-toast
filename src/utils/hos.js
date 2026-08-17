@@ -1,5 +1,3 @@
-import { getTierById } from '../data/statusConfig.js'
-
 export const HOS_LIMIT_MINUTES = 11 * 60
 
 // Floored at zero — a driver can't have negative legal drive time left.
@@ -48,8 +46,7 @@ export function groupDriversBySection(drivers, now, config, sectionOrder) {
 
   for (const driver of drivers) {
     const { tierId, remainingMinutes } = getDriverStatus(driver, now, config)
-    const section = getTierById(tierId).section
-    driversBySection.get(section).push(driver)
+    driversBySection.get(tierId).push(driver)
     remainingMinutesById.set(driver.id, remainingMinutes)
   }
 

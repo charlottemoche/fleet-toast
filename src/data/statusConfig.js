@@ -3,7 +3,6 @@ export const statusTiers = [
     id: 'violation',
     label: 'Violation',
     maxMinutesRemaining: 0,
-    section: 'violation',
     color: 'error',
     alertMessage: 'is now over the HOS limit — must stop driving',
   },
@@ -11,7 +10,6 @@ export const statusTiers = [
     id: 'critical',
     label: 'Critical',
     maxMinutesRemaining: 20,
-    section: 'critical',
     color: 'critical',
     alertMessage: 'is now critical',
   },
@@ -19,14 +17,12 @@ export const statusTiers = [
     id: 'approaching',
     label: 'Approaching',
     maxMinutesRemaining: 120,
-    section: 'approaching',
     color: 'warning',
   },
   {
     id: 'on-track',
     label: 'On track',
     maxMinutesRemaining: Infinity,
-    section: 'on-track',
     color: 'success',
   },
 ]
@@ -34,7 +30,6 @@ export const statusTiers = [
 export const offlineTier = {
   id: 'offline',
   label: 'Offline',
-  section: 'offline',
   color: 'info',
 }
 
@@ -54,12 +49,4 @@ const allTiers = [...statusTiers, offlineTier]
 
 export function getTierById(tierId) {
   return allTiers.find((tier) => tier.id === tierId)
-}
-
-export function getSectionLabel(sectionId) {
-  return allTiers.find((tier) => tier.section === sectionId)?.label
-}
-
-export function getSectionColor(sectionId) {
-  return allTiers.find((tier) => tier.section === sectionId)?.color
 }

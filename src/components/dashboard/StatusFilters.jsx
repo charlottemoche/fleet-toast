@@ -1,8 +1,4 @@
-import {
-  getSectionColor,
-  getSectionLabel,
-  sectionOrder,
-} from '../../data/statusConfig.js'
+import { getTierById, sectionOrder } from '../../data/statusConfig.js'
 
 const ALL_ACTIVE_CLASS =
   'bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900'
@@ -32,7 +28,7 @@ export function StatusFilters({
       </button>
       {sectionOrder.map((section) => {
         const isActive = activeFilter === section
-        const color = getSectionColor(section)
+        const color = getTierById(section).color
         const isMostUrgent = section === mostUrgentSection
 
         return (
@@ -49,11 +45,11 @@ export function StatusFilters({
             }
             disabled={isActive}
           >
-            {getSectionLabel(section)}
+            {getTierById(section).label}
             {isMostUrgent && (
               <span className="sr-only" aria-live="assertive">
                 {driversBySection.get(section).length}{' '}
-                {getSectionLabel(section)}
+                {getTierById(section).label}
               </span>
             )}
           </button>

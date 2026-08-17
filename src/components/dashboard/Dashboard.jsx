@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getSectionLabel, sectionOrder } from '../../data/statusConfig.js'
+import { getTierById, sectionOrder } from '../../data/statusConfig.js'
 import { driverColumns } from './driverColumns.jsx'
 import { StatusFilters } from './StatusFilters.jsx'
 import { DriverSection } from './DriverSection.jsx'
@@ -107,7 +107,7 @@ export function Dashboard({
               {visibleSections.map((section) => (
                 <DriverSection
                   key={section}
-                  label={getSectionLabel(section)}
+                  label={getTierById(section).label}
                   drivers={searchedDriversBySection.get(section)}
                   now={now}
                   onSelectDriver={onSelectDriver}
