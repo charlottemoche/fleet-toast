@@ -1,4 +1,5 @@
 import { getTierById } from '../../data/statusConfig.js'
+import { trucks } from '../../data/trucks.js'
 
 function countActiveDeliveries(driversBySection) {
   let count = 0
@@ -6,6 +7,10 @@ function countActiveDeliveries(driversBySection) {
     count += drivers.filter((driver) => driver.currentDelivery !== null).length
   }
   return count
+}
+
+function countTrucksAvailable(driversBySection) {
+  return trucks.length - countActiveDeliveries(driversBySection)
 }
 
 function countNeedsAcknowledgmentByTier(driversBySection, acknowledgedIds) {
@@ -26,10 +31,10 @@ export function Stats({ driversBySection, acknowledgedIds }) {
     driversBySection,
     acknowledgedIds,
   )
+  const trucksAvailable = countTrucksAvailable(driversBySection)
 
-  // Illustrative only, not derived from mockDrivers.js — the real fleet
-  // (50 trucks, 1,000+ deliveries/day) is much larger than this sample.
-  const TRUCKS_AVAILABLE = '47 / 50'
+  // Illustrative — no delivery-completion/history tracking exists in the
+  // data model, so "completed today" can't be derived from a live snapshot.
   const DELIVERIES_TODAY = '812'
 
   return (
@@ -77,7 +82,9 @@ export function Stats({ driversBySection, acknowledgedIds }) {
           </div>
           <div className="rounded border border-gray-200 bg-white/90 px-2 py-1 text-center dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100">
             <div className="text-xs text-gray-600/90">Trucks available</div>
-            <div className="text-lg font-semibold">{TRUCKS_AVAILABLE}</div>
+            <div className="text-lg font-semibold">
+              {trucksAvailable} / {trucks.length}
+            </div>
           </div>
         </div>
       </div>

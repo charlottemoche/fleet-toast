@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { getTierById } from '../../data/statusConfig.js'
+import { getTruckById } from '../../data/trucks.js'
 import { useClockTick } from '../../hooks/useClockTick.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
 import { minutesSincePing } from '../../utils/hos.js'
@@ -22,6 +23,7 @@ export function DriverDrillIn({
   const now = useClockTick(DRILL_IN_TICK_INTERVAL_MS)
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
   const tier = getTierById(tierId)
+  const truck = getTruckById(driver.truckId)
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -74,7 +76,10 @@ export function DriverDrillIn({
         )}
         <dl className="mt-4 grid grid-cols-3 gap-y-3 text-sm">
           <dt className="text-gray-500">Truck</dt>
-          <dd className="col-span-2">{driver.truckId}</dd>
+          <dd className="col-span-2">
+            {driver.truckId}
+            {truck && ` — ${truck.year} ${truck.make} ${truck.model}`}
+          </dd>
 
           <dt className="text-gray-500">Status</dt>
           <dd className="col-span-2">
