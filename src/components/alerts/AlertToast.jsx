@@ -28,14 +28,14 @@ export function AlertToast({ driver, tier, now, onDismiss, onSelectDriver }) {
       </div>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold">{driver.name}</p>
-        <p className="text-xs mt-1">
+        <p className="mt-1 text-xs">
           {driver.truckId} {tier.alertMessage} —{' '}
           <Timer remainingMinutes={remainingMinutes} /> remaining
         </p>
         <button
           type="button"
           onClick={handleOpen}
-          className="underline underline-offset-4 h-7 text-sm font-medium dark:text-white text-gray-700 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-300"
+          className="h-7 text-sm font-medium text-gray-700 underline underline-offset-4 transition-colors duration-300 hover:text-gray-900 dark:text-white dark:hover:text-gray-200"
         >
           View driver →
         </button>
