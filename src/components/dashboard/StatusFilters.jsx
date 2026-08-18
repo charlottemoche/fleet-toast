@@ -1,9 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
 import { getTierById, sectionOrder } from '../../data/statusConfig.js'
-
-const ALL_ACTIVE_CLASS =
-  'bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900'
-const ALL_INACTIVE_CLASS =
-  'border border-gray-300 text-gray-700 dark:border-gray-700 dark:text-gray-300'
 
 const mostUrgentSection = sectionOrder[0]
 
@@ -12,49 +8,93 @@ export function StatusFilters({
   activeFilter,
   onFilterChange,
 }) {
+  const [isOpen, setIsOpen] = useState(false)
+  const containerRef = useRef(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    function closeIfOutside(event) {
+      if (!containerRef.current.contains(event.target)) {
+        setIsOpen(false)
+      }
+    }
+
+    function closeIfEscape(event) {
+      if (event.key === 'Escape') setIsOpen(false)
+    }
+
+    document.addEventListener('mousedown', closeIfOutside)
+    document.addEventListener('keydown', closeIfEscape)
+    return () => {
+      document.removeEventListener('mousedown', closeIfOutside)
+      document.removeEventListener('keydown', closeIfEscape)
+    }
+  }, [isOpen])
+
+  function selectFilter(section) {
+    onFilterChange(section)
+    setIsOpen(false)
+  }
+
+  const activeLabel = activeFilter ? getTierById(activeFilter).label : 'All'
+
   return (
-    <fieldset className="m-0 flex flex-wrap gap-2 border-0 p-0">
-      <legend className="sr-only">Filter drivers by status</legend>
+    <div ref={containerRef} className="relative inline-block">
       <button
         type="button"
-        onClick={() => onFilterChange(null)}
-        aria-pressed={activeFilter === null}
-        className={`h-9 rounded-lg px-4 text-sm font-medium transition-colors ${
-          activeFilter === null ? ALL_ACTIVE_CLASS : ALL_INACTIVE_CLASS
-        }`}
-        disabled={activeFilter === null}
+        onClick={() => setIsOpen((open) => !open)}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+        className="flex h-9 items-center gap-1.5 rounded-lg border border-gray-300 px-4 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
       >
-        All
+        Filter: {activeLabel}
+        <span aria-hidden="true">▾</span>
       </button>
-      {sectionOrder.map((section) => {
-        const isActive = activeFilter === section
-        const color = getTierById(section).color
-        const isMostUrgent = section === mostUrgentSection
+      <span className="sr-only" aria-live="assertive">
+        {driversBySection.get(mostUrgentSection).length}{' '}
+        {getTierById(mostUrgentSection).label}
+      </span>
+      {isOpen && (
+        <ul className="absolute top-full left-0 z-50 mt-1 w-44 rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-800 dark:bg-gray-900">
+          <li>
+            <button
+              type="button"
+              aria-current={activeFilter === null ? 'true' : undefined}
+              onClick={() => selectFilter(null)}
+              className={`w-full px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 ${
+                activeFilter === null ? 'font-semibold' : ''
+              }`}
+            >
+              All
+            </button>
+          </li>
+          {sectionOrder.map((section) => {
+            const isActive = activeFilter === section
+            const tier = getTierById(section)
 
-        return (
-          <button
-            key={section}
-            type="button"
-            onClick={() => onFilterChange(section)}
-            aria-pressed={isActive}
-            style={{ '--tier': `var(--color-${color})` }}
-            className={
-              isActive
-                ? 'h-9 rounded-lg bg-[var(--tier)] px-4 text-sm font-medium text-white transition-colors'
-                : 'h-9 rounded-lg border border-gray-300 px-4 text-sm font-medium text-[var(--tier)] transition-colors duration-500 hover:bg-[var(--tier)]/10 dark:border-gray-700'
-            }
-            disabled={isActive}
-          >
-            {getTierById(section).label}
-            {isMostUrgent && (
-              <span className="sr-only" aria-live="assertive">
-                {driversBySection.get(section).length}{' '}
-                {getTierById(section).label}
-              </span>
-            )}
-          </button>
-        )
-      })}
-    </fieldset>
+            return (
+              <li key={section}>
+                <button
+                  type="button"
+                  aria-current={isActive ? 'true' : undefined}
+                  onClick={() => selectFilter(section)}
+                  style={{ '--tier': `var(--color-${tier.color})` }}
+                  className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 ${
+                    isActive ? 'font-semibold' : ''
+                  }`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="h-2 w-2 shrink-0 rounded-full bg-[var(--tier)]"
+                  />
+                  {tier.label}
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </div>
   )
 }
