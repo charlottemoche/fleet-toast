@@ -32,6 +32,8 @@ export function Stats({ driversBySection, onOpenReview }) {
   // data model, so "completed today" can't be derived from a live snapshot.
   const DELIVERIES_TODAY = '812'
 
+  const clickable = needsReviewByTier['critical'] > 0 || needsReviewByTier['violation'] > 0
+
   return (
     <section>
       <div className="flex flex-col pt-1 pb-3">
@@ -39,7 +41,8 @@ export function Stats({ driversBySection, onOpenReview }) {
           <button
             type="button"
             onClick={onOpenReview}
-            className="rounded border border-gray-200 bg-white/90 px-2 py-1 text-center transition-colors duration-300 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:hover:bg-gray-900"
+            className={`rounded border bg-white/90 px-2 py-1 text-center transition-colors duration-300 dark:text-gray-100 dark:hover:bg-gray-900 ${clickable ? 'border-error hover:bg-gray-100 dark:bg-gray-950 dark:hover:bg-gray-950' : 'border-gray-200 dark:border-gray-800'}`}
+            disabled={!clickable}
           >
             <div className="text-xs text-gray-600/90">Needs review</div>
             <div className="flex items-center justify-center gap-3">

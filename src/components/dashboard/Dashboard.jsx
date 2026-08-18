@@ -81,7 +81,7 @@ export function Dashboard({
                 onFilterChange={setActiveFilter}
               />
               <input
-                className="h-9 min-w-60 rounded-md border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-900 text-sm"
+                className="h-9 min-w-60 rounded-md border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900"
                 placeholder="Search drivers..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}

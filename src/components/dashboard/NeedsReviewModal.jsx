@@ -60,7 +60,7 @@ export function NeedsReviewModal({
               <a
                 href={`tel:${driver.phone}`}
                 aria-label={`Call ${driver.name}`}
-                className="shrink-0 rounded bg-gray-800 px-3 py-1.5 text-sm font-medium text-white dark:bg-gray-200 dark:text-gray-900"
+                className="shrink-0 rounded bg-gray-800 px-5 py-1.5 text-sm font-medium text-white dark:bg-gray-200 dark:text-gray-900"
               >
                 Call
               </a>
