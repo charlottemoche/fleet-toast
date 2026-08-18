@@ -32,7 +32,8 @@ export function Stats({ driversBySection, onOpenReview }) {
   // data model, so "completed today" can't be derived from a live snapshot.
   const DELIVERIES_TODAY = '812'
 
-  const clickable = needsReviewByTier['critical'] > 0 || needsReviewByTier['violation'] > 0
+  const clickable =
+    needsReviewByTier['critical'] > 0 || needsReviewByTier['violation'] > 0
 
   return (
     <section>

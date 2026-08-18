@@ -46,7 +46,7 @@ export function StatusFilters({
         onClick={() => setIsOpen((open) => !open)}
         aria-expanded={isOpen}
         aria-haspopup="true"
-        className="flex h-9 items-center gap-1.5 rounded-lg border border-gray-300 px-4 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
+        className="flex h-9 items-center gap-1.5 rounded-lg border border-gray-300 px-4 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
       >
         Filter: {activeLabel}
         <span aria-hidden="true">▾</span>
