@@ -83,19 +83,26 @@ export const driverColumns = [
     render: ({ driver }) => driver.location.label,
   },
   {
-    key: 'acknowledged',
-    label: 'Acknowledged',
-    headerClassName: 'w-[12%]',
-    cellClassName: 'text-center dark:border-gray-800',
-    render: ({ isAcknowledged }) =>
-      isAcknowledged && (
-        <span
-          title="Acknowledged"
-          aria-label="Acknowledged"
-          className="text-lg text-emerald-600 dark:text-emerald-400"
-        >
-          ✓
-        </span>
-      ),
+    key: 'logs',
+    label: 'Logs',
+    headerClassName: 'w-[16%]',
+    cellClassName: 'truncate dark:border-gray-800',
+    title: ({ driver }) => driver.logs.map((log) => log.message).join(' · '),
+    render: ({ driver }) => {
+      if (driver.logs.length === 0) {
+        return <span className="text-gray-500">—</span>
+      }
+      const latest = driver.logs[driver.logs.length - 1]
+      return (
+        <>
+          <div className="truncate">{latest.message}</div>
+          {driver.logs.length > 1 && (
+            <div className="text-sm text-gray-500">
+              +{driver.logs.length - 1} more
+            </div>
+          )}
+        </>
+      )
+    },
   },
 ]

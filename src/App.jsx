@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Dashboard } from './components/dashboard/Dashboard.jsx'
+import { NeedsReviewModal } from './components/dashboard/NeedsReviewModal.jsx'
 import { AlertToastStack } from './components/alerts/AlertToastStack.jsx'
 import { DriverDrillIn } from './components/driver-detail/DriverDrillIn.jsx'
 import { mockDrivers } from './data/mockDrivers.js'
@@ -13,7 +14,8 @@ const TICK_INTERVAL_MS = 5_000
 export default function App() {
   const now = useClockTick(TICK_INTERVAL_MS)
   const [selectedDriverId, setSelectedDriverId] = useState(null)
-  const [acknowledgedIds, setAcknowledgedIds] = useState(new Set())
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false)
+  const pendingReviewSelectionRef = useRef(null)
   const driversBySection = useMemo(
     () => groupDriversBySection(mockDrivers, now, statusConfig, sectionOrder),
     [now],
@@ -22,18 +24,6 @@ export default function App() {
   const selectedDriver = mockDrivers.find(
     (driver) => driver.id === selectedDriverId,
   )
-
-  function toggleAcknowledged(driverId) {
-    setAcknowledgedIds((current) => {
-      const next = new Set(current)
-      if (next.has(driverId)) {
-        next.delete(driverId)
-      } else {
-        next.add(driverId)
-      }
-      return next
-    })
-  }
 
   return (
     <main className="relative mx-auto flex h-screen flex-col bg-gray-100/20 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
@@ -55,7 +45,7 @@ export default function App() {
           now={now}
           driversBySection={driversBySection}
           onSelectDriver={setSelectedDriverId}
-          acknowledgedIds={acknowledgedIds}
+          onOpenReview={() => setIsReviewModalOpen(true)}
         />
       </div>
       <AlertToastStack
@@ -68,8 +58,21 @@ export default function App() {
         <DriverDrillIn
           driver={selectedDriver}
           onClose={() => setSelectedDriverId(null)}
-          isAcknowledged={acknowledgedIds.has(selectedDriver.id)}
-          onToggleAcknowledged={() => toggleAcknowledged(selectedDriver.id)}
+        />
+      )}
+      {isReviewModalOpen && (
+        <NeedsReviewModal
+          driversBySection={driversBySection}
+          onSelectDriver={(driverId) => {
+            pendingReviewSelectionRef.current = driverId
+          }}
+          onClose={() => {
+            setIsReviewModalOpen(false)
+            if (pendingReviewSelectionRef.current) {
+              setSelectedDriverId(pendingReviewSelectionRef.current)
+              pendingReviewSelectionRef.current = null
+            }
+          }}
         />
       )}
     </main>

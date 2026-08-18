@@ -13,12 +13,7 @@ import { Modal } from '../shared/Modal.jsx'
 // watched here — the countdown should visibly move while this is open.
 const DRILL_IN_TICK_INTERVAL_MS = 1_000
 
-export function DriverDrillIn({
-  driver,
-  onClose,
-  isAcknowledged,
-  onToggleAcknowledged,
-}) {
+export function DriverDrillIn({ driver, onClose }) {
   const [isMapLoaded, setIsMapLoaded] = useState(false)
   const now = useClockTick(DRILL_IN_TICK_INTERVAL_MS)
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
@@ -33,7 +28,7 @@ export function DriverDrillIn({
       widthClassName="w-[min(28rem,90vw)]"
     >
       {driver.location && (
-        <div className="mt-4 h-60 w-full overflow-hidden rounded border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
+        <div className="mt-4 h-48 w-full overflow-hidden rounded border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
           <iframe
             title="Driver location map"
             src={`https://www.google.com/maps?q=${driver.location.lat},${driver.location.lng}&z=15&output=embed`}
@@ -87,6 +82,23 @@ export function DriverDrillIn({
           </>
         )}
       </dl>
+      <div className="mt-4 lg:mt-6">
+        <h3 className="text-sm font-semibold">Logs</h3>
+        {driver.logs.length === 0 ? (
+          <p className="mt-2 text-sm text-gray-500">No logged activity.</p>
+        ) : (
+          <ul className="mt-2 flex flex-col gap-2">
+            {driver.logs.map((log) => (
+              <li key={log.timestamp} className="text-sm">
+                <span className="text-gray-500">
+                  {formatMinutesAgo(minutesSincePing(log.timestamp, now))}
+                </span>{' '}
+                — {log.message}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       <div className="mt-4 flex gap-2 lg:mt-6">
         <a
           href={`tel:${driver.phone}`}
@@ -94,19 +106,6 @@ export function DriverDrillIn({
         >
           Call driver ({driver.phone})
         </a>
-        {(tierId === 'critical' || tierId === 'violation') && (
-          <button
-            type="button"
-            onClick={onToggleAcknowledged}
-            className={
-              isAcknowledged
-                ? 'rounded px-3 text-sm font-medium text-emerald-700 dark:text-emerald-400'
-                : 'rounded bg-[var(--color-action)]/80 px-3 text-sm font-medium text-white transition-colors duration-500 hover:bg-[var(--color-action)]'
-            }
-          >
-            {isAcknowledged ? '✓ Acknowledged' : 'Acknowledge'}
-          </button>
-        )}
       </div>
     </Modal>
   )

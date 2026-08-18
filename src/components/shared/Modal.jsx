@@ -1,7 +1,14 @@
-import { useEffect, useRef } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 
-export function Modal({ titleId, title, onClose, widthClassName, children }) {
+export const Modal = forwardRef(function Modal(
+  { titleId, title, onClose, widthClassName, children },
+  ref,
+) {
   const dialogRef = useRef(null)
+
+  useImperativeHandle(ref, () => ({
+    close: () => dialogRef.current.close(),
+  }))
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -46,4 +53,4 @@ export function Modal({ titleId, title, onClose, widthClassName, children }) {
       </div>
     </dialog>
   )
-}
+})

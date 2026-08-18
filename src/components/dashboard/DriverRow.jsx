@@ -2,14 +2,13 @@ import { getTierById } from '../../data/statusConfig.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
 import { driverColumns } from './driverColumns.jsx'
 
-export function DriverRow({ driver, now, onSelectDriver, isAcknowledged }) {
+export function DriverRow({ driver, now, onSelectDriver }) {
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
   const tier = getTierById(tierId)
   const context = {
     driver,
     now,
     onSelectDriver,
-    isAcknowledged,
     tier,
     remainingMinutes,
   }

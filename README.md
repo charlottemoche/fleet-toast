@@ -4,9 +4,10 @@ Take-home for the Design Engineer role. The dashboard a fleet dispatcher lives i
 
 ## What's here
 
-- Status table, sorted by urgency, grouped into Violation/Critical/Approaching/On track/Offline.
-- A real alert: a toast fires when a driver crosses into critical (not on page load, not on every tick), and opens the same drill-in a row click does.
-- Drill-in dialog with driver details, a working `tel:` call action, and an acknowledge toggle.
+- Status table, sorted by urgency, grouped into Violation/Critical/Approaching/On track/Offline, with a filter dropdown to isolate one tier.
+- Real alerts: a toast fires when a driver crosses into Critical or Violation (not on page load, not on every tick), and opens the same drill-in a row click does.
+- Drill-in dialog with driver and truck details, delivery cargo, a working `tel:` call action, and a dispatcher activity log.
+- A "Needs review" panel listing every driver currently Critical or Violation, with one-click calling.
 - Offline detection: a stale ping overrides the HOS math, independent of however much drive time the math would otherwise show.
 - Time-until-reset is computed live from `shiftStart`, not hardcoded.
 

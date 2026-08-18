@@ -13,24 +13,19 @@ function countTrucksAvailable(driversBySection) {
   return trucks.length - countActiveDeliveries(driversBySection)
 }
 
-function countNeedsAcknowledgmentByTier(driversBySection, acknowledgedIds) {
+function countByAlertableTier(driversBySection) {
   const counts = {}
   for (const [tierId, drivers] of driversBySection) {
     const tier = getTierById(tierId)
     if (!tier.alertMessage) continue
-    counts[tierId] = drivers.filter(
-      (driver) => !acknowledgedIds.has(driver.id),
-    ).length
+    counts[tierId] = drivers.length
   }
   return counts
 }
 
-export function Stats({ driversBySection, acknowledgedIds }) {
+export function Stats({ driversBySection, onOpenReview }) {
   const deliveriesCompleted = countActiveDeliveries(driversBySection)
-  const needsReviewByTier = countNeedsAcknowledgmentByTier(
-    driversBySection,
-    acknowledgedIds,
-  )
+  const needsReviewByTier = countByAlertableTier(driversBySection)
   const trucksAvailable = countTrucksAvailable(driversBySection)
 
   // Illustrative — no delivery-completion/history tracking exists in the
@@ -41,7 +36,11 @@ export function Stats({ driversBySection, acknowledgedIds }) {
     <section>
       <div className="flex flex-col pt-1 pb-3">
         <div className="grid w-full gap-3 text-sm md:shrink-0 xl:grid xl:grid-cols-2">
-          <div className="rounded border border-gray-200 bg-white/90 px-2 py-1 text-center dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100">
+          <button
+            type="button"
+            onClick={onOpenReview}
+            className="rounded border border-gray-200 bg-white/90 px-2 py-1 text-center transition-colors duration-300 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:hover:bg-gray-900"
+          >
             <div className="text-xs text-gray-600/90">Needs review</div>
             <div className="flex items-center justify-center gap-3">
               {['critical', 'violation'].map((tierId) => {
@@ -67,7 +66,7 @@ export function Stats({ driversBySection, acknowledgedIds }) {
                 )
               })}
             </div>
-          </div>
+          </button>
           <div className="rounded border border-gray-200 bg-white/90 px-2 py-1 text-center dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100">
             <div className="text-xs text-gray-600/90">Deliveries completed</div>
             <div className="text-lg font-semibold">{DELIVERIES_TODAY}</div>

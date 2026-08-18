@@ -28,6 +28,16 @@ export const mockDrivers = [
       loads: 2,
       isPerishable: false,
     },
+    logs: [
+      {
+        timestamp: minutesAgo(35),
+        message: 'Called re: traffic delay on I-35',
+      },
+      {
+        timestamp: minutesAgo(10),
+        message: 'Confirmed still on schedule despite congestion',
+      },
+    ],
   },
   {
     id: 'd2',
@@ -43,6 +53,12 @@ export const mockDrivers = [
       loads: 1,
       isPerishable: true,
     },
+    logs: [
+      {
+        timestamp: minutesAgo(20),
+        message: 'Reached out about tight ETA window',
+      },
+    ],
   },
   {
     id: 'd3',
@@ -58,6 +74,7 @@ export const mockDrivers = [
       loads: 1,
       isPerishable: false,
     },
+    logs: [],
   },
 
   // Approaching — under 2hr remaining
@@ -75,6 +92,7 @@ export const mockDrivers = [
       loads: 3,
       isPerishable: true,
     },
+    logs: [],
   },
   {
     id: 'd5',
@@ -90,6 +108,7 @@ export const mockDrivers = [
       loads: 2,
       isPerishable: false,
     },
+    logs: [],
   },
   {
     // Set to cross the 20 min critical threshold ~30s after load —
@@ -111,6 +130,9 @@ export const mockDrivers = [
       loads: 1,
       isPerishable: true,
     },
+    logs: [
+      { timestamp: minutesAgo(5), message: 'Checked in — no issues reported' },
+    ],
   },
 
   // On track
@@ -128,6 +150,7 @@ export const mockDrivers = [
       loads: 2,
       isPerishable: false,
     },
+    logs: [],
   },
   {
     id: 'd8',
@@ -143,6 +166,7 @@ export const mockDrivers = [
       loads: 1,
       isPerishable: false,
     },
+    logs: [],
   },
   {
     id: 'd9',
@@ -158,6 +182,7 @@ export const mockDrivers = [
     },
     // Between deliveries — exercises the empty-delivery state in the UI.
     currentDelivery: null,
+    logs: [],
   },
   {
     id: 'd10',
@@ -177,6 +202,7 @@ export const mockDrivers = [
       loads: 3,
       isPerishable: true,
     },
+    logs: [],
   },
   {
     id: 'd11',
@@ -192,6 +218,7 @@ export const mockDrivers = [
       loads: 2,
       isPerishable: false,
     },
+    logs: [],
   },
 
   // Offline / stale — no ping in over 10 min. Offline overrides HOS status
@@ -214,6 +241,12 @@ export const mockDrivers = [
       loads: 1,
       isPerishable: true,
     },
+    logs: [
+      {
+        timestamp: minutesAgo(24),
+        message: 'Attempted contact, no response — investigating',
+      },
+    ],
   },
   {
     id: 'd13',
@@ -233,6 +266,7 @@ export const mockDrivers = [
       loads: 2,
       isPerishable: false,
     },
+    logs: [],
   },
   {
     id: 'd14',
@@ -248,5 +282,6 @@ export const mockDrivers = [
       loads: 1,
       isPerishable: false,
     },
+    logs: [],
   },
 ]

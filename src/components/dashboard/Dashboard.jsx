@@ -22,7 +22,7 @@ export function Dashboard({
   now,
   driversBySection,
   onSelectDriver,
-  acknowledgedIds,
+  onOpenReview,
 }) {
   const [activeFilter, setActiveFilter] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
@@ -48,7 +48,7 @@ export function Dashboard({
             <li className="p-3">
               <Stats
                 driversBySection={driversBySection}
-                acknowledgedIds={acknowledgedIds}
+                onOpenReview={onOpenReview}
               />
             </li>
             {NAV_ITEMS.map((item) => (
@@ -70,16 +70,16 @@ export function Dashboard({
           </ul>
         </aside>
         <section className="flex min-w-0 flex-1 flex-col p-4 lg:pr-6">
-          <h1 className="mb-2 shrink-0 text-xl font-semibold">
-            {SELECTED_NAV_ITEM}
-          </h1>
           <div className="flex shrink-0 flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <StatusFilters
-              driversBySection={driversBySection}
-              activeFilter={activeFilter}
-              onFilterChange={setActiveFilter}
-            />
-            <div>
+            <h1 className="shrink-0 text-xl font-semibold">
+              {SELECTED_NAV_ITEM}
+            </h1>
+            <div className="flex flex-col gap-2 md:flex-row md:items-center">
+              <StatusFilters
+                driversBySection={driversBySection}
+                activeFilter={activeFilter}
+                onFilterChange={setActiveFilter}
+              />
               <input
                 className="h-9 min-w-60 rounded-md border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-900"
                 placeholder="Search drivers..."
@@ -111,7 +111,6 @@ export function Dashboard({
                   drivers={searchedDriversBySection.get(section)}
                   now={now}
                   onSelectDriver={onSelectDriver}
-                  acknowledgedIds={acknowledgedIds}
                 />
               ))}
             </table>

@@ -1,13 +1,7 @@
 import { driverColumns } from './driverColumns.jsx'
 import { DriverRow } from './DriverRow.jsx'
 
-export function DriverSection({
-  label,
-  drivers,
-  now,
-  onSelectDriver,
-  acknowledgedIds,
-}) {
+export function DriverSection({ label, drivers, now, onSelectDriver }) {
   return (
     <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
       <tr className="relative z-30 bg-gray-50 dark:bg-gray-900">
@@ -30,7 +24,6 @@ export function DriverSection({
           driver={driver}
           now={now}
           onSelectDriver={onSelectDriver}
-          isAcknowledged={acknowledgedIds.has(driver.id)}
         />
       ))}
     </tbody>
