@@ -11,7 +11,7 @@ export const statusTiers = [
     label: 'Critical',
     maxMinutesRemaining: 20,
     color: 'critical',
-    alertMessage: 'is now critical',
+    alertMessage: 'is now 20 minutes from their HOS limit',
   },
   {
     id: 'approaching',
