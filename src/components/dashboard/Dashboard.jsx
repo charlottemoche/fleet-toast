@@ -70,7 +70,7 @@ export function Dashboard({
           </ul>
         </aside>
         <section className="flex min-w-0 flex-1 flex-col p-4 lg:pr-6">
-          <div className="flex shrink-0 flex-col gap-4 md:flex-row md:items-center">
+          <div className="flex shrink-0 flex-col gap-2">
             <h1 className="shrink-0 text-xl font-semibold">
               {SELECTED_NAV_ITEM}
             </h1>
