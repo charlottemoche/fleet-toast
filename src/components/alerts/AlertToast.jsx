@@ -20,7 +20,7 @@ export function AlertToast({ driver, tier, now, onDismiss, onSelectDriver }) {
 
   return (
     <div
-      className={`flex w-72 items-start gap-3 rounded-lg border-3 border-[var(--tier)] bg-white p-3 shadow-lg dark:bg-gray-800 dark:text-white ${isExiting ? 'animate-toast-out' : 'animate-toast-in'}`}
+      className={`flex w-72 items-start gap-3 rounded-lg border-3 border-[var(--tier)] bg-white px-2 py-1 shadow-lg dark:bg-gray-800 dark:text-white ${isExiting ? 'animate-toast-out' : 'animate-toast-in'}`}
       style={{ '--tier': `var(--color-${tier.color})` }}
     >
       <div className="my-auto shrink-0">
@@ -28,14 +28,14 @@ export function AlertToast({ driver, tier, now, onDismiss, onSelectDriver }) {
       </div>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold">{driver.name}</p>
-        <p className="text-xs">
+        <p className="text-xs mt-1">
           {driver.truckId} {tier.alertMessage} —{' '}
           <Timer remainingMinutes={remainingMinutes} /> remaining
         </p>
         <button
           type="button"
           onClick={handleOpen}
-          className="mt-3 h-9 rounded border bg-white px-2 py-1 text-sm font-medium transition-colors duration-500 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-900"
+          className="underline underline-offset-4 h-7 text-sm font-medium dark:text-white text-gray-700 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-300"
         >
           View driver →
         </button>
