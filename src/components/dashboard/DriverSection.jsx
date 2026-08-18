@@ -1,3 +1,4 @@
+import { driverColumns } from './DriverCols.jsx'
 import { DriverRow } from './DriverRow.jsx'
 
 export function DriverSection({ label, drivers, now, onSelectDriver }) {
@@ -6,7 +7,7 @@ export function DriverSection({ label, drivers, now, onSelectDriver }) {
       <tr className="relative z-30 bg-gray-50 dark:bg-gray-900">
         <th
           scope="rowgroup"
-          colSpan={7}
+          colSpan={driverColumns.length}
           aria-label={`${label} (${drivers.length})`}
           className="p-0 text-left"
         >

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { getTierById, sectionOrder } from '../../data/statusConfig.js'
+import { driverColumns } from './DriverCols.jsx'
 import { StatusFilters } from './StatusFilters.jsx'
 import { DriverSection } from './DriverSection.jsx'
 import { Stats } from './Stats.jsx'
@@ -91,30 +92,16 @@ export function Dashboard({
             <table className="w-full min-w-[880px] border-separate border-spacing-0 bg-white text-left text-sm dark:bg-gray-950 dark:text-gray-100">
               <thead className="sticky top-0 z-40 bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
                 <tr className="border-b border-gray-200 dark:border-gray-800">
-                  <th
-                    scope="col"
-                    className="sticky left-0 z-20 w-[14%] bg-gray-100 p-3 dark:border-gray-800 dark:bg-gray-950"
-                  >
-                    Driver
-                  </th>
-                  <th scope="col" className="w-[18%] p-3 lg:w-[12%]">
-                    Status
-                  </th>
-                  <th scope="col" className="w-[12%] truncate p-3">
-                    Time remaining
-                  </th>
-                  <th scope="col" className="w-[10%] truncate p-3">
-                    Last ping
-                  </th>
-                  <th scope="col" className="w-[14%] p-3">
-                    Delivery
-                  </th>
-                  <th scope="col" className="w-[20%] p-3">
-                    Location
-                  </th>
-                  <th scope="col" className="w-[16%] p-3">
-                    Logs
-                  </th>
+                  {driverColumns.map((column) => (
+                    <th
+                      key={column.key}
+                      scope="col"
+                      title={column.label}
+                      className={`p-3 ${column.headerClassName}`}
+                    >
+                      {column.label}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               {visibleSections.map((section) => (
