@@ -1,6 +1,6 @@
 import { getTierById } from '../../data/statusConfig.js'
 import { useDriverStatus } from '../../hooks/useDriverStatus.js'
-import { driverColumns } from './driverColumns.jsx'
+import { driverColumns } from './DriverColumns.jsx'
 
 export function DriverRow({ driver, now, onSelectDriver }) {
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)

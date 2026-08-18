@@ -1,4 +1,4 @@
-import { driverColumns } from './driverColumns.jsx'
+import { driverColumns } from './DriverColumns.jsx'
 import { DriverRow } from './DriverRow.jsx'
 
 export function DriverSection({ label, drivers, now, onSelectDriver }) {

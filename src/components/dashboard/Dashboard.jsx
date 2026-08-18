@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { getTierById, sectionOrder } from '../../data/statusConfig.js'
-import { driverColumns } from './driverColumns.jsx'
+import { driverColumns } from './DriverColumns.jsx'
 import { StatusFilters } from './StatusFilters.jsx'
 import { DriverSection } from './DriverSection.jsx'
 import { Stats } from './Stats.jsx'
