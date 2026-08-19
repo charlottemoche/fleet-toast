@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Dashboard } from './components/dashboard/Dashboard.jsx'
 import { NeedsReviewModal } from './components/dashboard/NeedsReviewModal.jsx'
-import { AlertToastStack } from './components/alerts/AlertToastStack.jsx'
+import { AlertToast } from './components/alerts/AlertToast.jsx'
 import { DriverDrillIn } from './components/detail/DriverDrillIn.jsx'
 import { mockDrivers } from './data/mockDrivers.js'
 import { sectionOrder, statusConfig } from './data/statusConfig.js'
@@ -47,12 +47,20 @@ export default function App() {
           onOpenReview={() => setIsReviewModalOpen(true)}
         />
       </div>
-      <AlertToastStack
-        toasts={toasts}
-        now={now}
-        onDismiss={dismissToast}
-        onSelectDriver={setSelectedDriverId}
-      />
+      {toasts.length > 0 && (
+        <output className="fixed top-4 right-4 z-40 flex flex-col gap-2">
+          {toasts.map((toast) => (
+            <AlertToast
+              key={toast.id}
+              driver={toast.driver}
+              tier={toast.tier}
+              now={now}
+              onDismiss={() => dismissToast(toast.id)}
+              onSelectDriver={setSelectedDriverId}
+            />
+          ))}
+        </output>
+      )}
       {selectedDriver && (
         <DriverDrillIn
           driver={selectedDriver}
