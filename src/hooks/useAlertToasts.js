@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { getTierById } from '../data/statusConfig.js'
 
-// A tier is "alertable" if it has an alertMessage (statusConfig.js).
-// previousTierByIdRef stays null until the effect first runs, which
-// distinguishes page load from a real transition.
 export function useAlertToasts(driversBySection) {
   const previousTierByIdRef = useRef(null)
   const [toasts, setToasts] = useState([])
