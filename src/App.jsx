@@ -6,7 +6,7 @@ import { DriverDrillIn } from './components/detail/DriverDrillIn.jsx'
 import { mockDrivers } from './data/mockDrivers.js'
 import { sectionOrder, statusConfig } from './data/statusConfig.js'
 import { useClockTick } from './hooks/useClockTick.js'
-import { useTierAlerts } from './hooks/useTierAlerts.js'
+import { useAlertToasts } from './hooks/useAlertToasts.js'
 import { groupDriversBySection } from './utils/hos.js'
 
 const TICK_INTERVAL_MS = 5_000
@@ -19,7 +19,7 @@ export default function App() {
     () => groupDriversBySection(mockDrivers, now, statusConfig, sectionOrder),
     [now],
   )
-  const { toasts, dismissToast } = useTierAlerts(driversBySection)
+  const { toasts, dismissToast } = useAlertToasts(driversBySection)
   const selectedDriver = mockDrivers.find(
     (driver) => driver.id === selectedDriverId,
   )
@@ -53,7 +53,8 @@ export default function App() {
             <AlertToast
               key={toast.id}
               driver={toast.driver}
-              tier={toast.tier}
+              message={toast.message}
+              color={toast.color}
               now={now}
               onDismiss={() => dismissToast(toast.id)}
               onSelectDriver={setSelectedDriverId}

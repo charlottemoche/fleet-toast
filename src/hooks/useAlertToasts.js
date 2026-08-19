@@ -4,9 +4,20 @@ import { getTierById } from '../data/statusConfig.js'
 // A tier is "alertable" if it has an alertMessage (statusConfig.js).
 // previousTierByIdRef stays null until the effect first runs, which
 // distinguishes page load from a real transition.
-export function useTierAlerts(driversBySection) {
+export function useAlertToasts(driversBySection) {
   const previousTierByIdRef = useRef(null)
   const [toasts, setToasts] = useState([])
+
+  function pushAlert(message, color, driver = null) {
+    setToasts((current) => [
+      ...current,
+      { id: `${Date.now()}-${Math.random()}`, driver, message, color },
+    ])
+  }
+
+  function dismissToast(toastId) {
+    setToasts((current) => current.filter((toast) => toast.id !== toastId))
+  }
 
   useEffect(() => {
     const currentTierById = new Map()
@@ -17,28 +28,19 @@ export function useTierAlerts(driversBySection) {
     }
 
     if (previousTierByIdRef.current !== null) {
-      const newAlerts = []
       for (const [driverId, { driver, tierId }] of currentTierById) {
         const tier = getTierById(tierId)
         if (!tier.alertMessage) continue
 
         const previousTierId = previousTierByIdRef.current.get(driverId)?.tierId
         if (previousTierId !== tierId) {
-          newAlerts.push({ id: `${driverId}-${Date.now()}`, driver, tier })
+          pushAlert(tier.alertMessage, tier.color, driver)
         }
-      }
-
-      if (newAlerts.length > 0) {
-        setToasts((current) => [...current, ...newAlerts])
       }
     }
 
     previousTierByIdRef.current = currentTierById
   }, [driversBySection])
 
-  function dismissToast(toastId) {
-    setToasts((current) => current.filter((toast) => toast.id !== toastId))
-  }
-
-  return { toasts, dismissToast }
+  return { toasts, pushAlert, dismissToast }
 }
