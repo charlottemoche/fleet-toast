@@ -79,7 +79,7 @@ export function StatusFilters({
                   type="button"
                   aria-current={isActive ? 'true' : undefined}
                   onClick={() => selectFilter(section)}
-                  style={{ '--tier': `var(--color-${tier.color})` }}
+                  style={{ '--tier': `var(--color-${tier.type})` }}
                   className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 ${
                     isActive ? 'font-semibold' : ''
                   }`}

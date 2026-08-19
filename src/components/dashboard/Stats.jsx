@@ -52,7 +52,7 @@ export function Stats({ driversBySection, onOpenReview }) {
                 return (
                   <div
                     key={tierId}
-                    style={{ '--tier': `var(--color-${tier.color})` }}
+                    style={{ '--tier': `var(--color-${tier.type})` }}
                   >
                     <div
                       className={

@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { getTierById } from '../data/statusConfig.js'
 
-// Must match a --color-* custom property in src/index.css.
-export const ALERT_TYPES = ['success', 'error', 'critical', 'warning', 'info']
-
+// pushAlert's `type` must be one of: success, error, critical, warning, info
+// — each is a --color-* custom property in src/index.css.
 export function useAlertToasts(driversBySection) {
   const previousTierByIdRef = useRef(null)
   const [toasts, setToasts] = useState([])
@@ -34,7 +33,7 @@ export function useAlertToasts(driversBySection) {
 
         const previousTierId = previousTierByIdRef.current.get(driverId)?.tierId
         if (previousTierId !== tierId) {
-          pushAlert(tier.alertMessage, tier.color, driver)
+          pushAlert(tier.alertMessage, tier.type, driver)
         }
       }
     }

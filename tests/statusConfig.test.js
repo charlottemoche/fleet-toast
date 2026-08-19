@@ -18,8 +18,8 @@ describe('getTierById', () => {
     expect(getTierById('nonexistent')).toBeUndefined()
   })
 
-  it('exposes label and color for a known tier', () => {
-    expect(getTierById('violation').color).toBe('error')
-    expect(getTierById('on-track').color).toBe('success')
+  it('exposes label and type for a known tier', () => {
+    expect(getTierById('violation').type).toBe('error')
+    expect(getTierById('on-track').type).toBe('success')
   })
 })

@@ -3,34 +3,34 @@ export const statusTiers = [
     id: 'violation',
     label: 'Violation',
     maxMinutesRemaining: 0,
-    color: 'error',
+    type: 'error',
     alertMessage: 'is now over the HOS limit — must stop driving',
   },
   {
     id: 'critical',
     label: 'Critical',
     maxMinutesRemaining: 20,
-    color: 'critical',
+    type: 'critical',
     alertMessage: 'is now 20 minutes from their HOS limit',
   },
   {
     id: 'approaching',
     label: 'Approaching',
     maxMinutesRemaining: 120,
-    color: 'warning',
+    type: 'warning',
   },
   {
     id: 'on-track',
     label: 'On track',
     maxMinutesRemaining: Infinity,
-    color: 'success',
+    type: 'success',
   },
 ]
 
 export const offlineTier = {
   id: 'offline',
   label: 'Offline',
-  color: 'info',
+  type: 'info',
 }
 
 export const sectionOrder = [
