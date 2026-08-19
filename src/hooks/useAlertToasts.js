@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import { getTierById } from '../data/statusConfig.js'
 
+// Must match a --color-* custom property in src/index.css.
+export const ALERT_TYPES = ['success', 'error', 'critical', 'warning', 'info']
+
 export function useAlertToasts(driversBySection) {
   const previousTierByIdRef = useRef(null)
   const [toasts, setToasts] = useState([])
 
-  function pushAlert(message, color, driver = null) {
+  function pushAlert(message, type, driver = null) {
     setToasts((current) => [
       ...current,
-      { id: `${Date.now()}-${Math.random()}`, driver, message, color },
+      { id: `${Date.now()}-${Math.random()}`, driver, message, type },
     ])
   }
 

@@ -28,7 +28,7 @@ function DriverAlertDetails({ driver, message, now, onOpen }) {
 export function AlertToast({
   driver,
   message,
-  color,
+  type,
   now,
   onDismiss,
   onSelectDriver,
@@ -48,7 +48,7 @@ export function AlertToast({
   return (
     <div
       className={`flex w-72 items-start gap-3 rounded-lg border-3 border-[var(--tier)] bg-white px-2 py-1 shadow-lg dark:bg-gray-800 dark:text-white ${isExiting ? 'animate-toast-out' : 'animate-toast-in'}`}
-      style={{ '--tier': `var(--color-${color})` }}
+      style={{ '--tier': `var(--color-${type})` }}
     >
       <div className="my-auto shrink-0">
         <div className="h-2 w-2 animate-pulse rounded-full bg-[var(--tier)]" />

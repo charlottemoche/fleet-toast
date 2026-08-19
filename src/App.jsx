@@ -54,7 +54,7 @@ export default function App() {
               key={toast.id}
               driver={toast.driver}
               message={toast.message}
-              color={toast.color}
+              type={toast.type}
               now={now}
               onDismiss={() => dismissToast(toast.id)}
               onSelectDriver={setSelectedDriverId}
