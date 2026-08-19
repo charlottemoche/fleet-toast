@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Dashboard } from './components/dashboard/Dashboard.jsx'
 import { NeedsReviewModal } from './components/dashboard/NeedsReviewModal.jsx'
 import { AlertToastStack } from './components/alerts/AlertToastStack.jsx'
@@ -15,7 +15,6 @@ export default function App() {
   const now = useClockTick(TICK_INTERVAL_MS)
   const [selectedDriverId, setSelectedDriverId] = useState(null)
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false)
-  const pendingReviewSelectionRef = useRef(null)
   const driversBySection = useMemo(
     () => groupDriversBySection(mockDrivers, now, statusConfig, sectionOrder),
     [now],
@@ -64,15 +63,10 @@ export default function App() {
         <NeedsReviewModal
           driversBySection={driversBySection}
           onSelectDriver={(driverId) => {
-            pendingReviewSelectionRef.current = driverId
-          }}
-          onClose={() => {
             setIsReviewModalOpen(false)
-            if (pendingReviewSelectionRef.current) {
-              setSelectedDriverId(pendingReviewSelectionRef.current)
-              pendingReviewSelectionRef.current = null
-            }
+            setSelectedDriverId(driverId)
           }}
+          onClose={() => setIsReviewModalOpen(false)}
         />
       )}
     </main>
