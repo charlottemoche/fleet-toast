@@ -13,19 +13,28 @@ function countTrucksAvailable(driversBySection) {
   return trucks.length - countActiveDeliveries(driversBySection)
 }
 
-function countByAlertableTier(driversBySection) {
+function countByAlertableTier(driversBySection, reviewedTierByDriverId) {
   const counts = {}
   for (const [tierId, drivers] of driversBySection) {
     const tier = getTierById(tierId)
     if (!tier.alertMessage) continue
-    counts[tierId] = drivers.length
+    counts[tierId] = drivers.filter(
+      (driver) => reviewedTierByDriverId.get(driver.id) !== tierId,
+    ).length
   }
   return counts
 }
 
-export function Stats({ driversBySection, onOpenReview }) {
+export function Stats({
+  driversBySection,
+  reviewedTierByDriverId,
+  onOpenReview,
+}) {
   const deliveriesCompleted = countActiveDeliveries(driversBySection)
-  const needsReviewByTier = countByAlertableTier(driversBySection)
+  const needsReviewByTier = countByAlertableTier(
+    driversBySection,
+    reviewedTierByDriverId,
+  )
   const trucksAvailable = countTrucksAvailable(driversBySection)
 
   // Illustrative — no delivery-completion/history tracking exists in the

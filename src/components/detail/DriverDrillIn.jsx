@@ -102,7 +102,7 @@ export function DriverDrillIn({ driver, onClose }) {
       <div className="mt-4 flex gap-2 lg:mt-6">
         <a
           href={`tel:${driver.phone}`}
-          className="flex-1 rounded bg-gray-800 p-2 text-center text-sm font-medium text-white transition-colors duration-500 hover:bg-gray-900 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white"
+          className="bg-brand flex-1 rounded p-2 text-center text-sm font-medium text-white transition-colors duration-500 hover:bg-gray-900 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white"
         >
           Call driver ({driver.phone})
         </a>
