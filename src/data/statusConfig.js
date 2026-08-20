@@ -1,3 +1,7 @@
+// driverMessage is a fixed template, not AI-generated — sent automatically
+// the moment a driver enters that tier. It's a stand-in for what a real
+// system could do here: draft a message from the driver's live context
+// (route, weather, cargo, delivery window) instead of one static string.
 export const statusTiers = [
   {
     id: 'violation',
@@ -5,6 +9,8 @@ export const statusTiers = [
     maxMinutesRemaining: 0,
     type: 'error',
     alertMessage: 'is now over the HOS limit — must stop driving',
+    driverMessage:
+      'You are over your HOS limit. Stop driving now and find a safe location.',
   },
   {
     id: 'critical',
@@ -12,6 +18,8 @@ export const statusTiers = [
     maxMinutesRemaining: 20,
     type: 'critical',
     alertMessage: 'is now 20 minutes from their HOS limit',
+    driverMessage:
+      "You're 20 minutes from your HOS limit. Start looking for a safe place to stop.",
   },
   {
     id: 'approaching',

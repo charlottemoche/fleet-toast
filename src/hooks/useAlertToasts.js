@@ -3,14 +3,20 @@ import { getTierById } from '../data/statusConfig.js'
 
 // pushAlert's `type` must be one of: success, error, critical, warning, info
 // — each is a --color-* custom property in src/index.css.
-export function useAlertToasts(driversBySection) {
+export function useAlertToasts(driversBySection, onDriverMessaged) {
   const previousTierByIdRef = useRef(null)
   const [toasts, setToasts] = useState([])
 
-  function pushAlert(message, type, driver = null) {
+  function pushAlert(message, type, driver = null, driverMessaged = false) {
     setToasts((current) => [
       ...current,
-      { id: `${Date.now()}-${Math.random()}`, driver, message, type },
+      {
+        id: `${Date.now()}-${Math.random()}`,
+        driver,
+        message,
+        type,
+        driverMessaged,
+      },
     ])
   }
 
@@ -33,13 +39,21 @@ export function useAlertToasts(driversBySection) {
 
         const previousTierId = previousTierByIdRef.current.get(driverId)?.tierId
         if (previousTierId !== tierId) {
-          pushAlert(tier.alertMessage, tier.type, driver)
+          pushAlert(
+            tier.alertMessage,
+            tier.type,
+            driver,
+            Boolean(tier.driverMessage),
+          )
+          if (tier.driverMessage) {
+            onDriverMessaged?.(driver.id, tier.driverMessage)
+          }
         }
       }
     }
 
     previousTierByIdRef.current = currentTierById
-  }, [driversBySection])
+  }, [driversBySection, onDriverMessaged])
 
   return { toasts, pushAlert, dismissToast }
 }

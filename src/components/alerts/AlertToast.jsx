@@ -4,7 +4,7 @@ import { Timer } from '../shared/Timer.jsx'
 
 const TOAST_OUT_DURATION_MS = 200
 
-function DriverAlertDetails({ driver, message, now, onOpen }) {
+function DriverAlertDetails({ driver, message, now, driverMessaged, onOpen }) {
   const { remainingMinutes } = useDriverStatus(driver, now)
 
   return (
@@ -14,6 +14,14 @@ function DriverAlertDetails({ driver, message, now, onOpen }) {
         {driver.truckId} {message} —{' '}
         <Timer remainingMinutes={remainingMinutes} /> remaining
       </p>
+      {driverMessaged && (
+        <p
+          title="Template text, not AI-generated — a real system could draft this from the driver's live context instead."
+          className="mt-1 text-[11px] text-gray-500 dark:text-gray-400"
+        >
+          ✓ Automated message sent to driver
+        </p>
+      )}
       <button
         type="button"
         onClick={onOpen}
@@ -30,6 +38,7 @@ export function AlertToast({
   message,
   type,
   now,
+  driverMessaged,
   onDismiss,
   onSelectDriver,
 }) {
@@ -59,6 +68,7 @@ export function AlertToast({
             driver={driver}
             message={message}
             now={now}
+            driverMessaged={driverMessaged}
             onOpen={handleOpen}
           />
         ) : (
