@@ -45,7 +45,7 @@ export function DriverActions({
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <>
       <div className={rowClassName}>
         <a
           href={`tel:${driver.phone}`}
@@ -64,7 +64,7 @@ export function DriverActions({
         </button>
       </div>
       {isNoteOpen && (
-        <form onSubmit={submitNote} className="flex gap-2">
+        <form onSubmit={submitNote} className="mt-2 flex w-full gap-2">
           <input
             value={noteText}
             onChange={(event) => setNoteText(event.target.value)}
@@ -81,6 +81,6 @@ export function DriverActions({
           </button>
         </form>
       )}
-    </div>
+    </>
   )
 }

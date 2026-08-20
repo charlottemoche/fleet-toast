@@ -49,7 +49,7 @@ export function NeedsReviewModal({
           {drivers.map(({ driver, tier }) => (
             <li
               key={driver.id}
-              className="flex items-start justify-between gap-6 py-4"
+              className="flex flex-wrap items-start justify-between gap-x-6 gap-y-2 py-4"
             >
               <div className="flex min-w-0 items-center gap-2">
                 <button
