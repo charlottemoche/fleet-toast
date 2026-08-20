@@ -8,12 +8,13 @@ import { formatEta, formatMinutesAgo } from '../../utils/format.js'
 import { StatusBadge } from '../status/StatusBadge.jsx'
 import { Timer } from '../shared/Timer.jsx'
 import { Modal } from '../shared/Modal.jsx'
+import { DriverActions } from '../shared/DriverActions.jsx'
 
 // Faster than the dashboard's own tick, since only one driver is being
 // watched here — the countdown should visibly move while this is open.
 const DRILL_IN_TICK_INTERVAL_MS = 1_000
 
-export function DriverDrillIn({ driver, onClose }) {
+export function DriverDrillIn({ driver, onClose, onLogNote }) {
   const [isMapLoaded, setIsMapLoaded] = useState(false)
   const now = useClockTick(DRILL_IN_TICK_INTERVAL_MS)
   const { tierId, remainingMinutes } = useDriverStatus(driver, now)
@@ -99,13 +100,13 @@ export function DriverDrillIn({ driver, onClose }) {
           </ul>
         )}
       </div>
-      <div className="mt-4 flex gap-2 lg:mt-6">
-        <a
-          href={`tel:${driver.phone}`}
-          className="bg-brand flex-1 rounded p-2 text-center text-sm font-medium text-white transition-colors duration-500 hover:bg-gray-900 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white"
-        >
-          Call driver ({driver.phone})
-        </a>
+      <div className="mt-4 lg:mt-6">
+        <DriverActions
+          driver={driver}
+          tierId={tierId}
+          onLogNote={onLogNote}
+          variant="block"
+        />
       </div>
     </Modal>
   )

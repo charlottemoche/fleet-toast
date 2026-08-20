@@ -17,7 +17,7 @@ function DriverAlertDetails({ driver, message, now, driverMessaged, onOpen }) {
       {driverMessaged && (
         <p
           title="Template text, not AI-generated — a real system could draft this from the driver's live context instead."
-          className="mt-1 text-[11px] text-gray-500 dark:text-gray-400"
+          className="mt-1 text-[12px] text-gray-600 dark:text-gray-400"
         >
           ✓ Automated message sent to driver
         </p>

@@ -71,7 +71,7 @@ export default function App() {
               <img
                 src="/charlotte-truck-white.png"
                 alt=""
-                className="h-9 w-9 dark:invert"
+                className="h-9 w-9"
               />
               <span className="text-lg font-semibold tracking-tight text-white dark:text-white">
                 Fleetline
@@ -109,6 +109,7 @@ export default function App() {
         <DriverDrillIn
           driver={selectedDriver}
           onClose={() => setSelectedDriverId(null)}
+          onLogNote={handleLogNote}
         />
       )}
       {isReviewModalOpen && (

@@ -60,7 +60,7 @@ export function Dashboard({
                   className={[
                     'w-full p-4 text-left transition-colors duration-300',
                     item === SELECTED_NAV_ITEM
-                      ? 'bg-brand/40 font-semibold dark:bg-gray-900'
+                      ? 'bg-brand/40 dark:bg-brand/30 font-semibold'
                       : 'text-gray-700/90 hover:bg-gray-300 disabled:hover:bg-transparent dark:text-gray-400 dark:hover:bg-gray-800',
                   ].join(' ')}
                   disabled={true}
